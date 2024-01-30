@@ -6,10 +6,27 @@ package DataForge;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import static java.awt.SystemColor.window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -22,6 +39,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
+        
         
 
     }
@@ -39,7 +57,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jTabbedPaneArchivos = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtAreaDefault = new javax.swing.JTextArea();
+        txtEditor = new javax.swing.JTextArea();
         btnNuevo = new javax.swing.JButton();
         btnAbrir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -56,9 +74,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         jPanelPrincipal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtAreaDefault.setColumns(20);
-        txtAreaDefault.setRows(5);
-        jScrollPane2.setViewportView(txtAreaDefault);
+        jTabbedPaneArchivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTabbedPaneArchivosMousePressed(evt);
+            }
+        });
+
+        txtEditor.setColumns(20);
+        txtEditor.setRows(5);
+        jScrollPane2.setViewportView(txtEditor);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,6 +111,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         btnAbrir.setText("Abrir");
+        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Entrada");
@@ -199,28 +228,97 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-    JPanel panel = new JPanel();
-    panel.add(new JLabel());
+        String tabName = JOptionPane.showInputDialog(null,"Asigne un nombre a la pestaña","Nueva Pestaña",JOptionPane.INFORMATION_MESSAGE);
+        
+        if(tabName!=null){
+            JPanel panel = new JPanel();
+            panel.add(new JLabel());
 
-    // Establecer un LayoutManager (FlowLayout en este caso)
-    panel.setLayout(new FlowLayout());
-    
-    // Crear un JTextArea por defecto
-//    JTextArea textArea = new JTextArea("", 20, 47);
-    JTextArea textArea = new JTextArea();
-    textArea.setPreferredSize(new Dimension(424, 285));
+            panel.setLayout(new FlowLayout());
 
-        // Permitir la edición del JTextArea
-        textArea.setEditable(true);
-    panel.add(new JScrollPane(textArea));
+            JTextArea textArea = new JTextArea();
+            textArea.setPreferredSize(new Dimension(424, 285));
 
-    // Añadir el panel al TabbedPane antes de añadirle contenido
-    jTabbedPaneArchivos.addTab("Archivo", panel);
+                textArea.setEditable(true);
+            panel.add(new JScrollPane(textArea));
 
-    // Actualizar el contenido del contenedor principal (puede ser getContentPane() si es un JFrame)
-    getContentPane().revalidate();
-    getContentPane().repaint();
+            jTabbedPaneArchivos.addTab(tabName, panel);
+
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        }
+         
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void jTabbedPaneArchivosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneArchivosMousePressed
+        if(SwingUtilities.isRightMouseButton(evt)){
+            int index = jTabbedPaneArchivos.getSelectedIndex();
+            JPopupMenu popupMenu = new JPopupMenu();
+            JMenuItem delete = new JMenuItem("Eliminar");
+            JMenuItem save = new JMenuItem("Guardar");
+
+            delete.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    jTabbedPaneArchivos.remove(index);
+                }
+            });
+            
+            save.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e){
+                   
+                }
+            });
+
+            popupMenu.add(delete);
+            popupMenu.add(save);
+            popupMenu.show(jTabbedPaneArchivos, evt.getX(),evt.getY()+10);
+        }
+        
+    }//GEN-LAST:event_jTabbedPaneArchivosMousePressed
+
+    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
+         // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos .df", "df");
+        chooser.setFileFilter(filter);
+        chooser.showOpenDialog(null);
+
+        File archivo = new File(chooser.getSelectedFile().getAbsolutePath());
+        String fileName = archivo.getName();
+
+        try {
+            JPanel panel = new JPanel();
+            panel.setLayout(new FlowLayout());
+
+            // Crear un nuevo JTextArea para cada pestaña
+            JTextArea textArea = new JTextArea();
+            textArea.setPreferredSize(new Dimension(424, 285));
+            textArea.setEditable(true);
+
+            // Leer el contenido del archivo y establecerlo en el JTextArea
+            String ST = new String(Files.readAllBytes(archivo.toPath()));
+            textArea.setText(ST);
+
+            // Agregar el nuevo JTextArea a la pestaña
+            panel.add(new JScrollPane(textArea));
+
+            // Agregar la pestaña al JTabbedPane
+            jTabbedPaneArchivos.addTab(fileName, panel);
+
+            // Actualizar el contenido del contenedor principal
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnAbrirActionPerformed
 
 
     public static void main(String args[]) {
@@ -270,6 +368,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPaneArchivos;
     private javax.swing.JTextArea jTextAreaConsola;
-    private javax.swing.JTextArea txtAreaDefault;
+    private javax.swing.JTextArea txtEditor;
     // End of variables declaration//GEN-END:variables
 }
