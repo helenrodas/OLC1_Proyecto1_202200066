@@ -4,6 +4,7 @@
  */
 package DataForge;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import static java.awt.SystemColor.window;
@@ -37,6 +38,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form FrmPrincipal
      */
+    private String filePath;
     public FrmPrincipal() {
         initComponents();
         
@@ -269,7 +271,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e){
-                   
+                   saveFile();
                 }
             });
 
@@ -281,44 +283,125 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPaneArchivosMousePressed
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos .df", "df");
         chooser.setFileFilter(filter);
-        chooser.showOpenDialog(null);
 
-        File archivo = new File(chooser.getSelectedFile().getAbsolutePath());
-        String fileName = archivo.getName();
+        int result = chooser.showOpenDialog(null);
 
-        try {
-            JPanel panel = new JPanel();
-            panel.setLayout(new FlowLayout());
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File archivo = new File(chooser.getSelectedFile().getAbsolutePath());
+            filePath = archivo.getAbsolutePath(); // Actualiza la variable filePath
+            String fileName = archivo.getName();
+            String tabName = obtenerNombrePestana(fileName);
 
-            // Crear un nuevo JTextArea para cada pestaña
-            JTextArea textArea = new JTextArea();
-            textArea.setPreferredSize(new Dimension(424, 285));
-            textArea.setEditable(true);
+            try {
+                // Leer el contenido del archivo
+                String content = new String(Files.readAllBytes(archivo.toPath()));
 
-            // Leer el contenido del archivo y establecerlo en el JTextArea
-            String ST = new String(Files.readAllBytes(archivo.toPath()));
-            textArea.setText(ST);
+                // Crear un nuevo JTextArea para cada pestaña
+                JTextArea textArea = new JTextArea();
+                textArea.setPreferredSize(new Dimension(424, 285));
+                textArea.setEditable(true);
+                textArea.setText(content);
 
-            // Agregar el nuevo JTextArea a la pestaña
-            panel.add(new JScrollPane(textArea));
+                // Crear un nuevo panel para la pestaña
+                JPanel panel = new JPanel();
+                panel.setLayout(new FlowLayout());
+                panel.add(new JScrollPane(textArea));
 
-            // Agregar la pestaña al JTabbedPane
-            jTabbedPaneArchivos.addTab(fileName, panel);
+                // Agregar la nueva pestaña al JTabbedPane
+                jTabbedPaneArchivos.addTab(tabName, panel);
 
-            // Actualizar el contenido del contenedor principal
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                // Actualizar el contenido del contenedor principal
+                getContentPane().revalidate();
+                getContentPane().repaint();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnAbrirActionPerformed
+
+    private void saveFile() {
+           int index = jTabbedPaneArchivos.getSelectedIndex();
+
+        if (index != -1) {
+            // Obtener el panel de la pestaña actual
+            JPanel panel = (JPanel) jTabbedPaneArchivos.getComponentAt(index);
+
+            // Obtener el JTextArea dentro del panel
+            Component[] components = panel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JScrollPane) {
+                    JScrollPane scrollPane = (JScrollPane) component;
+                    Component viewportView = scrollPane.getViewport().getView();
+                    if (viewportView instanceof JTextArea) {
+                        JTextArea textArea = (JTextArea) viewportView;
+
+                        // Obtener el contenido del JTextArea
+                        String content = textArea.getText();
+
+                        // Obtener la ruta del archivo asociado a la pestaña actual
+                        String filePath = getFilePathForTab();
+
+                        if (filePath != null) {
+                            try {
+                                File file = new File(filePath);
+                                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                                writer.write(content);
+                                writer.close();
+                                JOptionPane.showMessageDialog(null, "Archivo guardado exitosamente.", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "Error al guardar el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            // Manejar el caso en el que no se pueda obtener la ruta del archivo
+                            JOptionPane.showMessageDialog(null, "No se pudo obtener la ruta del archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        break; // Salir del bucle después de encontrar el JTextArea
+                    }
+                }
+            }
+        }
+    }
+    
+    private String getFilePathForTab() {
+        int index = jTabbedPaneArchivos.getSelectedIndex();
+
+        if (index != -1) {
+            // Obtener el nombre de la pestaña actual
+            String tabName = jTabbedPaneArchivos.getTitleAt(index);
+
+            // Suponemos que el nombre de la pestaña es el mismo que el nombre del archivo sin extensión
+            String fileNameWithoutExtension = tabName;
+
+            // Construir la ruta completa del archivo
+            String filePath = "C:\\Users\\lenovo\\Documents\\" + fileNameWithoutExtension + ".df" ;
+            return filePath;
         }
 
-    }//GEN-LAST:event_btnAbrirActionPerformed
+        // Retornar null si no hay pestaña seleccionada
+        return null;
+    }
+    
+    private String obtenerNombrePestana(String fileName) {
+        // Buscar el último punto en el nombre del archivo
+        int lastIndex = fileName.lastIndexOf('.');
+
+        // Obtener el nombre de la pestaña (sin extensión)
+        String tabName;
+        if (lastIndex != -1) {
+            tabName = fileName.substring(0, lastIndex);
+        } else {
+            tabName = fileName;
+        }
+
+        return tabName;
+    }
 
 
     public static void main(String args[]) {
