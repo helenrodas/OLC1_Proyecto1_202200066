@@ -73,14 +73,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelPrincipal.setBackground(new java.awt.Color(124, 169, 213));
         jPanelPrincipal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelPrincipal.setForeground(new java.awt.Color(74, 110, 176));
 
+        jTabbedPaneArchivos.setForeground(new java.awt.Color(74, 110, 176));
         jTabbedPaneArchivos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTabbedPaneArchivosMousePressed(evt);
             }
         });
+
+        jPanel1.setForeground(new java.awt.Color(0, 51, 102));
+        jPanel1.setToolTipText("");
 
         txtEditor.setColumns(20);
         txtEditor.setRows(5);
@@ -105,14 +110,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jTabbedPaneArchivos.addTab("Archivo1", jPanel1);
 
+        btnNuevo.setBackground(new java.awt.Color(0, 51, 102));
+        btnNuevo.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
+        btnNuevo.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevo.setText("Nuevo");
+        btnNuevo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
 
+        btnAbrir.setBackground(new java.awt.Color(0, 51, 102));
+        btnAbrir.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
+        btnAbrir.setForeground(new java.awt.Color(255, 255, 255));
         btnAbrir.setText("Abrir");
+        btnAbrir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -130,6 +143,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jTextAreaConsola.setRows(5);
         jScrollPane1.setViewportView(jTextAreaConsola);
 
+        btnVerGraficas.setBackground(new java.awt.Color(0, 51, 102));
+        btnVerGraficas.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
+        btnVerGraficas.setForeground(new java.awt.Color(255, 255, 255));
         btnVerGraficas.setText("Ver Graficas");
 
         javax.swing.GroupLayout jPanelGraficasLayout = new javax.swing.GroupLayout(jPanelGraficas);
@@ -143,9 +159,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGap(0, 287, Short.MAX_VALUE)
         );
 
+        btnEjecutar.setBackground(new java.awt.Color(255, 255, 204));
+        btnEjecutar.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
+        btnEjecutar.setForeground(new java.awt.Color(0, 0, 0));
         btnEjecutar.setText("Ejecutar");
+        btnEjecutar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnReportes.setBackground(new java.awt.Color(255, 255, 204));
+        btnReportes.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
+        btnReportes.setForeground(new java.awt.Color(0, 0, 0));
         btnReportes.setText("Reportes");
+        btnReportes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
