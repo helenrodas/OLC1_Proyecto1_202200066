@@ -10,11 +10,15 @@ import java.awt.FlowLayout;
 import static java.awt.SystemColor.window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +45,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private String filePath;
     public FrmPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
         
         
 
@@ -65,7 +70,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaConsola = new javax.swing.JTextArea();
+        TextAreaConsola = new javax.swing.JTextArea();
         btnVerGraficas = new javax.swing.JButton();
         jPanelGraficas = new javax.swing.JPanel();
         btnEjecutar = new javax.swing.JButton();
@@ -138,10 +143,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Consola");
 
-        jTextAreaConsola.setEditable(false);
-        jTextAreaConsola.setColumns(20);
-        jTextAreaConsola.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaConsola);
+        TextAreaConsola.setEditable(false);
+        TextAreaConsola.setColumns(20);
+        TextAreaConsola.setRows(5);
+        jScrollPane1.setViewportView(TextAreaConsola);
 
         btnVerGraficas.setBackground(new java.awt.Color(0, 51, 102));
         btnVerGraficas.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
@@ -164,6 +169,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnEjecutar.setForeground(new java.awt.Color(0, 0, 0));
         btnEjecutar.setText("Ejecutar");
         btnEjecutar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnEjecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjecutarActionPerformed(evt);
+            }
+        });
 
         btnReportes.setBackground(new java.awt.Color(255, 255, 204));
         btnReportes.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
@@ -348,6 +358,96 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAbrirActionPerformed
 
+    private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
+
+        
+       // Obtener el índice de la pestaña actual
+        int index = jTabbedPaneArchivos.getSelectedIndex();
+
+        // Verificar si hay alguna pestaña seleccionada
+        if (index != -1) {
+            // Obtener el panel de la pestaña actual
+            JPanel panel = (JPanel) jTabbedPaneArchivos.getComponentAt(index);
+
+            // Obtener el JTextArea dentro del panel
+            Component[] components = panel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JScrollPane) {
+                    JScrollPane scrollPane = (JScrollPane) component;
+                    Component viewportView = scrollPane.getViewport().getView();
+                    if (viewportView instanceof JTextArea) {
+                        JTextArea textArea = (JTextArea) viewportView;
+
+                        // Obtener el contenido del JTextArea
+                        String content = textArea.getText().toLowerCase();
+
+                        // Crear un objeto File asociado a un archivo temporal
+                        File archivo = new File("archivo_temporal.txt");
+
+                        // Escribir el contenido del JTextArea en el archivo
+                        try (PrintWriter escribir = new PrintWriter(archivo)) {
+                            escribir.print(content);
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        // Realizar el análisis léxico del archivo
+                        try (Reader lector = new BufferedReader(new FileReader(archivo))) {
+                            Lexer lexer = new Lexer(lector);
+                            String resultado = "";
+
+                            while (true) {
+                                Tokens tokens = lexer.yylex();
+                                if (tokens == null) {
+                                    resultado += "FIN";
+                                    // Mostrar el resultado en el JTextArea
+                                    TextAreaConsola.setText(resultado);
+                 
+                                    return;
+                                }
+
+                                switch (tokens) {
+                                    
+                                    case ERROR:
+                                        resultado +=  lexer.lexeme + " Error Lexico\n";
+                                        break;
+                                    case Identificador:
+                                    case Numero:
+                                    case Corchete_izq:
+                                    case Corchete_der:
+                                    case Parentesis_izq:
+                                    case Parentesis_der:
+                                    case Punto_coma:
+                                    case Dos_puntos:
+                                    case Punto:
+                                    case Comilla_doble_izq:
+                                    case Comilla_doble_der:
+                                    case Coma:
+                                    case Arroba:
+                                    case Reservadas:
+                                        resultado += lexer.lexeme + " -> Es un " + tokens + "\n";
+                                        break;
+                                    default:
+                                        resultado += lexer.lexeme + " -> Es " + tokens + "\n";
+                                        break;
+                                }
+                            }
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        break;
+                    }
+                }
+            }
+        } else {
+            // Si no hay ninguna pestaña seleccionada, mostrar un mensaje en la consola
+            System.out.println("No hay ninguna pestaña seleccionada");
+        }
+    }//GEN-LAST:event_btnEjecutarActionPerformed
+
     private void saveFile() {
            int index = jTabbedPaneArchivos.getSelectedIndex();
 
@@ -426,6 +526,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         return tabName;
     }
+    
+    public static void clearScreen() {
+    for (int i = 0; i < 50; i++) {
+        System.out.println();  // Imprimir líneas en blanco
+    }
+}
+    
+    
+//    public static void clearScreen() {  
+//        System.out.print("\033[H\033[2J");  
+//        System.out.flush();  
+//    }  
 
 
     public static void main(String args[]) {
@@ -461,6 +573,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea TextAreaConsola;
     private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnEjecutar;
     private javax.swing.JButton btnNuevo;
@@ -474,7 +587,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPaneArchivos;
-    private javax.swing.JTextArea jTextAreaConsola;
     private javax.swing.JTextArea txtEditor;
     // End of variables declaration//GEN-END:variables
 }

@@ -271,7 +271,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextAreaConsola">
+            <Component class="javax.swing.JTextArea" name="TextAreaConsola">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="columns" type="int" value="20"/>
@@ -327,6 +327,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEjecutarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnReportes">
           <Properties>

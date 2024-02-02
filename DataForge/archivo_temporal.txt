@@ -1,0 +1,6 @@
+graphpie(
+label::char[] = [“uno”, “dos”, “tres”] end;
+values::double = [50, 30, 20] end;
+titulo::char[] = “ejemplo gráfica de pie” end;
+exec grappie end;
+) end;
