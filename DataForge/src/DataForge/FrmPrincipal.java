@@ -401,7 +401,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 if (tokens == null) {
                                     resultado += "FIN";
                                     // Mostrar el resultado en el JTextArea
-                                    TextAreaConsola.setText(resultado);
+                                    TextAreaConsola.setText("Texto analizado!");
+                                    System.out.println(resultado);
                  
                                     return;
                                 }
@@ -409,23 +410,163 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 switch (tokens) {
                                     
                                     case ERROR:
-                                        resultado +=  lexer.lexeme + " Error Lexico\n";
+                                        resultado +=  lexer.lexeme + " --<Error Lexico>\n";
                                         break;
                                     case Identificador:
+                                        resultado +=  lexer.lexeme + " --<Identificador>\n";
+                                        break;
                                     case Numero:
-                                    case Corchete_izq:
-                                    case Corchete_der:
-                                    case Parentesis_izq:
-                                    case Parentesis_der:
-                                    case Punto_coma:
-                                    case Dos_puntos:
+                                        resultado +=  lexer.lexeme + " --<Numero>\n";
+                                        break;
+                                    case Corchete_Izq:
+                                        resultado +=  lexer.lexeme + " --<Corchete_Izq>\n";
+                                        break;
+                                    case Corchete_Der:
+                                        resultado +=  lexer.lexeme + " --<Corchete_Der>\n";
+                                        break;
+                                    case Parentesis_Izq:
+                                        resultado +=  lexer.lexeme + " --<Parentesis_Izq>\n";
+                                        break;
+                                    case Parentesis_Der:
+                                        resultado +=  lexer.lexeme + " --<Parentesis_Der>\n";
+                                        break;
+                                    case Punto_Coma:
+                                        resultado +=  lexer.lexeme + " --<Punto_Coma>\n";
+                                        break;
+                                    case Dos_Puntos:
+                                        resultado +=  lexer.lexeme + " --<Dos_Puntos>\n";
+                                        break;
                                     case Punto:
-                                    case Comilla_doble_izq:
-                                    case Comilla_doble_der:
+                                        resultado +=  lexer.lexeme + " --<Punto>\n";
+                                        break;
+                                    case DobleComilla_Izq:
+                                        resultado +=  lexer.lexeme + " --<DobleComilla_Izq>\n";
+                                        break;
+                                    case DobleComilla_Der:
+                                        resultado +=  lexer.lexeme + " --<DobleComilla_Der>\n";
+                                        break;
                                     case Coma:
-                                    case Arroba:
-                                    case Reservadas:
-                                        resultado += lexer.lexeme + " -> Es un " + tokens + "\n";
+                                        resultado +=  lexer.lexeme + " --<Coma>\n";
+                                        break;
+                                    case Program_Inicio:
+                                        resultado +=  lexer.lexeme + " --<Program_inicio>\n";
+                                        break;
+                                    case End:
+                                        resultado +=  lexer.lexeme + " --<End>\n";
+                                        break;
+                                    case Variable:
+                                        resultado +=  lexer.lexeme + " --<Variable>\n";
+                                        break;
+                                    case Fun_Double:
+                                        resultado +=  lexer.lexeme + " --<Fun_Double>\n";
+                                        break;    
+                                    case Fun_Cadena:
+                                        resultado +=  lexer.lexeme + " --<Fun_Cadena>\n";
+                                        break;
+                                    case Array:
+                                        resultado +=  lexer.lexeme + " --<Array>\n";
+                                        break;
+                                    case Fun_Suma:
+                                        resultado +=  lexer.lexeme + " --<Fun_Suma>\n";
+                                        break;
+                                    case Fun_Resta:
+                                        resultado +=  lexer.lexeme + " --<Fun_Resta>\n";
+                                        break;
+                                    case Fun_Multiplicacion:
+                                        resultado +=  lexer.lexeme + " --<Fun_Multiplicacion>\n";
+                                        break;
+                                    case Fun_Division:
+                                        resultado +=  lexer.lexeme + " --<Fun_Division>\n";
+                                        break;
+                                    case Fun_Mod:
+                                        resultado +=  lexer.lexeme + " --<Fun_Mod>\n";
+                                        break;
+                                    case Fun_Media:
+                                        resultado +=  lexer.lexeme + " --<Fun_Media>\n";
+                                        break;
+                                    case Fun_Mediana:
+                                        resultado +=  lexer.lexeme + " --<Fun_Mediana>\n";
+                                        break;
+                                    case Fun_Moda:
+                                        resultado +=  lexer.lexeme + " --<Fun_Moda>\n";
+                                        break;
+                                    case Fun_Varianza:
+                                        resultado +=  lexer.lexeme + " --<Fun_Varianza>\n";
+                                        break;
+                                    case Fun_Minimo:
+                                        resultado +=  lexer.lexeme + " --<Fun_Minimo>\n";
+                                        break;
+                                    case Fun_Maximo:
+                                        resultado +=  lexer.lexeme + " --<Fun_Maximo>\n";
+                                        break;
+                                    case Consola:
+                                        resultado +=  lexer.lexeme + " --<Consola>\n";
+                                        break;
+                                    case Imprimir:
+                                        resultado +=  lexer.lexeme + " --<Imprimir>\n";
+                                        break;
+                                    case Columna:
+                                        resultado +=  lexer.lexeme + " --<Columna>\n";
+                                        break;
+                                    case Ejecutar:
+                                        resultado +=  lexer.lexeme + " --<Ejecutar>\n";
+                                        break;
+                                    case Grafica_Barras:
+                                        resultado +=  lexer.lexeme + " --<Grafica_Barras>\n";
+                                        break;
+                                    case Grafica_Titulo:
+                                        resultado +=  lexer.lexeme + " --<Grafica_Titulo>\n";
+                                        break;
+                                    case Eje_X:
+                                        resultado +=  lexer.lexeme + " --<Eje_X>\n";
+                                        break;
+                                    case Eje_Y:
+                                        resultado +=  lexer.lexeme + " --<Eje_Y>\n";
+                                        break;
+                                    case Titulo_X:
+                                        resultado +=  lexer.lexeme + " --<Titulo_X>\n";
+                                        break;
+                                    case Titulo_Y:
+                                        resultado +=  lexer.lexeme + " --<Titulo_Y>\n";
+                                        break;
+                                    case Grafica_Pie:
+                                        resultado +=  lexer.lexeme + " --<Grafica_Pie>\n";
+                                        break;
+                                    case Grafica_Label:
+                                        resultado +=  lexer.lexeme + " --<Grafica_Label>\n";
+                                        break;
+                                    case Grafica_Valores:
+                                        resultado +=  lexer.lexeme + " --<--<Grafica_Valores>\n";
+                                        break;
+                                    case Grafica_Lineal:
+                                        resultado +=  lexer.lexeme + " --<Grafica_Lineal>\n";
+                                        break;
+                                    case Grafica_Histograma:
+                                        resultado +=  lexer.lexeme + " --<Grafica_Histograma>\n";
+                                        break;
+                                    case DosPuntos_Dobles:
+                                        resultado +=  lexer.lexeme + " --<DosPuntos_Dobles>\n";
+                                        break;
+                                    case Signo_Igual:
+                                        resultado +=  lexer.lexeme + " --<Signo_Igual>\n";
+                                        break;
+                                    case Signo_Suma:
+                                        resultado +=  lexer.lexeme + " --<Signo_Suma>\n";
+                                        break;
+                                    case Signo_Resta:
+                                        resultado +=  lexer.lexeme + " --<Signo_Resta>\n";
+                                        break;
+                                    case Signo_Multiplicacion:
+                                        resultado +=  lexer.lexeme + " --<Signo_Multiplicacion>\n";
+                                        break;
+                                    case Signo_Division:
+                                        resultado +=  lexer.lexeme + " --<Signo_Division>\n";
+                                        break;
+                                    case Signo_Indicador:
+                                        resultado +=  lexer.lexeme + " --<Signo_Indicador>\n";
+                                        break;
+                                    case Signo_Arroba:
+                                        resultado +=  lexer.lexeme + " --<Signo_Arroba>\n";
                                         break;
                                     default:
                                         resultado += lexer.lexeme + " -> Es " + tokens + "\n";

@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/src/DataForge/FrmPrincipal.java</file>
+            <file>file:/P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/src/DataForge/Lexer.flex</file>
+            <file>file:/P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/src/DataForge/Lexer.java</file>
+            <file>file:/P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/src/DataForge/Tokens.java</file>
             <file>file:/P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/src/DataForge/Main.java</file>
-            <file>file:/P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/src/DataForge/prueba2.df</file>
-            <file>file:/P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/src/DataForge/prueba.df</file>
         </group>
     </open-files>
 </project-private>
