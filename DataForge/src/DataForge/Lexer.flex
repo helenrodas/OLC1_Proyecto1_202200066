@@ -6,7 +6,7 @@ import static DataForge.Tokens.*;
 %type Tokens
 L=[a-zA-Z_]+
 D=[0-9]+
-espacio=[ \t\r\n]+
+espacio=[ \t\r]+
 
 %{
     public String lexeme;
@@ -48,6 +48,7 @@ graphline {lexeme=yytext(); return Grafica_Lineal;}
 histogram {lexeme=yytext(); return Grafica_Histograma;}
 
 "=" {lexeme=yytext(); return Signo_Igual;}
+"\n" {return Linea;}
 "::" {lexeme=yytext(); return DosPuntos_Dobles;}
 "[" {lexeme=yytext(); return Corchete_Izq;}
 "]" {lexeme=yytext(); return Corchete_Der;}
@@ -66,8 +67,13 @@ histogram {lexeme=yytext(); return Grafica_Histograma;}
 "<-" {lexeme=yytext(); return Signo_Indicador;}
 "@" {lexeme=yytext(); return Signo_Arroba;}
 {espacio} {/*Ignore*/}
+
+
+
 {L}({L}|{D})* {lexeme=yytext(); return Identificador;}
 {D}+("."{D}+)? {lexeme=yytext(); return Numero;}
+
+
 . {lexeme=yytext(); return ERROR;}
 
 

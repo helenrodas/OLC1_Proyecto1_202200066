@@ -1,3 +1,6 @@
-ejey::double = [50, 30, 70] end;
-arr:double::@darray <- [ sum(7,3), div(25,5)] end;
-!
+hola
+! error
+kfdi
+3243
+dojgo
+2345

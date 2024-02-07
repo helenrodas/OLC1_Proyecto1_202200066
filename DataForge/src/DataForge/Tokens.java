@@ -4,6 +4,8 @@
  */
 package DataForge;
 
+import java.awt.LinearGradientPaint;
+
 /**
  *
  * @author lenovo
@@ -61,5 +63,6 @@ public enum Tokens {
     Signo_Arroba,
     Identificador,
     Numero,
+    Linea,
     ERROR
 }

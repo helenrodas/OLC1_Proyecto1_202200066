@@ -5,14 +5,17 @@
 package DataForge;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
  * @author lenovo
  */
 public class Main {
-
-  
+    
     public static void main(String[] args) {
         FrmPrincipal inicio = new FrmPrincipal();
         inicio.setTitle("Data-Forge");
@@ -31,5 +34,11 @@ public class Main {
         File archivo = new File(ruta);
         JFlex.Main.generate(archivo);
     }
+    
+    
+    
+
+  
+
     
 }
