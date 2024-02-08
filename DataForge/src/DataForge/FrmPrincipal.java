@@ -412,173 +412,375 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 }
 
                                 switch (tokens) {
-                                    
-                                    case ERROR:
-                                        columna = lexer.lexeme.length();
-                                        resultado +=  lexer.lexeme + " --<Error Lexico! || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">\n";
-                                        break;
                                     case Linea:
-                                        //resultado += "LINEA\n";
                                         fila += 1;
                                         columna = 0;
-                                        //System.out.println(fila);
+                                        break;
+                                    case ERROR:
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado += lexer.lexeme + " --<Error Lexico! en fila :" + (fila + 1) + ", columna: " + columna + ">--\n";
                                         break;
                                     case Identificador:
-                                        columna = lexer.lexeme.length();
-                                        resultado +=  lexer.lexeme + " --<Identificador || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Identificador || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Numero:
-                                        resultado +=  lexer.lexeme + " --<Numero en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Numero || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Corchete_Izq:
-                                        resultado +=  lexer.lexeme + " --<Corchete_Izq en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Corchete_Izq || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Corchete_Der:
-                                        resultado +=  lexer.lexeme + " --<Corchete_Der en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Corchete_Der || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Parentesis_Izq:
-                                        resultado +=  lexer.lexeme + " --<Parentesis_Izq en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Parentesis_Izq || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Parentesis_Der:
-                                        resultado +=  lexer.lexeme + " --<Parentesis_Der en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Parentesis_Der || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Punto_Coma:
-                                        resultado +=  lexer.lexeme + " --<Punto_Coma en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Punto_Coma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Dos_Puntos:
-                                        resultado +=  lexer.lexeme + " --<Dos_Puntos en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Dos_Puntos || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Punto:
-                                        resultado +=  lexer.lexeme + " --<Punto en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Punto || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case DobleComilla_Izq:
-                                        resultado +=  lexer.lexeme + " --<DobleComilla_Izq en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<DobleComilla_Izq || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case DobleComilla_Der:
-                                        resultado +=  lexer.lexeme + " --<DobleComilla_Der en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<DobleComilla_Der || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Coma:
-                                        resultado +=  lexer.lexeme + " --<Coma en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Coma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Program_Inicio:
-                                        resultado +=  lexer.lexeme + " --<Program_inicio en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Program_inicio || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case End:
-                                        resultado +=  lexer.lexeme + " --<End en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<End || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Variable:
-                                        resultado +=  lexer.lexeme + " --<Variable en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Variable || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Double:
-                                        resultado +=  lexer.lexeme + " --<Fun_Double en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Double || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;    
-                                    case Fun_Cadena:
-                                        resultado +=  lexer.lexeme + " --<Fun_Cadena en fila :" + (fila + 1) + ">\n";
+                                    case Fun_Char:
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Cadena || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Array:
-                                        resultado +=  lexer.lexeme + " --<Array en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Array || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Suma:
-                                        resultado +=  lexer.lexeme + " --<Fun_Suma en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Suma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Resta:
-                                        resultado +=  lexer.lexeme + " --<Fun_Resta en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Resta || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Multiplicacion:
-                                        resultado +=  lexer.lexeme + " --<Fun_Multiplicacion en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Multiplicacion || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Division:
-                                        resultado +=  lexer.lexeme + " --<Fun_Division en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Division || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Mod:
-                                        resultado +=  lexer.lexeme + " --<Fun_Mod en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Mod || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Media:
-                                        resultado +=  lexer.lexeme + " --<Fun_Media en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Media || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Mediana:
-                                        resultado +=  lexer.lexeme + " --<Fun_Mediana en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Mediana || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Moda:
-                                        resultado +=  lexer.lexeme + " --<Fun_Moda en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Moda || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Varianza:
-                                        resultado +=  lexer.lexeme + " --<Fun_Varianza en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Varianza || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Minimo:
-                                        resultado +=  lexer.lexeme + " --<Fun_Minimo en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Minimo || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Fun_Maximo:
-                                        resultado +=  lexer.lexeme + " --<Fun_Maximo en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Fun_Maximo || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Consola:
-                                        resultado +=  lexer.lexeme + " --<Consola en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Consola || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Imprimir:
-                                        resultado +=  lexer.lexeme + " --<Imprimir en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Imprimir || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Columna:
-                                        resultado +=  lexer.lexeme + " --<Columna en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Columna || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Ejecutar:
-                                        resultado +=  lexer.lexeme + " --<Ejecutar en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Ejecutar || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Grafica_Barras:
-                                        resultado +=  lexer.lexeme + " --<Grafica_Barras en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Grafica_Barras || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Grafica_Titulo:
-                                        resultado +=  lexer.lexeme + " --<Grafica_Titulo en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Grafica_Titulo || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Eje_X:
-                                        resultado +=  lexer.lexeme + " --<Eje_X en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Eje_X || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Eje_Y:
-                                        resultado +=  lexer.lexeme + " --<Eje_Y en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Eje_Y || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Titulo_X:
-                                        resultado +=  lexer.lexeme + " --<Titulo_X en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Titulo_X || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Titulo_Y:
-                                        resultado +=  lexer.lexeme + " --<Titulo_Y en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Titulo_Y || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Grafica_Pie:
-                                        resultado +=  lexer.lexeme + " --<Grafica_Pie en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Grafica_Pie || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Grafica_Label:
-                                        resultado +=  lexer.lexeme + " --<Grafica_Label en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Grafica_Label || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Grafica_Valores:
-                                        resultado +=  lexer.lexeme + " --<--<Grafica_Valores en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<--<Grafica_Valores || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Grafica_Lineal:
-                                        resultado +=  lexer.lexeme + " --<Grafica_Lineal en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Grafica_Lineal || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Grafica_Histograma:
-                                        resultado +=  lexer.lexeme + " --<Grafica_Histograma en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Grafica_Histograma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case DosPuntos_Dobles:
-                                        resultado +=  lexer.lexeme + " --<DosPuntos_Dobles en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<DosPuntos_Dobles || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Signo_Igual:
-                                        resultado +=  lexer.lexeme + " --<Signo_Igual en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Signo_Igual || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Signo_Suma:
-                                        resultado +=  lexer.lexeme + " --<Signo_Suma en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Signo_Suma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Signo_Resta:
-                                        resultado +=  lexer.lexeme + " --<Signo_Resta en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Signo_Resta || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Signo_Multiplicacion:
-                                        resultado +=  lexer.lexeme + " --<Signo_Multiplicacion en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Signo_Multiplicacion || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Signo_Division:
-                                        resultado +=  lexer.lexeme + " --<Signo_Division en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Signo_Division || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Signo_Indicador:
-                                        resultado +=  lexer.lexeme + " --<Signo_Indicador en fila :" + (fila + 1) + ">\n";
+                                        for (char c : lexer.lexeme.toCharArray()) {
+                                            if (c != ' ') {
+                                                columna += 1;
+                                            }
+                                        }
+                                        resultado +=  lexer.lexeme + " --<Signo_Indicador || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
                                         break;
                                     case Signo_Arroba:
-                                        resultado +=  lexer.lexeme + " --<Signo_Arroba en fila :" + (fila + 1) + ">\n";
+                                        columna += 1;
+                                        resultado +=  lexer.lexeme + " --<Signo_Arroba || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
+                                        break;
+                                    case Espacio:
+                                        columna += 1;
+                                        break;
+                                    case Tab:
+                                        columna += 4;
                                         break;
                                     default:
                                         resultado += lexer.lexeme + " -> Es " + tokens + "\n";

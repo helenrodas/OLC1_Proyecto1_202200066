@@ -1,6 +1,13 @@
-hola
-! error
-kfdi
-3243
-dojgo
-2345
+var:double:: numero <- 2.5 end;
+program
+	console
+	print
+end program
+graphbar(
+titulo::char[] = “estudiantes” end;
+ejex::char[] = [“1 parcial”, “2 parcial”, “final”] end;
+ejey::double = [50, 30, 70] end;
+titulox::char[] = “actividades” end;
+tituloy::char[] = “notas” end;
+exec grapbar end;
+) end;

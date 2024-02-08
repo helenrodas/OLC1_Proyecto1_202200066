@@ -15,7 +15,7 @@ public enum Tokens {
     End,
     Variable,
     Fun_Double,
-    Fun_Cadena,
+    Fun_Char,
     Array,
     Fun_Suma,
     Fun_Resta,
@@ -64,5 +64,7 @@ public enum Tokens {
     Identificador,
     Numero,
     Linea,
+    Espacio,
+    Tab,
     ERROR
 }
