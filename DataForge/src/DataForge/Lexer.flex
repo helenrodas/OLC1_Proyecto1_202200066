@@ -4,6 +4,7 @@ import static DataForge.Tokens.*;
 %%
 %class Lexer
 %type Tokens
+%ignorecase
 L=[a-zA-Z_]+
 D=[0-9]+
 espacio=[\r]+

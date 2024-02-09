@@ -15,8 +15,8 @@ parser code
 }
 :};
 terminal Linea, DobleComilla_Izq,DobleComilla_Der,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Division, 
-        Parentesis_Izq, Parentesis_Der,Corchete_Izq, Corchete_Der, Program_Inicio,End,Variable,Fun_Double,Fun_Cadena,
-        Array, Identificador,Fun_Suma,Fun_Resta,Fun_Multiplicacion,Fun_Division,Fun_Mod,Fun_Media,Fun_Mediana,Fun_Moda,
+        Parentesis_Izq, Parentesis_Der,Corchete_Izq, Corchete_Der, Program_Inicio,End,Variable,Fun_Double,Fun_Char,
+        Array,Fun_Suma,Fun_Resta,Fun_Multiplicacion,Fun_Division,Fun_Mod,Fun_Media,Fun_Mediana,Fun_Moda,
         Fun_Varianza,Fun_Minimo,Fun_Maximo,Fun_Consola,Imprimir,Columna,Ejecutar,Grafica_Barras,Grafica_Titulo,Eje_X,
         Eje_Y,Titulo_X,Titulo_Y,Grafica_Pie,Grafica_Label,Grafica_Valores,Grafica_Lineal,Grafica_Histograma,DosPuntos_Dobles,
         Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Numero,Identificador, ERROR;
@@ -25,10 +25,7 @@ non terminal PROGRAM, SENTENCIA, DECLARACION;
 
 start with PROGRAM;
 
-INICIO ::= 
-    Program_Inicio SENTENCIA END Program_Inicio 
+PROGRAM ::= 
+    Program_Inicio Identificador End Program_Inicio 
 ;
 
-DECLARACION ::=
-    Variable Dos_Puntos Fun_Double DosPuntos_Dobles Identificador Signo_Indicador Numero End
-;

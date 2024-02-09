@@ -383,7 +383,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         JTextArea textArea = (JTextArea) viewportView;
 
                         // Obtener el contenido del JTextArea
-                        String content = textArea.getText().toLowerCase();
+                        String content = textArea.getText();
 
                         // Crear un objeto File asociado a un archivo temporal
                         File archivo = new File("archivo_temporal.txt");
