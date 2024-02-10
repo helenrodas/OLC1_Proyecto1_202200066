@@ -51,13 +51,7 @@ public class Main {
                 Paths.get(rutap+"src/DataForge/Sintax.java")
         );
     }
-    
-    
-    
-    
-    
-    
-    
+
     
 //    public static void main(String[] args) {
 //        FrmPrincipal inicio = new FrmPrincipal();
@@ -77,11 +71,5 @@ public class Main {
 //        File archivo = new File(ruta);
 //        JFlex.Main.generate(archivo);
 //    }
-    
-    
-    
-
-  
-
     
 }

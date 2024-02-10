@@ -13,11 +13,11 @@ D=[0-9]+
 espacio=[ \t\r\n]+
 
 %{
-    public Symbol symbol(int type, Object value){
-        return new Symbol(type, yyline,yycolumn,value);
+    private Symbol symbol(int type, Object value){
+        return new Symbol(type, yyline, yycolumn, value);
     }
-    public Symbol symbol(int type){
-        return new Symbol(type, yyline,yycolumn);
+    private Symbol symbol(int type){
+        return new Symbol(type, yyline, yycolumn);
     }
 %}
 
