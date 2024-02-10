@@ -46,7 +46,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     
     CToken tokenTemp;
+    CError tokenErrorTemp;
     LinkedList<CToken> ListaTokensTemp = new LinkedList<>();
+    LinkedList<CError> ListaErroresTemp = new LinkedList<>();
     private String filePath;
     public FrmPrincipal() {
         initComponents();
@@ -379,8 +381,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         int columna = 0;
         int contadorTokens = 0;
         int contadorErrores = 0;
+       
         LinkedList<CToken> listaTokens = new LinkedList<>();
-        
+        LinkedList<CError> listaErrores = new LinkedList<>();
+        listaTokens.clear();
+        listaErrores.clear();
+        ListaTokensTemp.clear();
+        ListaErroresTemp.clear();
             
         // Verificar si hay alguna pestaña seleccionada
         if (index != -1) {
@@ -427,6 +434,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                         System.out.println("(" + token.contador + ", " + token.lexema + ", " + token.tipo + ")");
                                     }
                                     ListaTokensTemp.addAll(listaTokens);
+                                    ListaErroresTemp.addAll(listaErrores);
                  
                                     return;
                                 }
@@ -443,6 +451,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                             }
                                         }
                                         resultado += lexer.lexeme + " --<Error Lexico! en fila :" + (fila + 1) + ", columna: " + columna + ">--\n";
+                                        contadorErrores += 1;
+                                        tokenErrorTemp = new CError(contadorErrores, lexer.lexeme, "Error", fila + 1, columna);
+                                        listaErrores.add(tokenErrorTemp);
                                         break;
                                     case Identificador:
                                         for (char c : lexer.lexeme.toCharArray()) {
@@ -983,11 +994,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         reporteTokens();
+        reporteErrores();
+        JOptionPane.showMessageDialog(null, "Reportes Generados Exitosamente", "Reportes Generados", JOptionPane.INFORMATION_MESSAGE);
+        // Agregar caso de error!
     }//GEN-LAST:event_btnReportesActionPerformed
 
     
     private void reporteTokens(){
-        
         StringBuilder htmlCodigo =  new StringBuilder();
         
         htmlCodigo.append("<!DOCTYPE html>");
@@ -996,58 +1009,182 @@ public class FrmPrincipal extends javax.swing.JFrame {
         htmlCodigo.append(" <meta charset=\"UTF-8\">");
         htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
         htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-        htmlCodigo.append("<title>Reporte Tokens</title>");
+        htmlCodigo.append("<title>Tokens</title>");
+        htmlCodigo.append("<style>");
+        htmlCodigo.append("body {");
+        htmlCodigo.append("    display: flex;");
+        htmlCodigo.append("    justify-content: center;");
+        htmlCodigo.append("    align-items: center;");
+        htmlCodigo.append("    font-size: large;");
+        htmlCodigo.append("    padding-top: 80px;");
+        htmlCodigo.append("    background-color:   #ffcab3  ;");
+        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("table {");
+        htmlCodigo.append("    border-collapse: separate;");
+        htmlCodigo.append("    width: 47%;");
+        htmlCodigo.append("    margin-top: 10px;");
+        htmlCodigo.append("    background-color: #fff;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th, td {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("    padding: 8px;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("td {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".title {");
+        htmlCodigo.append("    font-size: 2em;");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".container {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("</style>");
         htmlCodigo.append("</head>");
-        htmlCodigo.append("<h1>Reporte de tokens</h1>");
-        htmlCodigo.append("<center>");
+        htmlCodigo.append("<body>");
+        htmlCodigo.append("<div class=\"container\">");
+        htmlCodigo.append("<h1 class=\"title\">Tabla de tokens</h1>");
         htmlCodigo.append("<table border=\"1\">");
         htmlCodigo.append("<thead>");
         htmlCodigo.append("<tr>");
-        htmlCodigo.append("<th style=\"background-color: #1E1E1E; color: #FFFFFF;\">#</th>");
-        htmlCodigo.append("<th style=\"background-color: #1E1E1E; color: #FFFFFF;\">Lexema</th>");
-        htmlCodigo.append("<th style=\"background-color: #1E1E1E; color: #FFFFFF;\">Tipo</th>");
-        htmlCodigo.append("<th style=\"background-color: #1E1E1E; color: #FFFFFF;\">Línea</th>");
-        htmlCodigo.append("<th style=\"background-color: #1E1E1E; color: #FFFFFF;\">Columna</th>");
-
+        htmlCodigo.append("<th>#</th>");
+        htmlCodigo.append("<th>Lexema</th>");
+        htmlCodigo.append("<th>Tipo</th>");
+        htmlCodigo.append("<th>Línea</th>");
+        htmlCodigo.append("<th>Columna</th>");
         htmlCodigo.append("</tr>");
         htmlCodigo.append("</thead>");
-        htmlCodigo.append("<body>");
-        htmlCodigo.append("<tr>");
+        htmlCodigo.append("<tbody>");
         
-        
-        for(int i=0;i <ListaTokensTemp.size();i++){
-            
-             CToken token =  ListaTokensTemp.get(i);
-             
-             htmlCodigo.append("<td>" + token.contador+ "</td>");
-             htmlCodigo.append("<td>"+ token.lexema + "</td>");
-             htmlCodigo.append("<td>"+ token.tipo+"</td>");
-             htmlCodigo.append("<td>"+ token.linea+"</td>");
-             htmlCodigo.append("<td>"+ token.columna+"</td>");
-             htmlCodigo.append("</tr>");
-             
+        for (CToken token : ListaTokensTemp) {
+            htmlCodigo.append("<tr>");
+            htmlCodigo.append("<td>").append(token.contador).append("</td>");
+            htmlCodigo.append("<td>").append(token.lexema).append("</td>");
+            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
+            htmlCodigo.append("<td>").append(token.linea).append("</td>");
+            htmlCodigo.append("<td>").append(token.columna).append("</td>");
+            htmlCodigo.append("</tr>");
         }
         
+        htmlCodigo.append("</tbody>");
         htmlCodigo.append("</table>");
-        htmlCodigo.append("</center>");
-        htmlCodigo.append("<h5>Helen</h5>");
-        htmlCodigo.append("<h5>202200066</h5>");
+        htmlCodigo.append("</div>");
         htmlCodigo.append("</body>");
         htmlCodigo.append("</html>");
         
-          try {
-
+        try {
             File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-tokens" + ".html");
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(htmlCodigo.toString());
             fileWriter.close();
 
             Desktop.getDesktop().open(file);
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void reporteErrores(){
+        StringBuilder htmlCodigo =  new StringBuilder();
+        
+        htmlCodigo.append("<!DOCTYPE html>");
+        htmlCodigo.append("<html lang=\"en\">");
+        htmlCodigo.append("<head>");
+        htmlCodigo.append(" <meta charset=\"UTF-8\">");
+        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+        htmlCodigo.append("<title> Errores</title>");
+        htmlCodigo.append("<style>");
+        htmlCodigo.append("body {");
+        htmlCodigo.append("    display: flex;");
+        htmlCodigo.append("    justify-content: center;");
+        htmlCodigo.append("    align-items: center;");
+        htmlCodigo.append("    font-size: large;");
+        htmlCodigo.append("    padding-top: 80px;");
+        htmlCodigo.append("    background-color:   #ffcab3  ;");
+        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("table {");
+        htmlCodigo.append("    border-collapse: separate;");
+        htmlCodigo.append("    width: 47%;");
+        htmlCodigo.append("    margin-top: 10px;");
+        htmlCodigo.append("    background-color: #fff;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th, td {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("    padding: 8px;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("td {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".title {");
+        htmlCodigo.append("    font-size: 2em;");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".container {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("</style>");
+        htmlCodigo.append("</head>");
+        htmlCodigo.append("<body>");
+        htmlCodigo.append("<div class=\"container\">");
+        htmlCodigo.append("<h1 class=\"title\">Tabla de Errores</h1>");
+        htmlCodigo.append("<table border=\"1\">");
+        htmlCodigo.append("<thead>");
+        htmlCodigo.append("<tr>");
+        htmlCodigo.append("<th>#</th>");
+        htmlCodigo.append("<th>Lexema</th>");
+        htmlCodigo.append("<th>Tipo</th>");
+        htmlCodigo.append("<th>Línea</th>");
+        htmlCodigo.append("<th>Columna</th>");
+        htmlCodigo.append("</tr>");
+        htmlCodigo.append("</thead>");
+        htmlCodigo.append("<tbody>");
+        
+        for (CError token : ListaErroresTemp) {
+            htmlCodigo.append("<tr>");
+            htmlCodigo.append("<td>").append(token.contador).append("</td>");
+            htmlCodigo.append("<td>").append(token.error).append("</td>");
+            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
+            htmlCodigo.append("<td>").append(token.linea).append("</td>");
+            htmlCodigo.append("<td>").append(token.columna).append("</td>");
+            htmlCodigo.append("</tr>");
+        }
+        
+        htmlCodigo.append("</tbody>");
+        htmlCodigo.append("</table>");
+        htmlCodigo.append("</div>");
+        htmlCodigo.append("</body>");
+        htmlCodigo.append("</html>");
+        
+        try {
+            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-errores" + ".html");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(htmlCodigo.toString());
+            fileWriter.close();
+
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
     
     
     private void saveFile() {
