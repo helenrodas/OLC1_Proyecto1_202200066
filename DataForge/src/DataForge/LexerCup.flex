@@ -8,6 +8,7 @@ import java_cup.runtime.Symbol;
 %full
 %line
 %char
+%ignorecase
 L=[a-zA-Z_]+
 D=[0-9]+
 espacio=[ \t\r\n]+

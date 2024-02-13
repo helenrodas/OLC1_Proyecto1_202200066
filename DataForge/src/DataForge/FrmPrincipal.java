@@ -20,10 +20,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Symbol;
+import java_cup.symbol;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -373,9 +376,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
-
-        
-       // Obtener el índice de la pestaña actual
         int index = jTabbedPaneArchivos.getSelectedIndex();
         int fila = 0;
         int columna = 0;
@@ -405,7 +405,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
                         // Obtener el contenido del JTextArea
                         String content = textArea.getText();
-
+                        Sintax s = new Sintax(new DataForge.LexerCup(new StringReader(content)));
                         // Crear un objeto File asociado a un archivo temporal
                         File archivo = new File("archivo_temporal.txt");
 
@@ -414,6 +414,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             escribir.print(content);
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        //Realizar analisis sintactico
+                        try{
+                            s.parse();
+                            TextAreaConsola.setText("Analisis sintactico realizado correctamente, no hay errores");
+                        }catch(Exception e){
+                            Symbol sym = s.getS();
+                            System.out.println("Error Sintactico: Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"" );
                         }
 
                         // Realizar el análisis léxico del archivo
@@ -429,10 +437,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                     TextAreaConsola.setText("Texto analizado!");
                                     System.out.println(resultado);
                                     
-                                    System.out.println("Lista enlazada:");
-                                    for (CToken token : listaTokens) {
-                                        System.out.println("(" + token.contador + ", " + token.lexema + ", " + token.tipo + ")");
-                                    }
+//                                    System.out.println("Lista enlazada:");
+//                                    for (CToken token : listaTokens) {
+//                                        System.out.println("(" + token.contador + ", " + token.lexema + ", " + token.tipo + ")");
+//                                    }
                                     ListaTokensTemp.addAll(listaTokens);
                                     ListaErroresTemp.addAll(listaErrores);
                  
