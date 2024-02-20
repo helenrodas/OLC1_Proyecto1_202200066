@@ -20,7 +20,7 @@ terminal Linea, DobleComilla_Izq,DobleComilla_Der,Signo_Igual,Signo_Suma,Signo_R
         Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Numero,Identificador, ERROR,Decimal;
 
 non terminal PROGRAM, CODIGO, DECLARACION,VARIABLE_CHAR,VARIABLE_DOUBLE,ARREGLO,VALOR_CHAR,ID,VALOR_DOUBLE,OPERACIONES,VARIABLES,TIPO_ARREGLO,
-            CONTENIDO_ARREGLO,ARR_DOUBLE,ARR_CHAR,ARR_VAR,ARR_FUN,VALOR_NUMERICO;
+            CONTENIDO_ARREGLO,ARR_DOUBLE,ARR_CHAR,VALOR_NUMERICO,ESTRUCTURA_CHAR,TIPOS_CHAR;
 
 start with PROGRAM;
 
@@ -44,11 +44,23 @@ ID::= Identificador| ;
 //Variable double
 VARIABLE_DOUBLE::= Variable Dos_Puntos Fun_Double DosPuntos_Dobles Identificador Signo_Indicador VALOR_DOUBLE End Punto_Coma;
 
-VALOR_DOUBLE::= VALOR_NUMERICO |  ID | OPERACIONES;
-VALOR_NUMERICO ::= Numero | Decimal;
+VALOR_DOUBLE::= VALOR_NUMERICO | OPERACIONES;
+VALOR_NUMERICO ::= Numero | Decimal| ID;
  
 //Declaracion de arreglo
 ARREGLO::= Array Dos_Puntos TIPO_ARREGLO DosPuntos_Dobles Signo_Arroba Identificador Signo_Indicador Corchete_Izq CONTENIDO_ARREGLO Corchete_Der End Punto_Coma;
-TIPO_ARREGLO::= Fun_Char|Fun_Double;
-CONTENIDO_ARREGLO::= ARR_DOUBLE | ARR_CHAR | ARR_VAR | ARR_FUN;
+TIPO_ARREGLO::= Fun_Char Corchete_Izq Corchete_Der |Fun_Double;
+
+CONTENIDO_ARREGLO::= ARR_DOUBLE | ARR_CHAR;
+
+//Arreglo de tipo double
 ARR_DOUBLE::= VALOR_NUMERICO | VALOR_NUMERICO Coma ARR_DOUBLE;
+
+//Arreglo de tipo char
+ARR_CHAR::= ESTRUCTURA_CHAR | ESTRUCTURA_CHAR Coma ARR_CHAR;
+
+ESTRUCTURA_CHAR::= DobleComilla_Izq TIPOS_CHAR DobleComilla_Der;
+
+TIPOS_CHAR::= Identificador TIPOS_CHAR| Numero TIPOS_CHAR | Decimal TIPOS_CHAR| ;
+
+
