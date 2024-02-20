@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
 import java_cup.symbol;
 import javax.swing.JFileChooser;
@@ -244,7 +245,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTabbedPaneArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTabbedPaneArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -282,18 +283,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         String tabName = JOptionPane.showInputDialog(null,"Asigne un nombre a la pestaña","Nueva Pestaña",JOptionPane.INFORMATION_MESSAGE);
-        
+    
         if(tabName!=null){
             JPanel panel = new JPanel();
-            panel.add(new JLabel());
-
             panel.setLayout(new FlowLayout());
 
             JTextArea textArea = new JTextArea();
-            textArea.setPreferredSize(new Dimension(424, 285));
-
-                textArea.setEditable(true);
-            panel.add(new JScrollPane(textArea));
+            //textArea.setPreferredSize(new Dimension(424, 285));
+            textArea.setEditable(true);
+            
+            JScrollPane mov = new JScrollPane(textArea);
+            mov.setPreferredSize(new Dimension(424, 285));
+            panel.add(mov);
 
             jTabbedPaneArchivos.addTab(tabName, panel);
 
@@ -446,7 +447,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                  
                                     return;
                                 }
-
+                                
                                 switch (tokens) {
                                     case Linea:
                                         fila += 1;
@@ -981,16 +982,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                         resultado += lexer.lexeme + " -> Es " + tokens + "\n";
                                         break;
                                 }
+                                
+                                
+                                
                             }
+                            
+                            
+                            
+                            
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (IOException ex) {
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
+                        
+                        
+                        
                         break;
+                        
+                        
                     }
+                    
                 }
+                
             }
         } else {
             // Si no hay ninguna pestaña seleccionada, mostrar un mensaje en la consola

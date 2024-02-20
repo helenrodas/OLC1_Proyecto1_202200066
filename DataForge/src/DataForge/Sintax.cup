@@ -21,11 +21,14 @@ terminal Linea, DobleComilla_Izq,DobleComilla_Der,Signo_Igual,Signo_Suma,Signo_R
         Eje_Y,Titulo_X,Titulo_Y,Grafica_Pie,Grafica_Label,Grafica_Valores,Grafica_Lineal,Grafica_Histograma,DosPuntos_Dobles,
         Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Numero,Identificador, ERROR;
 
-non terminal PROGRAM, SENTENCIA, DECLARACION;
+non terminal PROGRAM, CODIGO, DECLARACION,VARIABLE_CHAR,VARIABLE_DOUBLE,ARREGLO;
 
 start with PROGRAM;
 
 PROGRAM ::= 
-    Program_Inicio Identificador End Program_Inicio 
+    Program_Inicio CODIGO End Program_Inicio 
 ;
+CODIGO ::= DECLARACION |  ;
+
+DECLARACION::= VARIABLE_CHAR | VARIABLE_DOUBLE | ARREGLO;
 
