@@ -19,7 +19,8 @@ terminal Linea, DobleComilla_Izq,DobleComilla_Der,Signo_Igual,Signo_Suma,Signo_R
         Eje_Y,Titulo_X,Titulo_Y,Grafica_Pie,Grafica_Label,Grafica_Valores,Grafica_Lineal,Grafica_Histograma,DosPuntos_Dobles,
         Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Numero,Identificador, ERROR,Decimal;
 
-non terminal PROGRAM, CODIGO, DECLARACION,VARIABLE_CHAR,VARIABLE_DOUBLE,ARREGLO,VALOR_CHAR,ID;
+non terminal PROGRAM, CODIGO, DECLARACION,VARIABLE_CHAR,VARIABLE_DOUBLE,ARREGLO,VALOR_CHAR,ID,VALOR_DOUBLE,OPERACIONES,VARIABLES,TIPO_ARREGLO,
+            CONTENIDO_ARREGLO,ARR_DOUBLE,ARR_CHAR,ARR_VAR,ARR_FUN,VALOR_NUMERICO;
 
 start with PROGRAM;
 
@@ -28,12 +29,26 @@ PROGRAM ::=
 ;
 CODIGO ::= DECLARACION |  ;
 
-DECLARACION::= VARIABLE_CHAR | VARIABLE_DOUBLE | ARREGLO;
+DECLARACION::= VARIABLES | VARIABLES DECLARACION;
 
+//Declaracion de variables
+VARIABLES::= VARIABLE_CHAR | VARIABLE_DOUBLE | ARREGLO;
+
+//Variable char
 VARIABLE_CHAR::= Variable Dos_Puntos Fun_Char Corchete_Izq Corchete_Der DosPuntos_Dobles Identificador Signo_Indicador VALOR_CHAR End Punto_Coma;
 
 VALOR_CHAR::= DobleComilla_Izq ID DobleComilla_Der | ID;
 
 ID::= Identificador| ;
 
+//Variable double
+VARIABLE_DOUBLE::= Variable Dos_Puntos Fun_Double DosPuntos_Dobles Identificador Signo_Indicador VALOR_DOUBLE End Punto_Coma;
 
+VALOR_DOUBLE::= VALOR_NUMERICO |  ID | OPERACIONES;
+VALOR_NUMERICO ::= Numero | Decimal;
+ 
+//Declaracion de arreglo
+ARREGLO::= Array Dos_Puntos TIPO_ARREGLO DosPuntos_Dobles Signo_Arroba Identificador Signo_Indicador Corchete_Izq CONTENIDO_ARREGLO Corchete_Der End Punto_Coma;
+TIPO_ARREGLO::= Fun_Char|Fun_Double;
+CONTENIDO_ARREGLO::= ARR_DOUBLE | ARR_CHAR | ARR_VAR | ARR_FUN;
+ARR_DOUBLE::= VALOR_NUMERICO | VALOR_NUMERICO Coma ARR_DOUBLE;

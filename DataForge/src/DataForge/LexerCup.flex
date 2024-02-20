@@ -77,7 +77,7 @@ histogram {System.out.println("--<Grafica_Histograma: " +yytext() + " || linea: 
 "@" {System.out.println("--<Signo_Arroba: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Signo_Arroba, yycolumn, yyline, yytext());}
 {espacio} {/*Ignore*/}
 {L}({L}|{D})* {System.out.println("--<Identificador: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
-{D}+("."{D}+)? {System.out.println("--<Numero: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
-DECIMAL {System.out.println("--<Decimal: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Decimal, yycolumn, yyline, yytext());}
+{D} {System.out.println("--<Numero: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
+{D}+("."{D}+)? { System.out.println("--<Decimal: " + yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">"); return new Symbol(sym.Decimal, yycolumn, yyline, yytext());}
 . {return new Symbol(sym.ERROR, yycolumn, yyline, yytext());}
 
