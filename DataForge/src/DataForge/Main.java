@@ -16,40 +16,30 @@ import java.nio.file.Paths;
  */
 public class Main {
     
-    public static void main(String[] args) throws Exception {
-        System.out.println (new File ("").getAbsolutePath ());
-        String rutap = new File ("").getAbsolutePath ()+"/";
-        String ruta1 = rutap +"src/DataForge/Lexer.flex";
-        String ruta2 = rutap+"src/DataForge/LexerCup.flex";
-        String[] rutaS = {"-parser", "Sintax", rutap+"src/DataForge/Sintax.cup"};
-        generar(ruta1, ruta2, rutaS);
+    public static void main(String[] args){
+        String ruta = "./src/DataForge/";
+        //generadorAnalizador(ruta, rutas);
+        generadorAnalizador();
     }
     
-    public static void generar(String ruta1, String ruta2, String[] rutaS) throws IOException, Exception{
-        File archivo;
-        archivo = new File(ruta1);
-        JFlex.Main.generate(archivo);
-        archivo = new File(ruta2);
-        JFlex.Main.generate(archivo);
-        java_cup.Main.main(rutaS);
-        System.out.println (new File (".").getAbsolutePath ());
-        String rutap = new File ("").getAbsolutePath ()+"/";
-        Path rutaSym = Paths.get(rutap+"src/DataForge/sym.java");
-        if (Files.exists(rutaSym)) {
-            Files.delete(rutaSym);
+    private static void generadorAnalizador(){
+        
+        try {
+            
+            /*File archivo = new File(ruta+"Lexer.flex");
+            JFlex.Main.generate(archivo);
+            java_cup.Main.main(rutas);*/
+            
+            String ruta = "src/DataForge/";
+            String[] opcionesJFlex = {ruta+"LexerCup.flex", "-d", ruta};
+            jflex.Main.generate(opcionesJFlex);
+            
+            String[] opcionesCup = {"-destdir", ruta, "-parser", "Parser", ruta+"Sintax.cup"};
+            java_cup.Main.main(opcionesCup);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Files.move(
-                Paths.get(rutap+"sym.java"), 
-                Paths.get(rutap+"src/DataForge/sym.java")
-        );
-        Path rutaSin = Paths.get(rutap+"src/DataForge/Sintax.java");
-        if (Files.exists(rutaSin)) {
-            Files.delete(rutaSin);
-        }
-        Files.move(
-                Paths.get(rutap+"Sintax.java"), 
-                Paths.get(rutap+"src/DataForge/Sintax.java")
-        );
     }
 
     

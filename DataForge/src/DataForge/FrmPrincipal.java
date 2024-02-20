@@ -49,10 +49,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Creates new form FrmPrincipal
      */
     
-    CToken tokenTemp;
-    CError tokenErrorTemp;
-    LinkedList<CToken> ListaTokensTemp = new LinkedList<>();
-    LinkedList<CError> ListaErroresTemp = new LinkedList<>();
+ //   CError tokenErrorTemp;
+//    LinkedList<CToken> ListaTokensTemp = new LinkedList<>();
+  //  LinkedList<CError> ListaErroresTemp = new LinkedList<>();
     private String filePath;
     public FrmPrincipal() {
         initComponents();
@@ -378,18 +377,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
         int index = jTabbedPaneArchivos.getSelectedIndex();
-        int fila = 0;
-        int columna = 0;
-        int contadorTokens = 0;
-        int contadorErrores = 0;
-       
-        LinkedList<CToken> listaTokens = new LinkedList<>();
-        LinkedList<CError> listaErrores = new LinkedList<>();
-        listaTokens.clear();
-        listaErrores.clear();
-        ListaTokensTemp.clear();
-        ListaErroresTemp.clear();
-            
+
         // Verificar si hay alguna pestaña seleccionada
         if (index != -1) {
             // Obtener el panel de la pestaña actual
@@ -406,806 +394,218 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
                         // Obtener el contenido del JTextArea
                         String content = textArea.getText();
-                        Sintax s = new Sintax(new DataForge.LexerCup(new StringReader(content)));
-                        // Crear un objeto File asociado a un archivo temporal
-                        File archivo = new File("archivo_temporal.txt");
-
-                        // Escribir el contenido del JTextArea en el archivo
-                        try (PrintWriter escribir = new PrintWriter(archivo)) {
-                            escribir.print(content);
-                        } catch (FileNotFoundException ex) {
+                        
+                        LexerCup scan = new LexerCup(new StringReader(content));
+                        Parser parser = new Parser(scan);
+                        try {
+                            parser.parse();
+                        } catch (Exception ex) {
+                            ex.printStackTrace(); 
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        //Realizar analisis sintactico
-                        try{
-                            s.parse();
-                            TextAreaConsola.setText("Analisis sintactico realizado correctamente, no hay errores");
-                        }catch(Exception e){
-                            Symbol sym = s.getS();
-                            System.out.println("Error Sintactico: Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"" );
-                        }
-
-                        // Realizar el análisis léxico del archivo
-                        try (Reader lector = new BufferedReader(new FileReader(archivo))) {
-                            Lexer lexer = new Lexer(lector);
-                            String resultado = "";
-
-                            while (true) {
-                                Tokens tokens = lexer.yylex();
-                                if (tokens == null) {
-                                    resultado += "FIN";
-                                    // Mostrar el resultado en el JTextArea
-                                    TextAreaConsola.setText("Texto analizado!");
-                                    System.out.println(resultado);
-                                    
-//                                    System.out.println("Lista enlazada:");
-//                                    for (CToken token : listaTokens) {
-//                                        System.out.println("(" + token.contador + ", " + token.lexema + ", " + token.tipo + ")");
-//                                    }
-                                    ListaTokensTemp.addAll(listaTokens);
-                                    ListaErroresTemp.addAll(listaErrores);
-                 
-                                    return;
-                                }
-                                
-                                switch (tokens) {
-                                    case Linea:
-                                        fila += 1;
-                                        columna = 0;
-                                        break;
-                                    case ERROR:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado += lexer.lexeme + " --<Error Lexico! en fila :" + (fila + 1) + ", columna: " + columna + ">--\n";
-                                        contadorErrores += 1;
-                                        tokenErrorTemp = new CError(contadorErrores, lexer.lexeme, "Error", fila + 1, columna);
-                                        listaErrores.add(tokenErrorTemp);
-                                        break;
-                                    case Identificador:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Identificador || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Identificador", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Numero:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Numero || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Numero", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Corchete_Izq:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Corchete_Izq || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Corchete_Izq", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Corchete_Der:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Corchete_Der || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Corchete_Der", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Parentesis_Izq:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Parentesis_Izq || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Parentesis_Izq", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Parentesis_Der:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Parentesis_Der || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Parentesis_Der", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Punto_Coma:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Punto_Coma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Punto_Coma", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Dos_Puntos:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Dos_Puntos || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Dos_Puntos", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Punto:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Punto || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Punto", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case DobleComilla_Izq:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<DobleComilla_Izq || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "DobleComilla_Izq", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case DobleComilla_Der:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<DobleComilla_Der || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "DobleComilla_Der", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Coma:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Coma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Coma", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Program_Inicio:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Program_inicio || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Program_Inicio", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case End:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<End || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "End", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Variable:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Variable || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Variable", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Double:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Double || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Double", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;    
-                                    case Fun_Char:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Cadena || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Char", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Array:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Array || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Array", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Suma:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Suma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Suma", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Resta:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Resta || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Resta", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Multiplicacion:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Multiplicacion || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Multiplicacion", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Division:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Division || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Division", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Mod:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Mod || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Mod", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Media:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Media || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Media", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Mediana:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Mediana || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Media", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Moda:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Moda || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Moda", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Varianza:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Varianza || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Varianza", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Minimo:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Minimo || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Minimo", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Fun_Maximo:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Fun_Maximo || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Fun_Maximo", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Consola:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Consola || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Consola", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Imprimir:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Imprimir || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Imprimir", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Columna:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Columna || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Columna", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Ejecutar:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Ejecutar || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Ejecutar", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Grafica_Barras:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Grafica_Barras || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Grafica_Barras", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Grafica_Titulo:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Grafica_Titulo || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Grafica_Titulo", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Eje_X:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Eje_X || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Eje_X", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Eje_Y:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Eje_Y || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Eje_Y", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Titulo_X:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Titulo_X || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Titulo_X", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Titulo_Y:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Titulo_Y || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Titulo_Y", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Grafica_Pie:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Grafica_Pie || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Grafica_Pie", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Grafica_Label:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Grafica_Label || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Grafica_Label", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Grafica_Valores:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<--<Grafica_Valores || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Grafica_Valores", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Grafica_Lineal:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Grafica_Lineal || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Grafica_Lineal", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Grafica_Histograma:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Grafica_Histograma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Grafica_Histograma", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case DosPuntos_Dobles:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<DosPuntos_Dobles || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "DosPuntos_Dobles", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Signo_Igual:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Signo_Igual || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Signo_Igual", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Signo_Suma:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Signo_Suma || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Signo_Suma", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Signo_Resta:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Signo_Resta || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Signo_Resta", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Signo_Multiplicacion:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Signo_Multiplicacion || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Signo_Multiplicacion", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Signo_Division:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Signo_Division || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Signo_Division", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Signo_Indicador:
-                                        for (char c : lexer.lexeme.toCharArray()) {
-                                            if (c != ' ') {
-                                                columna += 1;
-                                            }
-                                        }
-                                        resultado +=  lexer.lexeme + " --<Signo_Indicador || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Signo_Indicador", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Signo_Arroba:
-                                        columna += 1;
-                                        resultado +=  lexer.lexeme + " --<Signo_Arroba || Fila :" + (fila + 1) + "|| Columna :" + + (columna) + ">--\n";
-                                        contadorTokens += 1;
-                                        tokenTemp = new CToken(contadorTokens, lexer.lexeme, "Signo_Arroba", fila + 1, columna);
-                                        listaTokens.add(tokenTemp);
-                                        break;
-                                    case Espacio:
-                                        columna += 1;
-                                        break;
-                                    case Tab:
-                                        columna += 4;
-                                        break;
-                                    default:
-                                        resultado += lexer.lexeme + " -> Es " + tokens + "\n";
-                                        break;
-                                }
-                                
-                                
-                                
-                            }
-                            
-                            
-                            
-                            
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                        
-                        
-                        
-                        break;
-                        
-                        
+   
                     }
                     
-                }
-                
+                } 
             }
         } else {
             // Si no hay ninguna pestaña seleccionada, mostrar un mensaje en la consola
             System.out.println("No hay ninguna pestaña seleccionada");
         }
         
-        //ListaTokensTemp = getLinkedList(listaTokens);
     }//GEN-LAST:event_btnEjecutarActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        reporteTokens();
-        reporteErrores();
+        //reporteTokens();
+        //reporteErrores();
         JOptionPane.showMessageDialog(null, "Reportes Generados Exitosamente", "Reportes Generados", JOptionPane.INFORMATION_MESSAGE);
         // Agregar caso de error!
     }//GEN-LAST:event_btnReportesActionPerformed
 
     
-    private void reporteTokens(){
-        StringBuilder htmlCodigo =  new StringBuilder();
-        
-        htmlCodigo.append("<!DOCTYPE html>");
-        htmlCodigo.append("<html lang=\"en\">");
-        htmlCodigo.append("<head>");
-        htmlCodigo.append(" <meta charset=\"UTF-8\">");
-        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
-        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-        htmlCodigo.append("<title>Tokens</title>");
-        htmlCodigo.append("<style>");
-        htmlCodigo.append("body {");
-        htmlCodigo.append("    display: flex;");
-        htmlCodigo.append("    justify-content: center;");
-        htmlCodigo.append("    align-items: center;");
-        htmlCodigo.append("    font-size: large;");
-        htmlCodigo.append("    padding-top: 80px;");
-        htmlCodigo.append("    background-color:   #ffcab3  ;");
-        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("table {");
-        htmlCodigo.append("    border-collapse: separate;");
-        htmlCodigo.append("    width: 47%;");
-        htmlCodigo.append("    margin-top: 10px;");
-        htmlCodigo.append("    background-color: #fff;");
-        htmlCodigo.append("    border: 1px solid #ddd;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("th, td {");
-        htmlCodigo.append("    text-align: center;");
-        htmlCodigo.append("    padding: 8px;");
-        htmlCodigo.append("    border: 1px solid #ddd;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("th {");
-        htmlCodigo.append("    background-color:  #ff9162 ;");
-        htmlCodigo.append("    color: #fff;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("td {");
-        htmlCodigo.append("    background-color:  #ff9162 ;");
-        htmlCodigo.append("    color: #fff;");
-        htmlCodigo.append("}");
-        htmlCodigo.append(".title {");
-        htmlCodigo.append("    font-size: 2em;");
-        htmlCodigo.append("    text-align: center;");
-        htmlCodigo.append("}");
-        htmlCodigo.append(".container {");
-        htmlCodigo.append("    text-align: center;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("</style>");
-        htmlCodigo.append("</head>");
-        htmlCodigo.append("<body>");
-        htmlCodigo.append("<div class=\"container\">");
-        htmlCodigo.append("<h1 class=\"title\">Tabla de tokens</h1>");
-        htmlCodigo.append("<table border=\"1\">");
-        htmlCodigo.append("<thead>");
-        htmlCodigo.append("<tr>");
-        htmlCodigo.append("<th>#</th>");
-        htmlCodigo.append("<th>Lexema</th>");
-        htmlCodigo.append("<th>Tipo</th>");
-        htmlCodigo.append("<th>Línea</th>");
-        htmlCodigo.append("<th>Columna</th>");
-        htmlCodigo.append("</tr>");
-        htmlCodigo.append("</thead>");
-        htmlCodigo.append("<tbody>");
-        
-        for (CToken token : ListaTokensTemp) {
-            htmlCodigo.append("<tr>");
-            htmlCodigo.append("<td>").append(token.contador).append("</td>");
-            htmlCodigo.append("<td>").append(token.lexema).append("</td>");
-            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
-            htmlCodigo.append("<td>").append(token.linea).append("</td>");
-            htmlCodigo.append("<td>").append(token.columna).append("</td>");
-            htmlCodigo.append("</tr>");
-        }
-        
-        htmlCodigo.append("</tbody>");
-        htmlCodigo.append("</table>");
-        htmlCodigo.append("</div>");
-        htmlCodigo.append("</body>");
-        htmlCodigo.append("</html>");
-        
-        try {
-            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-tokens" + ".html");
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(htmlCodigo.toString());
-            fileWriter.close();
-
-            Desktop.getDesktop().open(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void reporteErrores(){
-        StringBuilder htmlCodigo =  new StringBuilder();
-        
-        htmlCodigo.append("<!DOCTYPE html>");
-        htmlCodigo.append("<html lang=\"en\">");
-        htmlCodigo.append("<head>");
-        htmlCodigo.append(" <meta charset=\"UTF-8\">");
-        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
-        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-        htmlCodigo.append("<title> Errores</title>");
-        htmlCodigo.append("<style>");
-        htmlCodigo.append("body {");
-        htmlCodigo.append("    display: flex;");
-        htmlCodigo.append("    justify-content: center;");
-        htmlCodigo.append("    align-items: center;");
-        htmlCodigo.append("    font-size: large;");
-        htmlCodigo.append("    padding-top: 80px;");
-        htmlCodigo.append("    background-color:   #ffcab3  ;");
-        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("table {");
-        htmlCodigo.append("    border-collapse: separate;");
-        htmlCodigo.append("    width: 47%;");
-        htmlCodigo.append("    margin-top: 10px;");
-        htmlCodigo.append("    background-color: #fff;");
-        htmlCodigo.append("    border: 1px solid #ddd;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("th, td {");
-        htmlCodigo.append("    text-align: center;");
-        htmlCodigo.append("    padding: 8px;");
-        htmlCodigo.append("    border: 1px solid #ddd;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("th {");
-        htmlCodigo.append("    background-color:  #ff9162 ;");
-        htmlCodigo.append("    color: #fff;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("td {");
-        htmlCodigo.append("    background-color:  #ff9162 ;");
-        htmlCodigo.append("    color: #fff;");
-        htmlCodigo.append("}");
-        htmlCodigo.append(".title {");
-        htmlCodigo.append("    font-size: 2em;");
-        htmlCodigo.append("    text-align: center;");
-        htmlCodigo.append("}");
-        htmlCodigo.append(".container {");
-        htmlCodigo.append("    text-align: center;");
-        htmlCodigo.append("}");
-        htmlCodigo.append("</style>");
-        htmlCodigo.append("</head>");
-        htmlCodigo.append("<body>");
-        htmlCodigo.append("<div class=\"container\">");
-        htmlCodigo.append("<h1 class=\"title\">Tabla de Errores</h1>");
-        htmlCodigo.append("<table border=\"1\">");
-        htmlCodigo.append("<thead>");
-        htmlCodigo.append("<tr>");
-        htmlCodigo.append("<th>#</th>");
-        htmlCodigo.append("<th>Lexema</th>");
-        htmlCodigo.append("<th>Tipo</th>");
-        htmlCodigo.append("<th>Línea</th>");
-        htmlCodigo.append("<th>Columna</th>");
-        htmlCodigo.append("</tr>");
-        htmlCodigo.append("</thead>");
-        htmlCodigo.append("<tbody>");
-        
-        for (CError token : ListaErroresTemp) {
-            htmlCodigo.append("<tr>");
-            htmlCodigo.append("<td>").append(token.contador).append("</td>");
-            htmlCodigo.append("<td>").append(token.error).append("</td>");
-            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
-            htmlCodigo.append("<td>").append(token.linea).append("</td>");
-            htmlCodigo.append("<td>").append(token.columna).append("</td>");
-            htmlCodigo.append("</tr>");
-        }
-        
-        htmlCodigo.append("</tbody>");
-        htmlCodigo.append("</table>");
-        htmlCodigo.append("</div>");
-        htmlCodigo.append("</body>");
-        htmlCodigo.append("</html>");
-        
-        try {
-            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-errores" + ".html");
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(htmlCodigo.toString());
-            fileWriter.close();
-
-            Desktop.getDesktop().open(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void reporteTokens(){
+//        StringBuilder htmlCodigo =  new StringBuilder();
+//        
+//        htmlCodigo.append("<!DOCTYPE html>");
+//        htmlCodigo.append("<html lang=\"en\">");
+//        htmlCodigo.append("<head>");
+//        htmlCodigo.append(" <meta charset=\"UTF-8\">");
+//        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+//        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+//        htmlCodigo.append("<title>Tokens</title>");
+//        htmlCodigo.append("<style>");
+//        htmlCodigo.append("body {");
+//        htmlCodigo.append("    display: flex;");
+//        htmlCodigo.append("    justify-content: center;");
+//        htmlCodigo.append("    align-items: center;");
+//        htmlCodigo.append("    font-size: large;");
+//        htmlCodigo.append("    padding-top: 80px;");
+//        htmlCodigo.append("    background-color:   #ffcab3  ;");
+//        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("table {");
+//        htmlCodigo.append("    border-collapse: separate;");
+//        htmlCodigo.append("    width: 47%;");
+//        htmlCodigo.append("    margin-top: 10px;");
+//        htmlCodigo.append("    background-color: #fff;");
+//        htmlCodigo.append("    border: 1px solid #ddd;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("th, td {");
+//        htmlCodigo.append("    text-align: center;");
+//        htmlCodigo.append("    padding: 8px;");
+//        htmlCodigo.append("    border: 1px solid #ddd;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("th {");
+//        htmlCodigo.append("    background-color:  #ff9162 ;");
+//        htmlCodigo.append("    color: #fff;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("td {");
+//        htmlCodigo.append("    background-color:  #ff9162 ;");
+//        htmlCodigo.append("    color: #fff;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append(".title {");
+//        htmlCodigo.append("    font-size: 2em;");
+//        htmlCodigo.append("    text-align: center;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append(".container {");
+//        htmlCodigo.append("    text-align: center;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("</style>");
+//        htmlCodigo.append("</head>");
+//        htmlCodigo.append("<body>");
+//        htmlCodigo.append("<div class=\"container\">");
+//        htmlCodigo.append("<h1 class=\"title\">Tabla de tokens</h1>");
+//        htmlCodigo.append("<table border=\"1\">");
+//        htmlCodigo.append("<thead>");
+//        htmlCodigo.append("<tr>");
+//        htmlCodigo.append("<th>#</th>");
+//        htmlCodigo.append("<th>Lexema</th>");
+//        htmlCodigo.append("<th>Tipo</th>");
+//        htmlCodigo.append("<th>Línea</th>");
+//        htmlCodigo.append("<th>Columna</th>");
+//        htmlCodigo.append("</tr>");
+//        htmlCodigo.append("</thead>");
+//        htmlCodigo.append("<tbody>");
+//        
+//        for (CToken token : ListaTokensTemp) {
+//            htmlCodigo.append("<tr>");
+//            htmlCodigo.append("<td>").append(token.contador).append("</td>");
+//            htmlCodigo.append("<td>").append(token.lexema).append("</td>");
+//            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
+//            htmlCodigo.append("<td>").append(token.linea).append("</td>");
+//            htmlCodigo.append("<td>").append(token.columna).append("</td>");
+//            htmlCodigo.append("</tr>");
+//        }
+//        
+//        htmlCodigo.append("</tbody>");
+//        htmlCodigo.append("</table>");
+//        htmlCodigo.append("</div>");
+//        htmlCodigo.append("</body>");
+//        htmlCodigo.append("</html>");
+//        
+//        try {
+//            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-tokens" + ".html");
+//            FileWriter fileWriter = new FileWriter(file);
+//            fileWriter.write(htmlCodigo.toString());
+//            fileWriter.close();
+//
+//            Desktop.getDesktop().open(file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    private void reporteErrores(){
+//        StringBuilder htmlCodigo =  new StringBuilder();
+//        
+//        htmlCodigo.append("<!DOCTYPE html>");
+//        htmlCodigo.append("<html lang=\"en\">");
+//        htmlCodigo.append("<head>");
+//        htmlCodigo.append(" <meta charset=\"UTF-8\">");
+//        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+//        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+//        htmlCodigo.append("<title> Errores</title>");
+//        htmlCodigo.append("<style>");
+//        htmlCodigo.append("body {");
+//        htmlCodigo.append("    display: flex;");
+//        htmlCodigo.append("    justify-content: center;");
+//        htmlCodigo.append("    align-items: center;");
+//        htmlCodigo.append("    font-size: large;");
+//        htmlCodigo.append("    padding-top: 80px;");
+//        htmlCodigo.append("    background-color:   #ffcab3  ;");
+//        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("table {");
+//        htmlCodigo.append("    border-collapse: separate;");
+//        htmlCodigo.append("    width: 47%;");
+//        htmlCodigo.append("    margin-top: 10px;");
+//        htmlCodigo.append("    background-color: #fff;");
+//        htmlCodigo.append("    border: 1px solid #ddd;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("th, td {");
+//        htmlCodigo.append("    text-align: center;");
+//        htmlCodigo.append("    padding: 8px;");
+//        htmlCodigo.append("    border: 1px solid #ddd;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("th {");
+//        htmlCodigo.append("    background-color:  #ff9162 ;");
+//        htmlCodigo.append("    color: #fff;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("td {");
+//        htmlCodigo.append("    background-color:  #ff9162 ;");
+//        htmlCodigo.append("    color: #fff;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append(".title {");
+//        htmlCodigo.append("    font-size: 2em;");
+//        htmlCodigo.append("    text-align: center;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append(".container {");
+//        htmlCodigo.append("    text-align: center;");
+//        htmlCodigo.append("}");
+//        htmlCodigo.append("</style>");
+//        htmlCodigo.append("</head>");
+//        htmlCodigo.append("<body>");
+//        htmlCodigo.append("<div class=\"container\">");
+//        htmlCodigo.append("<h1 class=\"title\">Tabla de Errores</h1>");
+//        htmlCodigo.append("<table border=\"1\">");
+//        htmlCodigo.append("<thead>");
+//        htmlCodigo.append("<tr>");
+//        htmlCodigo.append("<th>#</th>");
+//        htmlCodigo.append("<th>Lexema</th>");
+//        htmlCodigo.append("<th>Tipo</th>");
+//        htmlCodigo.append("<th>Línea</th>");
+//        htmlCodigo.append("<th>Columna</th>");
+//        htmlCodigo.append("</tr>");
+//        htmlCodigo.append("</thead>");
+//        htmlCodigo.append("<tbody>");
+//        
+//        for (CError token : ListaErroresTemp) {
+//            htmlCodigo.append("<tr>");
+//            htmlCodigo.append("<td>").append(token.contador).append("</td>");
+//            htmlCodigo.append("<td>").append(token.error).append("</td>");
+//            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
+//            htmlCodigo.append("<td>").append(token.linea).append("</td>");
+//            htmlCodigo.append("<td>").append(token.columna).append("</td>");
+//            htmlCodigo.append("</tr>");
+//        }
+//        
+//        htmlCodigo.append("</tbody>");
+//        htmlCodigo.append("</table>");
+//        htmlCodigo.append("</div>");
+//        htmlCodigo.append("</body>");
+//        htmlCodigo.append("</html>");
+//        
+//        try {
+//            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-errores" + ".html");
+//            FileWriter fileWriter = new FileWriter(file);
+//            fileWriter.write(htmlCodigo.toString());
+//            fileWriter.close();
+//
+//            Desktop.getDesktop().open(file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     
     
