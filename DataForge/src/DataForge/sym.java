@@ -8,69 +8,67 @@ package DataForge;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int Eje_X = 37;
-  public static final int Parentesis_Der = 11;
-  public static final int Corchete_Der = 13;
-  public static final int Signo_Arroba = 52;
-  public static final int Coma = 50;
-  public static final int End = 15;
-  public static final int Grafica_Label = 42;
-  public static final int Fun_Mediana = 26;
-  public static final int Fun_Resta = 21;
-  public static final int Fun_Char = 18;
-  public static final int DosPuntos_Dobles = 46;
-  public static final int Dos_Puntos = 48;
-  public static final int Grafica_Pie = 41;
-  public static final int DobleComilla_Der = 4;
-  public static final int Titulo_Y = 40;
-  public static final int Variable = 16;
-  public static final int Titulo_X = 39;
-  public static final int Fun_Mod = 24;
-  public static final int Fun_Double = 17;
-  public static final int Grafica_Histograma = 45;
-  public static final int Punto = 49;
-  public static final int Columna = 33;
-  public static final int Fun_Varianza = 28;
-  public static final int Ejecutar = 34;
-  public static final int Grafica_Lineal = 44;
-  public static final int Fun_Suma = 20;
-  public static final int Fun_Minimo = 29;
+  public static final int Eje_X = 35;
+  public static final int Parentesis_Der = 9;
+  public static final int Corchete_Der = 11;
+  public static final int Signo_Arroba = 50;
+  public static final int Coma = 48;
+  public static final int End = 13;
+  public static final int Grafica_Label = 40;
+  public static final int Fun_Mediana = 24;
+  public static final int Fun_Resta = 19;
+  public static final int Fun_Char = 16;
+  public static final int DosPuntos_Dobles = 44;
+  public static final int Dos_Puntos = 46;
+  public static final int Grafica_Pie = 39;
+  public static final int Titulo_Y = 38;
+  public static final int Variable = 14;
+  public static final int Titulo_X = 37;
+  public static final int Fun_Mod = 22;
+  public static final int Fun_Double = 15;
+  public static final int Grafica_Histograma = 43;
+  public static final int Punto = 47;
+  public static final int Columna = 31;
+  public static final int Fun_Varianza = 26;
+  public static final int Ejecutar = 32;
+  public static final int Grafica_Lineal = 42;
+  public static final int Fun_Suma = 18;
+  public static final int Fun_Minimo = 27;
   public static final int EOF = 0;
-  public static final int Signo_Suma = 6;
+  public static final int Signo_Suma = 4;
+  public static final int COMILLA = 55;
   public static final int error = 1;
-  public static final int Fun_Division = 23;
-  public static final int Grafica_Barras = 35;
-  public static final int Program_Inicio = 14;
-  public static final int Grafica_Titulo = 36;
+  public static final int Fun_Division = 21;
+  public static final int Grafica_Barras = 33;
+  public static final int Program_Inicio = 12;
   public static final int Linea = 2;
-  public static final int Parentesis_Izq = 10;
-  public static final int Fun_Multiplicacion = 22;
-  public static final int Corchete_Izq = 12;
-  public static final int Imprimir = 32;
-  public static final int Fun_Consola = 31;
-  public static final int Grafica_Valores = 43;
-  public static final int Signo_Division = 9;
-  public static final int ERROR = 55;
-  public static final int Fun_Moda = 27;
-  public static final int Signo_Resta = 7;
-  public static final int Punto_Coma = 47;
-  public static final int Fun_Maximo = 30;
-  public static final int Identificador = 54;
-  public static final int Fun_Media = 25;
-  public static final int Signo_Igual = 5;
-  public static final int DobleComilla_Izq = 3;
-  public static final int Signo_Multiplicacion = 8;
-  public static final int Array = 19;
-  public static final int Decimal = 56;
-  public static final int Signo_Indicador = 51;
-  public static final int Numero = 53;
-  public static final int Eje_Y = 38;
+  public static final int Grafica_Titulo = 34;
+  public static final int Parentesis_Izq = 8;
+  public static final int Fun_Multiplicacion = 20;
+  public static final int Corchete_Izq = 10;
+  public static final int Imprimir = 30;
+  public static final int Fun_Consola = 29;
+  public static final int Grafica_Valores = 41;
+  public static final int Signo_Division = 7;
+  public static final int ERROR = 52;
+  public static final int Fun_Moda = 25;
+  public static final int char_general = 54;
+  public static final int Signo_Resta = 5;
+  public static final int Punto_Coma = 45;
+  public static final int Fun_Maximo = 28;
+  public static final int Identificador = 51;
+  public static final int Fun_Media = 23;
+  public static final int Signo_Igual = 3;
+  public static final int Signo_Multiplicacion = 6;
+  public static final int Array = 17;
+  public static final int Decimal = 53;
+  public static final int Signo_Indicador = 49;
+  public static final int Numero = 56;
+  public static final int Eje_Y = 36;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "Linea",
-  "DobleComilla_Izq",
-  "DobleComilla_Der",
   "Signo_Igual",
   "Signo_Suma",
   "Signo_Resta",
@@ -119,10 +117,12 @@ public class sym {
   "Coma",
   "Signo_Indicador",
   "Signo_Arroba",
-  "Numero",
   "Identificador",
   "ERROR",
-  "Decimal"
+  "Decimal",
+  "char_general",
+  "COMILLA",
+  "Numero"
   };
 }
 

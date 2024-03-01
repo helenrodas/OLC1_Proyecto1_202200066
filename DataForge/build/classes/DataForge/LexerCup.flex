@@ -15,6 +15,8 @@ D=[0-9]+
 DECIMAL = {D}\.{D} 
 espacio=[ \t\r\n]+
 
+COMILLA = "\""
+
 %{
     
 %}
@@ -22,6 +24,9 @@ espacio=[ \t\r\n]+
     yyline = 1;
     yycolumn = 1;
 %init}
+
+
+CHAR_GENERAL = [^\"]
 %%
 
 program {System.out.println("--<Program: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Program_Inicio, yycolumn, yyline, yytext());}
@@ -71,13 +76,12 @@ histogram {System.out.println("--<Grafica_Histograma: " +yytext() + " || linea: 
 ":" {System.out.println("--<Dos_Puntos: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Dos_Puntos, yycolumn, yyline, yytext());}
 "." {System.out.println("--<Punto: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Punto, yycolumn, yyline, yytext());}
 "," {System.out.println("--<Coma: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Coma, yycolumn, yyline, yytext());}
-"“" {System.out.println("--<DobleComilla_Izq: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.DobleComilla_Izq, yycolumn, yyline, yytext());}
-"”" {System.out.println("--<DobleComilla_Der: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.DobleComilla_Der, yycolumn, yyline, yytext());}
 "<-" {System.out.println("--<Signo_Indicador: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Signo_Indicador, yycolumn, yyline, yytext());}
 "@" {System.out.println("--<Signo_Arroba: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Signo_Arroba, yycolumn, yyline, yytext());}
 {espacio} {/*Ignore*/}
 {L}({L}|{D})* {System.out.println("--<Identificador: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
 {D} {System.out.println("--<Numero: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
 {D}+("."{D}+)? { System.out.println("--<Decimal: " + yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">"); return new Symbol(sym.Decimal, yycolumn, yyline, yytext());}
+{COMILLA}({CHAR_GENERAL})*{COMILLA} {System.out.println("--<CHAR_GENERAL: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.char_general, yycolumn, yyline, yytext());}
 . {return new Symbol(sym.ERROR, yycolumn, yyline, yytext());}
 

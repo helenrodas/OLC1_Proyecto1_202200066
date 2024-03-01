@@ -10,24 +10,29 @@ parser code
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         System.out.println("Error sintactico unrecovered: "+s.value+" linea: "+s.left+" columna: "+s.right);
     }
+    double valor_total ;
 
+    Variable newVar = new Variable();
 :};
-terminal Linea, DobleComilla_Izq,DobleComilla_Der,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Division, 
+terminal Linea,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Division, 
         Parentesis_Izq, Parentesis_Der,Corchete_Izq, Corchete_Der, Program_Inicio,End,Variable,Fun_Double,Fun_Char,
         Array,Fun_Suma,Fun_Resta,Fun_Multiplicacion,Fun_Division,Fun_Mod,Fun_Media,Fun_Mediana,Fun_Moda,
         Fun_Varianza,Fun_Minimo,Fun_Maximo,Fun_Consola,Imprimir,Columna,Ejecutar,Grafica_Barras,Grafica_Titulo,Eje_X,
         Eje_Y,Titulo_X,Titulo_Y,Grafica_Pie,Grafica_Label,Grafica_Valores,Grafica_Lineal,Grafica_Histograma,DosPuntos_Dobles,
-        Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Numero,Identificador, ERROR,Decimal;
+        Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Identificador, ERROR,Decimal,char_general,COMILLA;
+        
+terminal String Numero;
 
 non terminal PROGRAM, CODIGO, DECLARACION,VARIABLE_CHAR,VARIABLE_DOUBLE,ARREGLO,VALOR_CHAR,ID,VALOR_DOUBLE,OPERACIONES,VARIABLES,TIPO_ARREGLO,
-            CONTENIDO_ARREGLO,ARR_DOUBLE,ARR_CHAR,VALOR_NUMERICO,ESTRUCTURA_CHAR,TIPOS_CHAR;
+            CONTENIDO_ARREGLO,ARR_DOUBLE,ARR_CHAR,VALOR_NUMERICO,ESTRUCTURA_CHAR,TIPOS_CHAR,OPERACIONES_ARITMETICAS,OPERACIONES_ESTADISTICAS,
+            SUMA,RESTA,MULTIPLICACION,DIVISION,MOD,VALOR_ARIT;
 
 start with PROGRAM;
 
 PROGRAM ::= 
     Program_Inicio CODIGO End Program_Inicio 
 ;
-CODIGO ::= DECLARACION |  ;
+CODIGO ::= DECLARACION | ;
 
 DECLARACION::= VARIABLES | VARIABLES DECLARACION;
 
@@ -35,20 +40,51 @@ DECLARACION::= VARIABLES | VARIABLES DECLARACION;
 VARIABLES::= VARIABLE_CHAR | VARIABLE_DOUBLE | ARREGLO;
 
 //Variable char
-VARIABLE_CHAR::= Variable Dos_Puntos Fun_Char Corchete_Izq Corchete_Der DosPuntos_Dobles Identificador Signo_Indicador VALOR_CHAR End Punto_Coma;
+VARIABLE_CHAR::= Variable Dos_Puntos Fun_Char Corchete_Izq Corchete_Der DosPuntos_Dobles ID Signo_Indicador VALOR_CHAR End Punto_Coma;
 
-VALOR_CHAR::= DobleComilla_Izq ID DobleComilla_Der | ID;
+VALOR_CHAR::= char_general | Identificador ;
 
-ID::= Identificador| ;
+ID::= Identificador | ;
 
 //Variable double
-VARIABLE_DOUBLE::= Variable Dos_Puntos Fun_Double DosPuntos_Dobles Identificador Signo_Indicador VALOR_DOUBLE End Punto_Coma;
+VARIABLE_DOUBLE::= Variable Dos_Puntos Fun_Double DosPuntos_Dobles Identificador:IdentVar Signo_Indicador VALOR_NUMERICO End Punto_Coma {:newVar.addVar((String)IdentVar,"variable_double",String.valueOf(valor_total)); :};
 
-VALOR_DOUBLE::= VALOR_NUMERICO | OPERACIONES;
-VALOR_NUMERICO ::= Numero | Decimal| ID;
- 
+
+
+
+VALOR_NUMERICO ::= ID
+		| Numero:var {:RESULT = var;:}
+		| Fun_Suma Parentesis_Izq VALOR_NUMERICO:var1 Coma VALOR_NUMERICO:var2 Parentesis_Der {: double no1 = Double.parseDouble((String)var1);
+													double no2 = Double.parseDouble((String)var2);
+													double resultado = no1+no2;
+													RESULT = String.valueOf(resultado);
+													valor_total = resultado;:}
+		| Fun_Resta Parentesis_Izq VALOR_NUMERICO:var1 Coma VALOR_NUMERICO:var2 Parentesis_Der {: double no1 = Double.parseDouble((String)var1);
+													double no2 = Double.parseDouble((String)var2);
+													double resultado = no1-no2;
+													RESULT = String.valueOf(resultado);
+													valor_total = resultado;:}
+		| Fun_Multiplicacion Parentesis_Izq VALOR_NUMERICO:var1 Coma VALOR_NUMERICO:var2 Parentesis_Der {: double no1 = Double.parseDouble((String)var1);
+													double no2 = Double.parseDouble((String)var2);
+													double resultado = no1*no2;
+													RESULT = String.valueOf(resultado);
+													valor_total = resultado;:} 
+		| Fun_Division Parentesis_Izq VALOR_NUMERICO:var1 Coma VALOR_NUMERICO:var2 Parentesis_Der {: double no1 = Double.parseDouble((String)var1);
+													double no2 = Double.parseDouble((String)var2);
+													double resultado = no1/no2;
+													RESULT = String.valueOf(resultado);
+													valor_total = resultado;:}
+		| Fun_Mod Parentesis_Izq VALOR_NUMERICO:var1 Coma VALOR_NUMERICO:var2 Parentesis_Der {: double no1 = Double.parseDouble((String)var1);
+													double no2 = Double.parseDouble((String)var2);
+													double resultado = no1%no2;
+													RESULT = String.valueOf(resultado);
+													valor_total = resultado;:};
+
+OPERACIONES::= OPERACIONES_ARITMETICAS | OPERACIONES_ESTADISTICAS;
+
 //Declaracion de arreglo
 ARREGLO::= Array Dos_Puntos TIPO_ARREGLO DosPuntos_Dobles Signo_Arroba Identificador Signo_Indicador Corchete_Izq CONTENIDO_ARREGLO Corchete_Der End Punto_Coma;
+
 TIPO_ARREGLO::= Fun_Char Corchete_Izq Corchete_Der |Fun_Double;
 
 CONTENIDO_ARREGLO::= ARR_DOUBLE | ARR_CHAR;
@@ -59,8 +95,22 @@ ARR_DOUBLE::= VALOR_NUMERICO | VALOR_NUMERICO Coma ARR_DOUBLE;
 //Arreglo de tipo char
 ARR_CHAR::= ESTRUCTURA_CHAR | ESTRUCTURA_CHAR Coma ARR_CHAR;
 
-ESTRUCTURA_CHAR::= DobleComilla_Izq TIPOS_CHAR DobleComilla_Der;
+ESTRUCTURA_CHAR::= COMILLA TIPOS_CHAR COMILLA;
 
 TIPOS_CHAR::= Identificador TIPOS_CHAR| Numero TIPOS_CHAR | Decimal TIPOS_CHAR| ;
 
+///Operaciones aritmeticas
+OPERACIONES_ARITMETICAS::= SUMA | RESTA| MULTIPLICACION | DIVISION | MOD;
+
+SUMA::= Fun_Suma Parentesis_Izq VALOR_ARIT Parentesis_Der;
+
+RESTA::= Fun_Resta Parentesis_Izq VALOR_ARIT Parentesis_Der;
+
+MULTIPLICACION::= Fun_Multiplicacion Parentesis_Izq VALOR_ARIT Parentesis_Der;
+
+DIVISION::= Fun_Division Parentesis_Izq VALOR_ARIT Parentesis_Der;
+
+MOD::= Fun_Mod Parentesis_Izq VALOR_ARIT Parentesis_Der;
+
+VALOR_ARIT::= VALOR_NUMERICO Coma VALOR_NUMERICO ;
 
