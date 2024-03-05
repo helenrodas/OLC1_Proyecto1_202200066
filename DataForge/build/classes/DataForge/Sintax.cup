@@ -84,8 +84,18 @@ TIPOARRAY::= LISTA_DATOS | Corchete_Izq LISTA_DATOS Corchete_Der ;
 
 D_GRAFICA::= Tipo_Grafica Parentesis_Izq CONTGRAPH Ejecutar Tipo_Grafica End Punto_Coma Parentesis_Der End Punto_Coma;
 
-CONTGRAPH::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General:title End Punto_Coma
+
+
+CONTGRAPH::=
+            Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General:title End Punto_Coma
             Eje_X DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS:contEjx Corchete_Der  End Punto_Coma
             Eje_Y DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS:contEjy Corchete_Der  End Punto_Coma
             Titulo_X DosPuntos_Dobles Var_Tipo Signo_Igual Char_General:tituloX End Punto_Coma
-            Titulo_Y DosPuntos_Dobles Var_Tipo Signo_Igual Char_General:tituloY End Punto_Coma ;
+            Titulo_Y DosPuntos_Dobles Var_Tipo Signo_Igual Char_General:tituloY End Punto_Coma 
+
+            | Grafica_Label DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS:labelPie Corchete_Der  End Punto_Coma
+              Grafica_Valores DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS:valuesPie Corchete_Der  End Punto_Coma
+              Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General:titlePie End Punto_Coma
+
+            | Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General:titleHis End Punto_Coma
+              Grafica_Valores DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS:valuesHist Corchete_Der  End Punto_Coma;
