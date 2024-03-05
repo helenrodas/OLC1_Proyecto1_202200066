@@ -8,63 +8,50 @@ package DataForge;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int Eje_X = 35;
+  public static final int Eje_X = 25;
   public static final int Parentesis_Der = 9;
   public static final int Corchete_Der = 11;
-  public static final int Signo_Arroba = 50;
-  public static final int Coma = 48;
+  public static final int Signo_Arroba = 37;
+  public static final int Coma = 35;
   public static final int End = 13;
-  public static final int Grafica_Label = 40;
-  public static final int Fun_Mediana = 24;
-  public static final int Fun_Resta = 19;
-  public static final int Fun_Char = 16;
-  public static final int DosPuntos_Dobles = 44;
-  public static final int Dos_Puntos = 46;
-  public static final int Grafica_Pie = 39;
-  public static final int Titulo_Y = 38;
+  public static final int Grafica_Label = 29;
+  public static final int DosPuntos_Dobles = 31;
+  public static final int Dos_Puntos = 33;
   public static final int Variable = 14;
-  public static final int Titulo_X = 37;
-  public static final int Fun_Mod = 22;
-  public static final int Fun_Double = 15;
-  public static final int Grafica_Histograma = 43;
-  public static final int Punto = 47;
-  public static final int Columna = 31;
-  public static final int Fun_Varianza = 26;
-  public static final int Ejecutar = 32;
-  public static final int Grafica_Lineal = 42;
-  public static final int Fun_Suma = 18;
-  public static final int Fun_Minimo = 27;
+  public static final int Titulo_Y = 28;
+  public static final int Titulo_X = 27;
+  public static final int Titulo = 24;
+  public static final int Signo_IndicadorR = 43;
+  public static final int Char_General = 40;
+  public static final int Punto = 34;
+  public static final int Columna = 21;
+  public static final int Var_Tipo = 15;
+  public static final int Ejecutar = 22;
   public static final int EOF = 0;
   public static final int Signo_Suma = 4;
-  public static final int COMILLA = 55;
+  public static final int COMILLA = 41;
   public static final int error = 1;
-  public static final int Fun_Division = 21;
-  public static final int Grafica_Barras = 33;
-  public static final int Program_Inicio = 12;
+  public static final int Fun_Arit = 17;
   public static final int Linea = 2;
-  public static final int Grafica_Titulo = 34;
   public static final int Parentesis_Izq = 8;
-  public static final int Fun_Multiplicacion = 20;
   public static final int Corchete_Izq = 10;
-  public static final int Imprimir = 30;
-  public static final int Fun_Consola = 29;
-  public static final int Grafica_Valores = 41;
+  public static final int Imprimir = 20;
+  public static final int Fun_Consola = 19;
+  public static final int Grafica_Valores = 30;
   public static final int Signo_Division = 7;
-  public static final int ERROR = 52;
-  public static final int Fun_Moda = 25;
-  public static final int char_general = 54;
+  public static final int ERROR = 39;
+  public static final int Fun_Esta = 18;
   public static final int Signo_Resta = 5;
-  public static final int Punto_Coma = 45;
-  public static final int Fun_Maximo = 28;
-  public static final int Identificador = 51;
-  public static final int Fun_Media = 23;
+  public static final int Punto_Coma = 32;
+  public static final int Identificador = 38;
   public static final int Signo_Igual = 3;
   public static final int Signo_Multiplicacion = 6;
-  public static final int Array = 17;
-  public static final int Decimal = 53;
-  public static final int Signo_Indicador = 49;
-  public static final int Numero = 56;
-  public static final int Eje_Y = 36;
+  public static final int Array = 16;
+  public static final int Signo_Indicador = 36;
+  public static final int Numero = 42;
+  public static final int Program = 12;
+  public static final int Tipo_Grafica = 23;
+  public static final int Eje_Y = 26;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -78,38 +65,25 @@ public class sym {
   "Parentesis_Der",
   "Corchete_Izq",
   "Corchete_Der",
-  "Program_Inicio",
+  "Program",
   "End",
   "Variable",
-  "Fun_Double",
-  "Fun_Char",
+  "Var_Tipo",
   "Array",
-  "Fun_Suma",
-  "Fun_Resta",
-  "Fun_Multiplicacion",
-  "Fun_Division",
-  "Fun_Mod",
-  "Fun_Media",
-  "Fun_Mediana",
-  "Fun_Moda",
-  "Fun_Varianza",
-  "Fun_Minimo",
-  "Fun_Maximo",
+  "Fun_Arit",
+  "Fun_Esta",
   "Fun_Consola",
   "Imprimir",
   "Columna",
   "Ejecutar",
-  "Grafica_Barras",
-  "Grafica_Titulo",
+  "Tipo_Grafica",
+  "Titulo",
   "Eje_X",
   "Eje_Y",
   "Titulo_X",
   "Titulo_Y",
-  "Grafica_Pie",
   "Grafica_Label",
   "Grafica_Valores",
-  "Grafica_Lineal",
-  "Grafica_Histograma",
   "DosPuntos_Dobles",
   "Punto_Coma",
   "Dos_Puntos",
@@ -119,10 +93,10 @@ public class sym {
   "Signo_Arroba",
   "Identificador",
   "ERROR",
-  "Decimal",
-  "char_general",
+  "Char_General",
   "COMILLA",
-  "Numero"
+  "Numero",
+  "Signo_IndicadorR"
   };
 }
 
