@@ -51,7 +51,7 @@ public class arbol {
             System.out.println("Se encontro : "
             + raiz.hijos.get(0).etiqueta
             + " de tipo: " + raiz.hijos.get(2).etiqueta
-            + "con el valor : " + raiz.hijos.get(6).result);
+            + " con el valor : " + raiz.hijos.get(6).result);
             
             CTablaSimb simbolo = new CTablaSimb(raiz.hijos.get(4).etiqueta,
             raiz.hijos.get(2).etiqueta, "Variable",raiz.hijos.get(6).result);
@@ -77,9 +77,16 @@ public class arbol {
             //System.out.println(raiz.hijos.get(0).etiqueta+" " + raiz.hijos.get(2).result +" " +raiz.hijos.get(4).result);
             if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("sum")){
                 raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) + Double.parseDouble(raiz.hijos.get(4).result));
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("res")){
+                raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) - Double.parseDouble(raiz.hijos.get(4).result));
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("mul")){
+                raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) * Double.parseDouble(raiz.hijos.get(4).result));
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("div")){
+                raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) / Double.parseDouble(raiz.hijos.get(4).result));
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("mod")){
+                raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) % Double.parseDouble(raiz.hijos.get(4).result));
             }
         }
-        
         
     }
     
