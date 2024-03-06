@@ -22,4 +22,12 @@ public class arbol {
     public void addHijo(arbol hijo){
         this.hijos.add(hijo);
     }
+    
+    
+    public void printArbol(arbol raiz){
+        for (arbol hijo : raiz.hijos ) {
+            printArbol(hijo);
+        }
+        System.out.println(raiz.etiqueta );
+    }
 }

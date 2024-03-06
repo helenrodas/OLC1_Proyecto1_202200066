@@ -38,6 +38,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import DataForge.arbol;
 
 /**
  *
@@ -398,7 +399,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         LexerCup scan = new LexerCup(new StringReader(content));
                         Parser parser = new Parser(scan);
                         try {
-                            parser.parse();
+//                            parser.parse();
+                            arbol raiz = (arbol)parser.parse().value;
+                            raiz.printArbol(raiz);
                         } catch (Exception ex) {
                             ex.printStackTrace(); 
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
