@@ -22,7 +22,7 @@ terminal Linea,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Div
         
 
 
-non terminal arbol INICIO_PR, CODIGO, EJECUCION,INSTRUCCION ,D_VARIABLE,D_ARREGLO,D_COMENTARIO,D_GRAFICA ,EXPRESION,TIPOEXPR,EXPRE_EST,CONTENIDO,LISTA_DATOS,
+non terminal arbol INICIO_PR, CODIGO, EJECUCION,INSTRUCCION ,D_VARIABLE,D_ARREGLO,D_COMENTARIO,D_GRAFICA ,TIPOEXPR,EXPRE_EST,CONTENIDO,LISTA_DATOS,
             SENTENCIA,TIPOARRAY,TEXTO,LISTA_COMENTARIO,CADENA,START_GRAPH,CONTGRAPH;
 
 start with INICIO_PR;
@@ -94,7 +94,7 @@ INSTRUCCION::= D_VARIABLE:V  {:
 
 // ..............VARIABLES.................
 
-D_VARIABLE::= Variable:V Dos_Puntos:D Var_Tipo:T DosPuntos_Dobles:DD Identificador:I Signo_Indicador:S EXPRESION:EX End:E Punto_Coma:PC {:  
+D_VARIABLE::= Variable:V Dos_Puntos:D Var_Tipo:T DosPuntos_Dobles:DD Identificador:I Signo_Indicador:S TIPOEXPR:EX End:E Punto_Coma:PC {:  
 
             arbol D_variable = new arbol("D_VARIABLE");
             D_variable.addHijo(new arbol(V.toString()));
@@ -106,18 +106,59 @@ D_VARIABLE::= Variable:V Dos_Puntos:D Var_Tipo:T DosPuntos_Dobles:DD Identificad
             D_variable.addHijo(EX);
             D_variable.addHijo(new arbol(E.toString()));
             D_variable.addHijo(new arbol(PC.toString()));
-
+            RESULT = D_variable;
   :};
 
-EXPRESION::= TIPOEXPR ;
+TIPOEXPR::= Identificador:I {:
 
-TIPOEXPR::= Identificador
-        |Numero
-        |Char_General
-        |Signo_Arroba Identificador
-        |Fun_Arit Parentesis_Izq EXPRESION Coma EXPRESION Parentesis_Der
-        |Fun_Esta Parentesis_Izq EXPRE_EST Parentesis_Der
-        ;
+            arbol tipoExpr = new arbol("TIPOEXPR");
+            tipoExpr.addHijo(new arbol(I.toString()));
+            RESULT = tipoExpr;
+            :}
+
+        |Numero:N {:
+
+            arbol tipoExpr = new arbol("TIPOEXPR");
+            tipoExpr.addHijo(new arbol(N.toString()));
+            RESULT = tipoExpr;
+            :}
+
+        |Char_General: CG {:
+
+            arbol tipoExpr = new arbol("TIPOEXPR");
+            tipoExpr.addHijo(new arbol(CG.toString()));
+            RESULT = tipoExpr;
+            :}
+
+        |Signo_Arroba:A Identificador:I2 {:
+
+            arbol tipoExpr = new arbol("TIPOEXPR");
+            tipoExpr.addHijo(new arbol(A.toString()));
+            tipoExpr.addHijo(new arbol(I2.toString()));
+            RESULT = tipoExpr;
+            :}
+
+        |Fun_Arit:FA Parentesis_Izq:PI TIPOEXPR:E1 Coma:C TIPOEXPR:E2 Parentesis_Der:PD {:
+
+            arbol tipoExpr = new arbol("TIPOEXPR");
+            tipoExpr.addHijo(new arbol(FA.toString()));
+            tipoExpr.addHijo(new arbol(PI.toString()));
+            tipoExpr.addHijo(E1);
+            tipoExpr.addHijo(new arbol(C.toString()));
+            tipoExpr.addHijo(E2);
+            tipoExpr.addHijo(new arbol(PD.toString()));
+            RESULT = tipoExpr;
+            :}
+
+        |Fun_Esta:FE Parentesis_Izq:PI EXPRE_EST:EE Parentesis_Der:PD{:
+
+            arbol tipoExpr = new arbol("TIPOEXPR");
+            tipoExpr.addHijo(new arbol(FE.toString()));
+            tipoExpr.addHijo(new arbol(PI.toString()));
+            tipoExpr.addHijo(EE);
+            tipoExpr.addHijo(new arbol(PD.toString()));
+            RESULT = tipoExpr;
+            :};
 
 // ..............ARREGLOS.................
 
