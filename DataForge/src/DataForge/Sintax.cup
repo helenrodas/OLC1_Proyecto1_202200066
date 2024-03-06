@@ -22,22 +22,92 @@ terminal Linea,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Div
         
 
 
-non terminal INICIO_PR, CODIGO, EJECUCION,INSTRUCCION ,D_VARIABLE,D_ARREGLO,D_COMENTARIO,D_GRAFICA ,EXPRESION,TIPOEXPR,EXPRE_EST,CONTENIDO,LISTA_DATOS,
+non terminal arbol INICIO_PR, CODIGO, EJECUCION,INSTRUCCION ,D_VARIABLE,D_ARREGLO,D_COMENTARIO,D_GRAFICA ,EXPRESION,TIPOEXPR,EXPRE_EST,CONTENIDO,LISTA_DATOS,
             SENTENCIA,TIPOARRAY,TEXTO,LISTA_COMENTARIO,CADENA,START_GRAPH,CONTGRAPH;
 
 start with INICIO_PR;
 
 // ..............INICIO Y ESTRUCTURA DEL PROGRAMA.................
 
-INICIO_PR ::= Program CODIGO End Program ;
-CODIGO ::= EJECUCION |    ;
-EJECUCION::= INSTRUCCION | EJECUCION INSTRUCCION;
-INSTRUCCION::= D_VARIABLE | D_ARREGLO | D_COMENTARIO | D_GRAFICA;  
+INICIO_PR ::= Program:P1 CODIGO:C End:E Program:P2{:
 
+                arbol inicio = new arbol("INICIO_PR");
+                inicio.addHijo(new arbol(P1.toString()));
+                inicio.addHijo(C);
+                inicio.addHijo(new arbol(E.toString()));
+                inicio.addHijo(new arbol(P2.toString()));
+                RESULT = inicio;
+            :};
+
+CODIGO ::= EJECUCION:E  {:
+
+                arbol codigo = new arbol("CODIGO");
+                codigo.addHijo(E);
+                RESULT = codigo;
+            :}
+            |   ;
+
+
+EJECUCION::= INSTRUCCION:I {:
+
+                arbol ejecucion = new arbol("EJECUCION");
+                ejecucion.addHijo(I);
+                RESULT = ejecucion;
+            :}
+
+            | EJECUCION:E INSTRUCCION:I {:
+
+                arbol ejecucion = new arbol("EJECUCION");
+                ejecucion.addHijo(E);
+                ejecucion.addHijo(I);
+                RESULT = ejecucion;
+            :};
+
+
+INSTRUCCION::= D_VARIABLE:V  {:
+
+                arbol instruccion = new arbol("INSTRUCCION");
+                instruccion.addHijo(V);
+                RESULT = instruccion;
+            :}
+
+            | D_ARREGLO: A {:
+            
+                arbol instruccion = new arbol("INSTRUCCION");
+                instruccion.addHijo(A);
+                RESULT = instruccion;
+            :}
+
+            | D_COMENTARIO:C {:
+            
+                arbol instruccion = new arbol("INSTRUCCION");
+                instruccion.addHijo(C);
+                RESULT = instruccion;
+            :}
+
+            | D_GRAFICA:G  {:
+            
+                arbol instruccion = new arbol("INSTRUCCION");
+                instruccion.addHijo(G);
+                RESULT = instruccion;
+            :};
 
 // ..............VARIABLES.................
 
-D_VARIABLE::= Variable Dos_Puntos Var_Tipo:V DosPuntos_Dobles Identificador Signo_Indicador EXPRESION:E End Punto_Coma {:  System.out.println("tipo variable: " + V );  :};
+D_VARIABLE::= Variable:V Dos_Puntos:D Var_Tipo:T DosPuntos_Dobles:DD Identificador:I Signo_Indicador:S EXPRESION:EX End:E Punto_Coma:PC {:  
+
+            arbol D_variable = new arbol("D_VARIABLE");
+            D_variable.addHijo(new arbol(V.toString()));
+            D_variable.addHijo(new arbol(D.toString()));
+            D_variable.addHijo(new arbol(T.toString()));
+            D_variable.addHijo(new arbol(DD.toString()));
+            D_variable.addHijo(new arbol(I.toString()));
+            D_variable.addHijo(new arbol(S.toString()));
+            D_variable.addHijo(EX);
+            D_variable.addHijo(new arbol(E.toString()));
+            D_variable.addHijo(new arbol(PC.toString()));
+
+  :};
 
 EXPRESION::= TIPOEXPR ;
 
