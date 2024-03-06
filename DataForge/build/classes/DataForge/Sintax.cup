@@ -10,9 +10,6 @@ parser code
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         System.out.println("Error sintactico unrecovered: "+s.value+" linea: "+s.left+" columna: "+s.right);
     }
-    double valor_total ;
-
-    Variable newVar = new Variable();
 :};
 terminal Linea,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Division, 
         Parentesis_Izq, Parentesis_Der,Corchete_Izq, Corchete_Der, Program,End,Variable,Var_Tipo,

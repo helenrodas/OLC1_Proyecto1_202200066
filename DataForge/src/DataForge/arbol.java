@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class arbol {
     public String etiqueta;
     public ArrayList<arbol> hijos;
+    public String result;
     
     public arbol(String etiqueta){
         this.etiqueta = etiqueta;
@@ -30,4 +31,56 @@ public class arbol {
         }
         System.out.println(raiz.etiqueta );
     }
+    
+    public String getValor(ArrayList<CTablaSimb>TablaSim,String nombre){
+        for(CTablaSimb elemento : TablaSim){
+            if(elemento.nombre.equals(nombre)){
+                return elemento.valor;
+            }
+        }
+        return "Se produjo un error semantico";
+    }
+    
+    
+    public void run (arbol raiz, ArrayList<CTablaSimb> TablaSim){
+        for (arbol hijo : raiz.hijos ) {
+            run(hijo,TablaSim);
+        }
+        
+        if(raiz.etiqueta == "D_VARIABLE"){
+            System.out.println("Se encontro : "
+            + raiz.hijos.get(0).etiqueta
+            + " de tipo: " + raiz.hijos.get(2).etiqueta
+            + "con el valor : " + raiz.hijos.get(6).result);
+            
+            CTablaSimb simbolo = new CTablaSimb(raiz.hijos.get(4).etiqueta,
+            raiz.hijos.get(2).etiqueta, "Variable",raiz.hijos.get(6).result);
+            TablaSim.add(simbolo);
+        }else if(raiz.etiqueta == "TIPOEXPR" && raiz.hijos.size()==1){
+            if (raiz.hijos.get(0).etiqueta.substring(0,1).equals("\"")){
+                raiz.result = raiz.hijos.get(0).etiqueta;
+            }else{
+                try{
+                    double var = Double.parseDouble(raiz.hijos.get(0).etiqueta);
+                    raiz.result = raiz.hijos.get(0).etiqueta;
+                }catch (Exception e){
+                    String varAsString = this.getValor(TablaSim, raiz.hijos.get(0).etiqueta);
+                    if (varAsString.equals("Se produjo un error semantico")){
+                        System.out.println("Error!");
+                    }else{
+                        raiz.result = varAsString;
+                    }
+                    
+                }
+            }
+        }else if(raiz.etiqueta == "TIPOEXPR" && raiz.hijos.size()==6){
+            //System.out.println(raiz.hijos.get(0).etiqueta+" " + raiz.hijos.get(2).result +" " +raiz.hijos.get(4).result);
+            if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("sum")){
+                raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) + Double.parseDouble(raiz.hijos.get(4).result));
+            }
+        }
+        
+        
+    }
+    
 }

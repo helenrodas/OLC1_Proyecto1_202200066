@@ -39,6 +39,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import DataForge.arbol;
+import java.util.ArrayList;
 
 /**
  *
@@ -400,8 +401,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         Parser parser = new Parser(scan);
                         try {
 //                            parser.parse();
+                            ArrayList<CTablaSimb> TablaSim = new ArrayList<>();
                             arbol raiz = (arbol)parser.parse().value;
-                            raiz.printArbol(raiz);
+                            raiz.run(raiz,TablaSim);
+                            
+                            System.out.println("---Tabla de simbolos---");
+                            for (CTablaSimb elemento : TablaSim ) {
+                                System.out.println("Nombre: " + elemento.nombre + "\t"+ elemento.tipo + "\t" + 
+                                        elemento.rol + "\t" + elemento.valor);
+                            }
+                            //raiz.printArbol(raiz);
                         } catch (Exception ex) {
                             ex.printStackTrace(); 
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);

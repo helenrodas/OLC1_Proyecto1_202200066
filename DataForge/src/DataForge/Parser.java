@@ -265,9 +265,6 @@ public class Parser extends java_cup.runtime.lr_parser {
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         System.out.println("Error sintactico unrecovered: "+s.value+" linea: "+s.left+" columna: "+s.right);
     }
-    double valor_total ;
-
-    Variable newVar = new Variable();
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
