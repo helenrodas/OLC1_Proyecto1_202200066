@@ -663,7 +663,59 @@ class CUP$Parser$actions {
           case 17: // D_ARREGLO ::= Array Dos_Puntos Var_Tipo DosPuntos_Dobles Signo_Arroba Identificador Signo_Indicador Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma 
             {
               arbol RESULT =null;
+		int Aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)).left;
+		int Aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)).right;
+		Object A = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-11)).value;
+		int DPleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)).left;
+		int DPright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)).right;
+		Object DP = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-10)).value;
+		int Vleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).left;
+		int Vright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).right;
+		Object V = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-9)).value;
+		int DDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).left;
+		int DDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
+		Object DD = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
+		int SAleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
+		int SAright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
+		Object SA = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
+		int Ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
+		int Iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).right;
+		Object I = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-6)).value;
+		int Sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
+		int Sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
+		Object S = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		int CIleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
+		int CIright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
+		Object CI = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		int LDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int LDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		arbol LD = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		int CDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int CDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object CD = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int Eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int Eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object E = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int PCleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int PCright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object PC = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
+            arbol D_arreglo = new arbol("D_ARREGLO");
+            D_arreglo.addHijo(new arbol(A.toString()));
+            D_arreglo.addHijo(new arbol(DP.toString()));
+            D_arreglo.addHijo(new arbol(V.toString()));
+            D_arreglo.addHijo(new arbol(DD.toString()));
+            D_arreglo.addHijo(new arbol(SA.toString()));
+            D_arreglo.addHijo(new arbol(I.toString()));
+            D_arreglo.addHijo(new arbol(S.toString()));
+            D_arreglo.addHijo(new arbol(CI.toString()));
+            D_arreglo.addHijo(LD);
+            D_arreglo.addHijo(new arbol(CD.toString()));
+            D_arreglo.addHijo(new arbol(E.toString()));
+            D_arreglo.addHijo(new arbol(PC.toString()));
+            RESULT = D_arreglo;
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("D_ARREGLO",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -672,7 +724,23 @@ class CUP$Parser$actions {
           case 18: // LISTA_DATOS ::= LISTA_DATOS Coma TIPOEXPR 
             {
               arbol RESULT =null;
-
+		int LDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int LDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		arbol LD = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int Cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int Cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object C = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int TEleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int TEright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol TE = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+                
+                arbol ListaDatos = new arbol("LISTA_DATOS");
+                ListaDatos.addHijo(LD);
+                ListaDatos.addHijo(new arbol(C.toString()));
+                ListaDatos.addHijo(TE);
+                RESULT = ListaDatos;    
+                
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_DATOS",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -681,7 +749,14 @@ class CUP$Parser$actions {
           case 19: // LISTA_DATOS ::= TIPOEXPR 
             {
               arbol RESULT =null;
-
+		int TEleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int TEright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol TE = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+                arbol ListaDatos = new arbol("LISTA_DATOS");
+                ListaDatos.addHijo(TE);
+                RESULT = ListaDatos;   
+                
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_DATOS",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

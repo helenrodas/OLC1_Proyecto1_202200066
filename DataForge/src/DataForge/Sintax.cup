@@ -162,9 +162,38 @@ TIPOEXPR::= Identificador:I {:
 
 // ..............ARREGLOS.................
 
-D_ARREGLO::= Array Dos_Puntos Var_Tipo DosPuntos_Dobles Signo_Arroba Identificador Signo_Indicador Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma ;
+D_ARREGLO::= Array:A Dos_Puntos:DP Var_Tipo:V DosPuntos_Dobles:DD Signo_Arroba:SA Identificador:I Signo_Indicador:S Corchete_Izq:CI LISTA_DATOS:LD Corchete_Der:CD End:E Punto_Coma:PC {:
 
-LISTA_DATOS ::= LISTA_DATOS Coma TIPOEXPR | TIPOEXPR ;
+            arbol D_arreglo = new arbol("D_ARREGLO");
+            D_arreglo.addHijo(new arbol(A.toString()));
+            D_arreglo.addHijo(new arbol(DP.toString()));
+            D_arreglo.addHijo(new arbol(V.toString()));
+            D_arreglo.addHijo(new arbol(DD.toString()));
+            D_arreglo.addHijo(new arbol(SA.toString()));
+            D_arreglo.addHijo(new arbol(I.toString()));
+            D_arreglo.addHijo(new arbol(S.toString()));
+            D_arreglo.addHijo(new arbol(CI.toString()));
+            D_arreglo.addHijo(LD);
+            D_arreglo.addHijo(new arbol(CD.toString()));
+            D_arreglo.addHijo(new arbol(E.toString()));
+            D_arreglo.addHijo(new arbol(PC.toString()));
+            RESULT = D_arreglo;
+            :};
+
+LISTA_DATOS ::= LISTA_DATOS:LD Coma:C TIPOEXPR:TE {:
+                
+                arbol ListaDatos = new arbol("LISTA_DATOS");
+                ListaDatos.addHijo(LD);
+                ListaDatos.addHijo(new arbol(C.toString()));
+                ListaDatos.addHijo(TE);
+                RESULT = ListaDatos;    
+                :}
+                
+            | TIPOEXPR:TE {:
+                arbol ListaDatos = new arbol("LISTA_DATOS");
+                ListaDatos.addHijo(TE);
+                RESULT = ListaDatos;   
+                :};
 
 
 // ..............FUNCIONES ESTADISTICAS.................
