@@ -22,7 +22,7 @@ terminal Linea,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Div
         
 
 
-non terminal arbol INICIO_PR, CODIGO, EJECUCION,INSTRUCCION ,D_VARIABLE,D_ARREGLO,D_COMENTARIO,D_GRAFICA ,TIPOEXPR,EXPRE_EST,CONTENIDO,LISTA_DATOS,
+non terminal arbol INICIO_PR, CODIGO, EJECUCION,INSTRUCCION ,D_VARIABLE,D_ARREGLO,D_COMENTARIO,D_GRAFICA ,TIPOEXPR,EXPRE_EST,LISTA_DATOS,
             SENTENCIA,TIPOARRAY,TEXTO,LISTA_COMENTARIO,CADENA,START_GRAPH,CONTGRAPH;
 
 start with INICIO_PR;
@@ -47,7 +47,6 @@ CODIGO ::= EJECUCION:E  {:
             :}
             |   ;
 
-
 EJECUCION::= INSTRUCCION:I {:
 
                 arbol ejecucion = new arbol("EJECUCION");
@@ -62,7 +61,6 @@ EJECUCION::= INSTRUCCION:I {:
                 ejecucion.addHijo(I);
                 RESULT = ejecucion;
             :};
-
 
 INSTRUCCION::= D_VARIABLE:V  {:
 
@@ -195,29 +193,107 @@ LISTA_DATOS ::= LISTA_DATOS:LD Coma:C TIPOEXPR:TE {:
                 RESULT = ListaDatos;   
                 :};
 
-
 // ..............FUNCIONES ESTADISTICAS.................
 
-EXPRE_EST::= Parentesis_Izq CONTENIDO Parentesis_Der
-            |  CONTENIDO ;
-
-CONTENIDO::= CONTENIDO Coma TIPOEXPR
-            | TIPOEXPR ;
-
+EXPRE_EST::= Parentesis_Izq:PI LISTA_DATOS:LD Parentesis_Der: PD {:
+            
+            arbol ExpreEst = new arbol("EXPRE_EST");
+            ExpreEst.addHijo(new arbol(PI.toString()));
+            ExpreEst.addHijo(LD);
+            ExpreEst.addHijo(new arbol(PD.toString()));
+            RESULT = ExpreEst;
+            :}
+            |  LISTA_DATOS:LD {:
+            arbol ExpreEst = new arbol("EXPRE_EST");
+            ExpreEst.addHijo(LD);
+            RESULT = ExpreEst;
+            :};
 
 // ..............CONSOLA.................
 
-D_COMENTARIO::= Fun_Consola DosPuntos_Dobles LISTA_COMENTARIO ;
-LISTA_COMENTARIO::= Imprimir Signo_Igual SENTENCIA End Punto_Coma | Columna Signo_Igual CADENA Signo_IndicadorR TIPOARRAY End Punto_Coma;
+D_COMENTARIO::= Fun_Consola:FC DosPuntos_Dobles:DD LISTA_COMENTARIO:LC {:
 
-SENTENCIA::= SENTENCIA Coma TEXTO
-            | TEXTO ;
+            arbol D_comentario = new arbol("D_COMENTARIO");
+            D_comentario.addHijo(new arbol(FC.toString()));
+            D_comentario.addHijo(new arbol(DD.toString()));
+            D_comentario.addHijo(LC);
+            RESULT = D_comentario;
+            :};
 
-TEXTO::= TIPOEXPR ;
+LISTA_COMENTARIO::= Imprimir:IM Signo_Igual:SI SENTENCIA:S End:E Punto_Coma:PC {:
+                    
+                arbol listaComentario = new arbol("LISTA_COMENTARIO");
+                listaComentario.addHijo(new arbol(IM.toString()));
+                listaComentario.addHijo(new arbol(SI.toString()));
+                listaComentario.addHijo(S);
+                listaComentario.addHijo(new arbol(E.toString()));
+                listaComentario.addHijo(new arbol(PC.toString()));
+                RESULT = listaComentario;
+                :}
 
-CADENA::= Char_General | Identificador ;
+            | Columna:CL Signo_Igual:SI CADENA:C Signo_IndicadorR:SIR TIPOARRAY:TA End:E Punto_Coma:PC {:
 
-TIPOARRAY::= LISTA_DATOS | Corchete_Izq LISTA_DATOS Corchete_Der ;
+                arbol listaComentario = new arbol("LISTA_COMENTARIO");
+                listaComentario.addHijo(new arbol(CL.toString()));
+                listaComentario.addHijo(new arbol(SI.toString()));
+                listaComentario.addHijo(C);
+                listaComentario.addHijo(new arbol(SIR.toString()));
+                listaComentario.addHijo(new arbol(TA.toString()));
+                listaComentario.addHijo(new arbol(E.toString()));
+                listaComentario.addHijo(new arbol(PC.toString()));
+                RESULT = listaComentario;
+                :};
+
+SENTENCIA::= SENTENCIA:S Coma:C TEXTO:T {:
+
+            arbol sent = new arbol("SENTENCIA");
+            sent.addHijo(S);
+            sent.addHijo(new arbol(C.toString()));
+            sent.addHijo(T);
+            RESULT = sent;          
+            :}
+        | TEXTO: T {:
+            arbol sent = new arbol("SENTENCIA");
+            sent.addHijo(T);
+            RESULT = sent; 
+            :};
+
+TEXTO::= TIPOEXPR:TE {:
+
+        arbol texto = new arbol("TEXTO");
+        texto.addHijo(TE);
+        RESULT = texto; 
+        :};
+
+CADENA::= Char_General:CG {:
+
+        arbol cadena = new arbol("CADENA");
+        cadena.addHijo(new arbol(CG.toString()));
+        RESULT = cadena; 
+        :}
+
+    | Identificador:I {:
+
+        arbol cadena = new arbol("CADENA");
+        cadena.addHijo(new arbol(I.toString()));
+        RESULT = cadena; 
+        :};
+
+TIPOARRAY::= LISTA_DATOS: LD {:
+
+            arbol tipoArray = new arbol("TIPOARRAY");
+            tipoArray.addHijo(LD);
+            RESULT = tipoArray; 
+            :}
+
+        | Corchete_Izq:CI LISTA_DATOS:LD Corchete_Der:CD {:
+
+            arbol tipoArray = new arbol("TIPOARRAY");
+            tipoArray.addHijo(new arbol(CI.toString()));
+            tipoArray.addHijo(LD);
+            tipoArray.addHijo(new arbol(CD.toString()));
+            RESULT = tipoArray; 
+            :};
 
 
 // ..............GRAFICAS.................

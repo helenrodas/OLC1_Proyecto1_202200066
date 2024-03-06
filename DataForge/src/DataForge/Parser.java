@@ -31,18 +31,18 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\046\000\002\002\004\000\002\002\006\000\002\003" +
+    "\000\044\000\002\002\004\000\002\002\006\000\002\003" +
     "\003\000\002\003\002\000\002\004\003\000\002\004\004" +
     "\000\002\005\003\000\002\005\003\000\002\005\003\000" +
     "\002\005\003\000\002\006\013\000\002\012\003\000\002" +
     "\012\003\000\002\012\003\000\002\012\004\000\002\012" +
-    "\010\000\002\012\006\000\002\007\016\000\002\015\005" +
-    "\000\002\015\003\000\002\013\005\000\002\013\003\000" +
-    "\002\014\005\000\002\014\003\000\002\010\005\000\002" +
-    "\021\007\000\002\021\011\000\002\016\005\000\002\016" +
-    "\003\000\002\020\003\000\002\022\003\000\002\022\003" +
-    "\000\002\017\003\000\002\017\005\000\002\011\014\000" +
-    "\002\024\051\000\002\024\033\000\002\024\022" });
+    "\010\000\002\012\006\000\002\007\016\000\002\014\005" +
+    "\000\002\014\003\000\002\013\005\000\002\013\003\000" +
+    "\002\010\005\000\002\020\007\000\002\020\011\000\002" +
+    "\015\005\000\002\015\003\000\002\017\003\000\002\021" +
+    "\003\000\002\021\003\000\002\016\003\000\002\016\005" +
+    "\000\002\011\014\000\002\023\051\000\002\023\033\000" +
+    "\002\023\022" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -50,113 +50,111 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\250\000\004\016\004\001\002\000\014\017\ufffe\020" +
-    "\010\022\013\025\014\031\015\001\002\000\004\002\006" +
+    "\000\245\000\004\016\004\001\002\000\014\017\ufffe\020" +
+    "\010\022\013\025\015\031\014\001\002\000\004\002\006" +
     "\001\002\000\004\002\001\001\002\000\014\017\ufffa\020" +
-    "\ufffa\022\ufffa\025\ufffa\031\ufffa\001\002\000\004\043\243" +
+    "\ufffa\022\ufffa\025\ufffa\031\ufffa\001\002\000\004\043\240" +
     "\001\002\000\014\017\ufffd\020\ufffd\022\ufffd\025\ufffd\031" +
     "\ufffd\001\002\000\014\017\ufff9\020\ufff9\022\ufff9\025\ufff9" +
-    "\031\ufff9\001\002\000\004\043\230\001\002\000\004\041" +
-    "\200\001\002\000\004\012\025\001\002\000\004\017\023" +
+    "\031\ufff9\001\002\000\004\043\225\001\002\000\004\012" +
+    "\103\001\002\000\004\041\025\001\002\000\004\017\023" +
     "\001\002\000\014\017\ufffb\020\ufffb\022\ufffb\025\ufffb\031" +
-    "\ufffb\001\002\000\014\017\uffff\020\010\022\013\025\014" +
-    "\031\015\001\002\000\014\017\ufff8\020\ufff8\022\ufff8\025" +
+    "\ufffb\001\002\000\014\017\uffff\020\010\022\013\025\015" +
+    "\031\014\001\002\000\014\017\ufff8\020\ufff8\022\ufff8\025" +
     "\ufff8\031\ufff8\001\002\000\014\017\ufffc\020\ufffc\022\ufffc" +
     "\025\ufffc\031\ufffc\001\002\000\004\016\024\001\002\000" +
-    "\004\002\000\001\002\000\006\032\026\037\030\001\002" +
-    "\000\004\041\121\001\002\000\004\030\112\001\002\000" +
-    "\004\041\031\001\002\000\004\021\032\001\002\000\004" +
-    "\005\033\001\002\000\004\014\034\001\002\000\016\023" +
-    "\044\024\040\047\037\050\043\052\042\054\035\001\002" +
-    "\000\012\013\ufff5\015\ufff5\017\ufff5\045\ufff5\001\002\000" +
-    "\010\015\uffee\017\uffee\045\uffee\001\002\000\004\050\111" +
-    "\001\002\000\004\012\077\001\002\000\006\015\053\045" +
-    "\052\001\002\000\012\013\ufff4\015\ufff4\017\ufff4\045\ufff4" +
-    "\001\002\000\012\013\ufff6\015\ufff6\017\ufff6\045\ufff6\001" +
-    "\002\000\004\012\045\001\002\000\016\023\044\024\040" +
-    "\047\037\050\043\052\042\054\035\001\002\000\004\045" +
-    "\047\001\002\000\016\023\044\024\040\047\037\050\043" +
-    "\052\042\054\035\001\002\000\004\013\051\001\002\000" +
-    "\012\013\ufff2\015\ufff2\017\ufff2\045\ufff2\001\002\000\016" +
-    "\023\044\024\040\047\037\050\043\052\042\054\035\001" +
-    "\002\000\004\017\054\001\002\000\004\042\055\001\002" +
-    "\000\004\040\056\001\002\000\004\041\057\001\002\000" +
-    "\004\021\060\001\002\000\004\005\061\001\002\000\004" +
-    "\014\062\001\002\000\016\023\044\024\040\047\037\050" +
-    "\043\052\042\054\035\001\002\000\006\015\064\045\052" +
-    "\001\002\000\004\017\065\001\002\000\004\042\066\001" +
-    "\002\000\004\032\067\001\002\000\004\041\070\001\002" +
-    "\000\004\021\071\001\002\000\004\005\072\001\002\000" +
-    "\004\052\073\001\002\000\004\017\074\001\002\000\004" +
-    "\042\075\001\002\000\004\030\uffdd\001\002\000\010\015" +
-    "\uffef\017\uffef\045\uffef\001\002\000\020\012\102\023\044" +
-    "\024\040\047\037\050\043\052\042\054\035\001\002\000" +
-    "\004\013\110\001\002\000\006\013\uffec\045\105\001\002" +
-    "\000\016\023\044\024\040\047\037\050\043\052\042\054" +
-    "\035\001\002\000\006\013\uffea\045\uffea\001\002\000\006" +
-    "\013\106\045\105\001\002\000\016\023\044\024\040\047" +
-    "\037\050\043\052\042\054\035\001\002\000\004\013\uffed" +
-    "\001\002\000\006\013\uffeb\045\uffeb\001\002\000\012\013" +
-    "\ufff1\015\ufff1\017\ufff1\045\ufff1\001\002\000\012\013\ufff3" +
-    "\015\ufff3\017\ufff3\045\ufff3\001\002\000\004\031\113\001" +
-    "\002\000\004\017\114\001\002\000\004\042\115\001\002" +
-    "\000\004\013\116\001\002\000\004\017\117\001\002\000" +
-    "\004\042\120\001\002\000\014\017\uffdf\020\uffdf\022\uffdf" +
-    "\025\uffdf\031\uffdf\001\002\000\004\021\122\001\002\000" +
-    "\004\005\123\001\002\000\004\052\124\001\002\000\004" +
-    "\017\125\001\002\000\004\042\126\001\002\000\006\033" +
-    "\127\040\130\001\002\000\004\041\141\001\002\000\004" +
-    "\041\131\001\002\000\004\021\132\001\002\000\004\005" +
-    "\133\001\002\000\004\014\134\001\002\000\016\023\044" +
-    "\024\040\047\037\050\043\052\042\054\035\001\002\000" +
-    "\006\015\136\045\052\001\002\000\004\017\137\001\002" +
-    "\000\004\042\140\001\002\000\004\030\uffdc\001\002\000" +
-    "\004\021\142\001\002\000\004\005\143\001\002\000\004" +
-    "\014\144\001\002\000\016\023\044\024\040\047\037\050" +
-    "\043\052\042\054\035\001\002\000\006\015\146\045\052" +
-    "\001\002\000\004\017\147\001\002\000\004\042\150\001" +
-    "\002\000\004\034\151\001\002\000\004\041\152\001\002" +
-    "\000\004\021\153\001\002\000\004\005\154\001\002\000" +
-    "\004\014\155\001\002\000\016\023\044\024\040\047\037" +
-    "\050\043\052\042\054\035\001\002\000\006\015\157\045" +
-    "\052\001\002\000\004\017\160\001\002\000\004\042\161" +
-    "\001\002\000\004\035\162\001\002\000\004\041\163\001" +
-    "\002\000\004\021\164\001\002\000\004\005\165\001\002" +
-    "\000\004\052\166\001\002\000\004\017\167\001\002\000" +
-    "\004\042\170\001\002\000\004\036\171\001\002\000\004" +
-    "\041\172\001\002\000\004\021\173\001\002\000\004\005" +
-    "\174\001\002\000\004\052\175\001\002\000\004\017\176" +
-    "\001\002\000\004\042\177\001\002\000\004\030\uffde\001" +
-    "\002\000\006\026\201\027\203\001\002\000\004\005\220" +
-    "\001\002\000\014\017\uffe9\020\uffe9\022\uffe9\025\uffe9\031" +
-    "\uffe9\001\002\000\004\005\204\001\002\000\006\050\206" +
-    "\052\205\001\002\000\004\055\uffe3\001\002\000\004\055" +
-    "\uffe2\001\002\000\004\055\210\001\002\000\020\014\212" +
-    "\023\044\024\040\047\037\050\043\052\042\054\035\001" +
-    "\002\000\004\017\216\001\002\000\016\023\044\024\040" +
-    "\047\037\050\043\052\042\054\035\001\002\000\006\017" +
-    "\uffe1\045\052\001\002\000\006\015\215\045\052\001\002" +
-    "\000\004\017\uffe0\001\002\000\004\042\217\001\002\000" +
-    "\014\017\uffe7\020\uffe7\022\uffe7\025\uffe7\031\uffe7\001\002" +
-    "\000\016\023\044\024\040\047\037\050\043\052\042\054" +
-    "\035\001\002\000\006\017\uffe5\045\uffe5\001\002\000\006" +
-    "\017\225\045\224\001\002\000\006\017\uffe4\045\uffe4\001" +
-    "\002\000\016\023\044\024\040\047\037\050\043\052\042" +
-    "\054\035\001\002\000\004\042\226\001\002\000\014\017" +
-    "\uffe8\020\uffe8\022\uffe8\025\uffe8\031\uffe8\001\002\000\006" +
-    "\017\uffe6\045\uffe6\001\002\000\004\021\231\001\002\000" +
-    "\004\041\232\001\002\000\004\047\233\001\002\000\004" +
-    "\050\234\001\002\000\004\046\235\001\002\000\004\014" +
-    "\236\001\002\000\016\023\044\024\040\047\037\050\043" +
-    "\052\042\054\035\001\002\000\006\015\240\045\052\001" +
-    "\002\000\004\017\241\001\002\000\004\042\242\001\002" +
-    "\000\014\017\ufff0\020\ufff0\022\ufff0\025\ufff0\031\ufff0\001" +
-    "\002\000\004\021\244\001\002\000\004\041\245\001\002" +
-    "\000\004\050\246\001\002\000\004\046\247\001\002\000" +
-    "\016\023\044\024\040\047\037\050\043\052\042\054\035" +
-    "\001\002\000\004\017\251\001\002\000\004\042\252\001" +
-    "\002\000\014\017\ufff7\020\ufff7\022\ufff7\025\ufff7\031\ufff7" +
-    "\001\002" });
+    "\004\002\000\001\002\000\006\026\026\027\030\001\002" +
+    "\000\004\005\073\001\002\000\014\017\uffeb\020\uffeb\022" +
+    "\uffeb\025\uffeb\031\uffeb\001\002\000\004\005\031\001\002" +
+    "\000\006\050\033\052\032\001\002\000\004\055\uffe5\001" +
+    "\002\000\004\055\uffe4\001\002\000\004\055\035\001\002" +
+    "\000\020\014\043\023\040\024\045\047\041\050\042\052" +
+    "\037\054\046\001\002\000\004\017\071\001\002\000\012" +
+    "\013\ufff4\015\ufff4\017\ufff4\045\ufff4\001\002\000\004\012" +
+    "\064\001\002\000\004\050\063\001\002\000\012\013\ufff6" +
+    "\015\ufff6\017\ufff6\045\ufff6\001\002\000\016\023\040\024" +
+    "\045\047\041\050\042\052\037\054\046\001\002\000\006" +
+    "\017\uffe3\045\054\001\002\000\004\012\050\001\002\000" +
+    "\012\013\ufff5\015\ufff5\017\ufff5\045\ufff5\001\002\000\012" +
+    "\013\uffee\015\uffee\017\uffee\045\uffee\001\002\000\020\012" +
+    "\052\023\040\024\045\047\041\050\042\052\037\054\046" +
+    "\001\002\000\004\013\060\001\002\000\016\023\040\024" +
+    "\045\047\041\050\042\052\037\054\046\001\002\000\006" +
+    "\013\uffec\045\054\001\002\000\016\023\040\024\045\047" +
+    "\041\050\042\052\037\054\046\001\002\000\012\013\uffef" +
+    "\015\uffef\017\uffef\045\uffef\001\002\000\006\013\057\045" +
+    "\054\001\002\000\004\013\uffed\001\002\000\012\013\ufff1" +
+    "\015\ufff1\017\ufff1\045\ufff1\001\002\000\006\015\062\045" +
+    "\054\001\002\000\004\017\uffe2\001\002\000\012\013\ufff3" +
+    "\015\ufff3\017\ufff3\045\ufff3\001\002\000\016\023\040\024" +
+    "\045\047\041\050\042\052\037\054\046\001\002\000\004" +
+    "\045\066\001\002\000\016\023\040\024\045\047\041\050" +
+    "\042\052\037\054\046\001\002\000\004\013\070\001\002" +
+    "\000\012\013\ufff2\015\ufff2\017\ufff2\045\ufff2\001\002\000" +
+    "\004\042\072\001\002\000\014\017\uffe9\020\uffe9\022\uffe9" +
+    "\025\uffe9\031\uffe9\001\002\000\016\023\040\024\045\047" +
+    "\041\050\042\052\037\054\046\001\002\000\006\017\uffe7" +
+    "\045\uffe7\001\002\000\006\017\100\045\077\001\002\000" +
+    "\006\017\uffe6\045\uffe6\001\002\000\016\023\040\024\045" +
+    "\047\041\050\042\052\037\054\046\001\002\000\004\042" +
+    "\101\001\002\000\014\017\uffea\020\uffea\022\uffea\025\uffea" +
+    "\031\uffea\001\002\000\006\017\uffe8\045\uffe8\001\002\000" +
+    "\006\032\104\037\106\001\002\000\004\041\146\001\002" +
+    "\000\004\030\137\001\002\000\004\041\107\001\002\000" +
+    "\004\021\110\001\002\000\004\005\111\001\002\000\004" +
+    "\014\112\001\002\000\016\023\040\024\045\047\041\050" +
+    "\042\052\037\054\046\001\002\000\006\015\114\045\054" +
+    "\001\002\000\004\017\115\001\002\000\004\042\116\001" +
+    "\002\000\004\040\117\001\002\000\004\041\120\001\002" +
+    "\000\004\021\121\001\002\000\004\005\122\001\002\000" +
+    "\004\014\123\001\002\000\016\023\040\024\045\047\041" +
+    "\050\042\052\037\054\046\001\002\000\006\015\125\045" +
+    "\054\001\002\000\004\017\126\001\002\000\004\042\127" +
+    "\001\002\000\004\032\130\001\002\000\004\041\131\001" +
+    "\002\000\004\021\132\001\002\000\004\005\133\001\002" +
+    "\000\004\052\134\001\002\000\004\017\135\001\002\000" +
+    "\004\042\136\001\002\000\004\030\uffdf\001\002\000\004" +
+    "\031\140\001\002\000\004\017\141\001\002\000\004\042" +
+    "\142\001\002\000\004\013\143\001\002\000\004\017\144" +
+    "\001\002\000\004\042\145\001\002\000\014\017\uffe1\020" +
+    "\uffe1\022\uffe1\025\uffe1\031\uffe1\001\002\000\004\021\147" +
+    "\001\002\000\004\005\150\001\002\000\004\052\151\001" +
+    "\002\000\004\017\152\001\002\000\004\042\153\001\002" +
+    "\000\006\033\154\040\155\001\002\000\004\041\166\001" +
+    "\002\000\004\041\156\001\002\000\004\021\157\001\002" +
+    "\000\004\005\160\001\002\000\004\014\161\001\002\000" +
+    "\016\023\040\024\045\047\041\050\042\052\037\054\046" +
+    "\001\002\000\006\015\163\045\054\001\002\000\004\017" +
+    "\164\001\002\000\004\042\165\001\002\000\004\030\uffde" +
+    "\001\002\000\004\021\167\001\002\000\004\005\170\001" +
+    "\002\000\004\014\171\001\002\000\016\023\040\024\045" +
+    "\047\041\050\042\052\037\054\046\001\002\000\006\015" +
+    "\173\045\054\001\002\000\004\017\174\001\002\000\004" +
+    "\042\175\001\002\000\004\034\176\001\002\000\004\041" +
+    "\177\001\002\000\004\021\200\001\002\000\004\005\201" +
+    "\001\002\000\004\014\202\001\002\000\016\023\040\024" +
+    "\045\047\041\050\042\052\037\054\046\001\002\000\006" +
+    "\015\204\045\054\001\002\000\004\017\205\001\002\000" +
+    "\004\042\206\001\002\000\004\035\207\001\002\000\004" +
+    "\041\210\001\002\000\004\021\211\001\002\000\004\005" +
+    "\212\001\002\000\004\052\213\001\002\000\004\017\214" +
+    "\001\002\000\004\042\215\001\002\000\004\036\216\001" +
+    "\002\000\004\041\217\001\002\000\004\021\220\001\002" +
+    "\000\004\005\221\001\002\000\004\052\222\001\002\000" +
+    "\004\017\223\001\002\000\004\042\224\001\002\000\004" +
+    "\030\uffe0\001\002\000\004\021\226\001\002\000\004\041" +
+    "\227\001\002\000\004\047\230\001\002\000\004\050\231" +
+    "\001\002\000\004\046\232\001\002\000\004\014\233\001" +
+    "\002\000\016\023\040\024\045\047\041\050\042\052\037" +
+    "\054\046\001\002\000\006\015\235\045\054\001\002\000" +
+    "\004\017\236\001\002\000\004\042\237\001\002\000\014" +
+    "\017\ufff0\020\ufff0\022\ufff0\025\ufff0\031\ufff0\001\002\000" +
+    "\004\021\241\001\002\000\004\041\242\001\002\000\004" +
+    "\050\243\001\002\000\004\046\244\001\002\000\016\023" +
+    "\040\024\045\047\041\050\042\052\037\054\046\001\002" +
+    "\000\004\017\246\001\002\000\004\042\247\001\002\000" +
+    "\014\017\ufff7\020\ufff7\022\ufff7\025\ufff7\031\ufff7\001\002" +
+    "" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -164,66 +162,65 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\250\000\004\002\004\001\001\000\020\003\015\004" +
+    "\000\245\000\004\002\004\001\001\000\020\003\015\004" +
     "\017\005\010\006\016\007\006\010\011\011\020\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\014\005\021\006\016\007\006" +
     "\010\011\011\020\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\024\026" +
+    "\001\000\002\001\001\000\002\001\001\000\004\020\026" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\006\012\035\015\040\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\012\045\001\001\000\002\001\001\000\004" +
-    "\012\047\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\012\075\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\006\012\035\015\062" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\010" +
-    "\012\102\013\077\014\100\001\001\000\002\001\001\000" +
-    "\002\001\001\000\006\012\102\014\103\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\012\106\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\006\012\035" +
-    "\015\134\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\006\012\035\015\144\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\006\012\035\015\155" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\004\021\201" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\022\206\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\010\012\035\015\212\017" +
-    "\210\001\001\000\002\001\001\000\006\012\035\015\213" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\010\012\222" +
-    "\016\221\020\220\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\012\222\020\226\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\000\004\021\033\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\010\012\046\014\043\016" +
+    "\035\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\006\012" +
-    "\035\015\236\001\001\000\002\001\001\000\002\001\001" +
+    "\046\014\060\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\010\012\046\013" +
+    "\050\014\052\001\001\000\002\001\001\000\006\012\046" +
+    "\014\055\001\001\000\002\001\001\000\004\012\054\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\012\247\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001" });
+    "\002\001\001\000\004\012\064\001\001\000\002\001\001" +
+    "\000\004\012\066\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\010\012\075" +
+    "\015\074\017\073\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\006\012\075\017\101\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\023\104\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\006\012\046\014\112\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\006\012\046\014\123\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
+    "\012\046\014\161\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\012\046\014" +
+    "\171\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\012\046" +
+    "\014\202\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\012\046" +
+    "\014\233\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\012" +
+    "\244\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -741,7 +738,7 @@ class CUP$Parser$actions {
                 ListaDatos.addHijo(TE);
                 RESULT = ListaDatos;    
                 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_DATOS",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_DATOS",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
@@ -757,138 +754,286 @@ class CUP$Parser$actions {
                 ListaDatos.addHijo(TE);
                 RESULT = ListaDatos;   
                 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_DATOS",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_DATOS",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // EXPRE_EST ::= Parentesis_Izq CONTENIDO Parentesis_Der 
+          case 20: // EXPRE_EST ::= Parentesis_Izq LISTA_DATOS Parentesis_Der 
             {
               arbol RESULT =null;
-
+		int PIleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int PIright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object PI = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int LDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int LDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		arbol LD = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int PDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int PDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object PD = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+            
+            arbol ExpreEst = new arbol("EXPRE_EST");
+            ExpreEst.addHijo(new arbol(PI.toString()));
+            ExpreEst.addHijo(LD);
+            ExpreEst.addHijo(new arbol(PD.toString()));
+            RESULT = ExpreEst;
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPRE_EST",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // EXPRE_EST ::= CONTENIDO 
+          case 21: // EXPRE_EST ::= LISTA_DATOS 
             {
               arbol RESULT =null;
-
+		int LDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int LDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol LD = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+            arbol ExpreEst = new arbol("EXPRE_EST");
+            ExpreEst.addHijo(LD);
+            RESULT = ExpreEst;
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPRE_EST",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // CONTENIDO ::= CONTENIDO Coma TIPOEXPR 
+          case 22: // D_COMENTARIO ::= Fun_Consola DosPuntos_Dobles LISTA_COMENTARIO 
             {
               arbol RESULT =null;
+		int FCleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int FCright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object FC = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int DDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int DDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object DD = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int LCleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int LCright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol LC = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTENIDO",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // CONTENIDO ::= TIPOEXPR 
-            {
-              arbol RESULT =null;
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTENIDO",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // D_COMENTARIO ::= Fun_Consola DosPuntos_Dobles LISTA_COMENTARIO 
-            {
-              arbol RESULT =null;
-
+            arbol D_comentario = new arbol("D_COMENTARIO");
+            D_comentario.addHijo(new arbol(FC.toString()));
+            D_comentario.addHijo(new arbol(DD.toString()));
+            D_comentario.addHijo(LC);
+            RESULT = D_comentario;
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("D_COMENTARIO",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // LISTA_COMENTARIO ::= Imprimir Signo_Igual SENTENCIA End Punto_Coma 
+          case 23: // LISTA_COMENTARIO ::= Imprimir Signo_Igual SENTENCIA End Punto_Coma 
             {
               arbol RESULT =null;
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_COMENTARIO",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+		int IMleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
+		int IMright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
+		Object IM = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		int SIleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int SIright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object SI = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		int Sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int Sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		arbol S = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int Eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int Eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object E = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int PCleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int PCright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object PC = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+                    
+                arbol listaComentario = new arbol("LISTA_COMENTARIO");
+                listaComentario.addHijo(new arbol(IM.toString()));
+                listaComentario.addHijo(new arbol(SI.toString()));
+                listaComentario.addHijo(S);
+                listaComentario.addHijo(new arbol(E.toString()));
+                listaComentario.addHijo(new arbol(PC.toString()));
+                RESULT = listaComentario;
+                
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_COMENTARIO",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // LISTA_COMENTARIO ::= Columna Signo_Igual CADENA Signo_IndicadorR TIPOARRAY End Punto_Coma 
+          case 24: // LISTA_COMENTARIO ::= Columna Signo_Igual CADENA Signo_IndicadorR TIPOARRAY End Punto_Coma 
             {
               arbol RESULT =null;
+		int CLleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
+		int CLright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).right;
+		Object CL = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-6)).value;
+		int SIleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
+		int SIright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
+		Object SI = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		int Cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
+		int Cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
+		arbol C = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		int SIRleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int SIRright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object SIR = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		int TAleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int TAright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		arbol TA = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int Eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int Eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object E = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int PCleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int PCright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object PC = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_COMENTARIO",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+                arbol listaComentario = new arbol("LISTA_COMENTARIO");
+                listaComentario.addHijo(new arbol(CL.toString()));
+                listaComentario.addHijo(new arbol(SI.toString()));
+                listaComentario.addHijo(C);
+                listaComentario.addHijo(new arbol(SIR.toString()));
+                listaComentario.addHijo(new arbol(TA.toString()));
+                listaComentario.addHijo(new arbol(E.toString()));
+                listaComentario.addHijo(new arbol(PC.toString()));
+                RESULT = listaComentario;
+                
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("LISTA_COMENTARIO",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // SENTENCIA ::= SENTENCIA Coma TEXTO 
+          case 25: // SENTENCIA ::= SENTENCIA Coma TEXTO 
             {
               arbol RESULT =null;
+		int Sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int Sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		arbol S = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int Cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int Cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object C = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int Tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int Tright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol T = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("SENTENCIA",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            arbol sent = new arbol("SENTENCIA");
+            sent.addHijo(S);
+            sent.addHijo(new arbol(C.toString()));
+            sent.addHijo(T);
+            RESULT = sent;          
+            
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // SENTENCIA ::= TEXTO 
+          case 26: // SENTENCIA ::= TEXTO 
             {
               arbol RESULT =null;
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("SENTENCIA",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+		int Tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int Tright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol T = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
+            arbol sent = new arbol("SENTENCIA");
+            sent.addHijo(T);
+            RESULT = sent; 
+            
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // TEXTO ::= TIPOEXPR 
+          case 27: // TEXTO ::= TIPOEXPR 
             {
               arbol RESULT =null;
+		int TEleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int TEright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol TE = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("TEXTO",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+        arbol texto = new arbol("TEXTO");
+        texto.addHijo(TE);
+        RESULT = texto; 
+        
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("TEXTO",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // CADENA ::= Char_General 
+          case 28: // CADENA ::= Char_General 
             {
               arbol RESULT =null;
+		int CGleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int CGright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object CG = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CADENA",16, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+        arbol cadena = new arbol("CADENA");
+        cadena.addHijo(new arbol(CG.toString()));
+        RESULT = cadena; 
+        
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CADENA",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // CADENA ::= Identificador 
+          case 29: // CADENA ::= Identificador 
             {
               arbol RESULT =null;
+		int Ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int Iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object I = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CADENA",16, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+        arbol cadena = new arbol("CADENA");
+        cadena.addHijo(new arbol(I.toString()));
+        RESULT = cadena; 
+        
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CADENA",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // TIPOARRAY ::= LISTA_DATOS 
+          case 30: // TIPOARRAY ::= LISTA_DATOS 
             {
               arbol RESULT =null;
+		int LDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int LDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		arbol LD = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("TIPOARRAY",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            arbol tipoArray = new arbol("TIPOARRAY");
+            tipoArray.addHijo(LD);
+            RESULT = tipoArray; 
+            
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("TIPOARRAY",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // TIPOARRAY ::= Corchete_Izq LISTA_DATOS Corchete_Der 
+          case 31: // TIPOARRAY ::= Corchete_Izq LISTA_DATOS Corchete_Der 
             {
               arbol RESULT =null;
+		int CIleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int CIright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object CI = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int LDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int LDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		arbol LD = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		int CDleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int CDright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object CD = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("TIPOARRAY",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            arbol tipoArray = new arbol("TIPOARRAY");
+            tipoArray.addHijo(new arbol(CI.toString()));
+            tipoArray.addHijo(LD);
+            tipoArray.addHijo(new arbol(CD.toString()));
+            RESULT = tipoArray; 
+            
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("TIPOARRAY",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // D_GRAFICA ::= Tipo_Grafica Parentesis_Izq CONTGRAPH Ejecutar Tipo_Grafica End Punto_Coma Parentesis_Der End Punto_Coma 
+          case 32: // D_GRAFICA ::= Tipo_Grafica Parentesis_Izq CONTGRAPH Ejecutar Tipo_Grafica End Punto_Coma Parentesis_Der End Punto_Coma 
             {
               arbol RESULT =null;
 
@@ -897,7 +1042,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // CONTGRAPH ::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma Eje_X DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Eje_Y DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Titulo_X DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma Titulo_Y DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma 
+          case 33: // CONTGRAPH ::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma Eje_X DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Eje_Y DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Titulo_X DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma Titulo_Y DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma 
             {
               arbol RESULT =null;
 		int titleleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-34)).left;
@@ -916,12 +1061,12 @@ class CUP$Parser$actions {
 		int tituloYright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object tituloY = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTGRAPH",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-38)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTGRAPH",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-38)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // CONTGRAPH ::= Grafica_Label DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Grafica_Valores DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma 
+          case 34: // CONTGRAPH ::= Grafica_Label DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Grafica_Valores DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma 
             {
               arbol RESULT =null;
 		int labelPieleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-19)).left;
@@ -934,12 +1079,12 @@ class CUP$Parser$actions {
 		int titlePieright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object titlePie = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTGRAPH",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-24)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTGRAPH",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-24)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // CONTGRAPH ::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma Grafica_Valores DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma 
+          case 35: // CONTGRAPH ::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma Grafica_Valores DosPuntos_Dobles Var_Tipo Signo_Igual Corchete_Izq LISTA_DATOS Corchete_Der End Punto_Coma 
             {
               arbol RESULT =null;
 		int titleHisleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)).left;
@@ -949,7 +1094,7 @@ class CUP$Parser$actions {
 		int valuesHistright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		arbol valuesHist = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTGRAPH",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("CONTGRAPH",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
