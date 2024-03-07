@@ -79,7 +79,8 @@ public class arbol {
         }else if(raiz.etiqueta == "TIPOEXPR" && raiz.hijos.size()==6){
             //System.out.println(raiz.hijos.get(0).etiqueta+" " + raiz.hijos.get(2).result +" " +raiz.hijos.get(4).result);
             if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("sum")){
-                raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) + Double.parseDouble(raiz.hijos.get(4).result));
+                raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) + 
+                        Double.parseDouble(raiz.hijos.get(4).result));
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("res")){
                 raiz.result = String.valueOf(Double.parseDouble(raiz.hijos.get(2).result) - Double.parseDouble(raiz.hijos.get(4).result));
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("mul")){
@@ -95,11 +96,43 @@ public class arbol {
             + " de tipo: " + raiz.hijos.get(2).etiqueta
             + " con nombre : " + raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta
             + " con contenido : " + raiz.hijos.get(8).result);
-//            Aqui voy a meter mi token a la tabla, ya las cosas concatenadas
+            
+            CTablaSimb simbolo = new CTablaSimb(raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta,
+            raiz.hijos.get(2).etiqueta, "Array",raiz.hijos.get(8).result);
+            TablaSim.add(simbolo);
+
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==3){
             raiz.result = raiz.hijos.get(0).result + raiz.hijos.get(1).etiqueta + raiz.hijos.get(2).result;
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==1){
             raiz.result = raiz.hijos.get(0).result;
+        }else if(raiz.etiqueta == "D_COMENTARIO"){
+            System.out.println("Se encontro : "
+            + raiz.hijos.get(0).etiqueta
+            + " con contenido: " + raiz.hijos.get(2).result);
+        }else if(raiz.etiqueta == "LISTA_COMENTARIO" && raiz.hijos.size()==5){  //es de tipo print
+            System.out.println("Se encontro la funcion : "
+            + raiz.hijos.get(0).etiqueta
+            + " contenido: " + raiz.hijos.get(2).result);
+        }else if(raiz.etiqueta == "LISTA_COMENTARIO" && raiz.hijos.size()==7){ // es de tipo column
+            System.out.println("Se encontro la funcion : "
+            + raiz.hijos.get(0).etiqueta
+            + " con titulo: " + raiz.hijos.get(2).result
+            + " con contenido: "+ raiz.hijos.get(4).result);
+        }else if(raiz.etiqueta == "CADENA" && raiz.hijos.size()==1){
+            
+            if (raiz.hijos.get(0).etiqueta.substring(0,1).equals("\"")){
+                raiz.result = raiz.hijos.get(0).etiqueta;
+            }else{
+                
+                    String varAsString = this.getValor(TablaSim, raiz.hijos.get(0).etiqueta);
+                    if (varAsString.equals("Se produjo un error semantico")){
+                        System.out.println("Error!");
+                    }else{
+                        raiz.result = varAsString;
+                    }
+                    
+                
+            }
         }
         
     }
