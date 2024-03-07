@@ -403,12 +403,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
 //                            parser.parse();
                             ArrayList<CTablaSimb> TablaSim = new ArrayList<>();
                             arbol raiz = (arbol)parser.parse().value;
-                            raiz.run(raiz,TablaSim);
+                            raiz.run(raiz,TablaSim,TextAreaConsola);
                             
                             System.out.println("---Tabla de simbolos---");
                             for (CTablaSimb elemento : TablaSim ) {
-                                System.out.println("Nombre: " + elemento.nombre + "\t"+ elemento.tipo + "\t" + 
-                                        elemento.rol + "\t" + elemento.valor);
+                                System.out.println("Rol: " + elemento.rol + "\t"+ "Tipo: " + elemento.tipo + "\t" + 
+                                         "Nombre: " + elemento.nombre + "\t" + " Valor: " +elemento.valor);
                             }
                             //raiz.printArbol(raiz);
                         } catch (Exception ex) {
