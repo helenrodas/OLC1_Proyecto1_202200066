@@ -5,11 +5,19 @@
 package DataForge;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JTextArea;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -19,6 +27,7 @@ public class arbol {
     public String etiqueta;
     public ArrayList<arbol> hijos;
     public String result;
+    public Map<String,String> contGraph = new HashMap<>();
 
     
     public arbol(String etiqueta){
@@ -132,10 +141,101 @@ public class arbol {
     }
 
     
+    public static void tipoGrafica(String tipoGrafica, Map<String, String> contGraph) throws IOException {
+        switch (tipoGrafica.toLowerCase()) {
+            case "graphbar":
+               generarGraficaBarra(contGraph);
+                break;
+            case "linea":
+//                generarGraficaLinea(contGraph);
+                break;
+            case "graphpie":
+//                System.out.println(contGraph.get("titulo"));
+//                System.out.println(contGraph.get("ejeX"));
+//                System.out.println(contGraph.get("ejeY"));
+               generarGraficaPie(contGraph);
+                break;
+            case "histograma":
+//                generarGraficaHistograma(contGraph);
+                break;
+            default:
+                System.out.println("Tipo de grafica indefinido");
+        }
+    }
     
+    public static void generarGraficaBarra(Map<String, String> contGraph) throws IOException {
+        // Obtener datos relevantes del contGraph
+        String titulo = contGraph.get("titulo");
+        String ejesX = contGraph.get("ejeX");
+        String[] valoresX = ejesX.split(",");
+        String ejesY = contGraph.get("ejeY");
+        String[] valoresY = ejesY.split(",");
+        String tituloX = contGraph.get("tituloX");
+        String tituloY = contGraph.get("tituloY");
+        double[] valoresAsDoubleY = new double[valoresY.length];
+
+        for (int i = 0; i < valoresY.length; i++) {
+            valoresAsDoubleY[i]=Double.parseDouble(valoresY[i]);
+        }
+        // Crear un conjunto de datos para la gráfica de barras
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (int i = 0; i < valoresX.length; i++) {
+           dataset.addValue(valoresAsDoubleY[i],tituloY,valoresX[i]);
+        }
+
+        // Crear la gráfica de barras
+        JFreeChart chart = ChartFactory.createBarChart3D(
+                titulo,     // Título de la gráfica
+                tituloX,    // Título del eje X
+                tituloY,    // Título del eje Y
+                dataset,     // Datos
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        // Guardar la gráfica como una imagen JPG
+                int width = 674;
+                int height = 357;
+                File barChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaBarras.png");
+                //imgGraficas.addImagePath("C:/Users/Usuario/Desktop/img/" + fileName);
+                ChartUtilities.saveChartAsPNG(barChart, chart, width, height);
+    }
     
+     public static void generarGraficaPie(Map<String, String> contGraph) throws IOException {
+         String titulo = contGraph.get("titulo");
+         String ejesX = contGraph.get("label");
+         String[] valoresX = ejesX.split(",");
+         String ejesY = contGraph.get("values");
+        String[] valoresY = ejesY.split(",");
+
+         
+         double[] valoresAsDoubleY = new double[valoresY.length];
+
+        for (int i = 0; i < valoresY.length; i++) {
+            valoresAsDoubleY[i]=Double.parseDouble(valoresY[i]);
+        }
+        // Crear un conjunto de datos para la gráfica de pastel
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        for (int i = 0; i < valoresX.length; i++) {
+           dataset.setValue(valoresX[i], valoresAsDoubleY[i]);
+        }
+
+        // Crear la gráfica de pastel
+        JFreeChart chart = ChartFactory.createPieChart(
+                titulo,  // Título de la gráfica
+                dataset
+        );
+
+        // Guardar la gráfica como una imagen PNG
+        int width = 674;
+        int height = 357;
+        File pieChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaPie.png");
+        ChartUtilities.saveChartAsPNG(pieChart, chart, width, height);
+     }
     
-    public void run (arbol raiz, ArrayList<CTablaSimb> TablaSim, JTextArea areaConsola){
+    public void run (arbol raiz, ArrayList<CTablaSimb> TablaSim, JTextArea areaConsola) throws IOException{
         for (arbol hijo : raiz.hijos ) {
             run(hijo,TablaSim,areaConsola);
         }
@@ -244,6 +344,7 @@ public class arbol {
         }else if(raiz.etiqueta == "D_GRAFICA"){
             System.out.println("Es una grafica de tipo: " 
             + raiz.hijos.get(0).etiqueta);
+            tipoGrafica(raiz.hijos.get(0).etiqueta, contGraph);
         }else if(raiz.etiqueta=="CONTGRAPH" && raiz.hijos.size()==2){
             raiz.result =  raiz.hijos.get(1).result ;
         }else if(raiz.etiqueta=="CONTGRAPH" && raiz.hijos.size()==1){
@@ -254,28 +355,34 @@ public class arbol {
             if (raiz.hijos.get(0).etiqueta.equalsIgnoreCase("titulo")) {
                 // Si es "titulo", accedemos al tercer hijo para obtener el valor
                 raiz.result = raiz.hijos.get(2).etiqueta;
+                contGraph.put("titulo",raiz.hijos.get(2).etiqueta);
                 System.out.println("El título es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("ejeX")){
                 raiz.result = raiz.hijos.get(2).result;
+                contGraph.put("ejeX",raiz.result);
                 System.out.println("El eje x es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("ejeY")){
                 raiz.result = raiz.hijos.get(2).result;
+                contGraph.put("ejeY",raiz.result);
                 System.out.println("El eje y es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("tituloX")){
                 raiz.result = raiz.hijos.get(2).etiqueta;
+                contGraph.put("tituloX",raiz.hijos.get(2).etiqueta);
                 System.out.println("El titulo en x es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("tituloY")){
                 raiz.result = raiz.hijos.get(2).etiqueta;
+                contGraph.put("tituloY",raiz.hijos.get(2).etiqueta);
                 System.out.println("El titulo en y es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("label")){
                 raiz.result = raiz.hijos.get(2).result;
+                contGraph.put("label",raiz.result);
                 System.out.println("El label es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("values")){
                 raiz.result = raiz.hijos.get(2).result;
+                contGraph.put("values",raiz.result);
                 System.out.println("values es: " + raiz.result);
             }
         }
             
     }
-    
 }
