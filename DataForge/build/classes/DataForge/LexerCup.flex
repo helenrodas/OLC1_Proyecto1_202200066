@@ -10,7 +10,7 @@ import java_cup.runtime.Symbol;
 %line
 %char
 %ignorecase
-L=[a-zA-Z_]+
+L=[a-zA-Z_À-ÿ\u00f1\u00d1]+
 D=[0-9]+
 NUMERO = {D}+("."{D}+)?
 
@@ -18,6 +18,7 @@ espacio=[ \t\r\n]+
 ESPACIO=[ ]
 
 COMILLA = "\""
+IGTILDE = "<!"~"!>"
 
 %{
     
@@ -82,9 +83,11 @@ histogram {System.out.println("--<Tipo_Grafica: " +yytext() + " || linea: "+ yyl
 "->" {System.out.println("--<Signo_IndicadorR: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Signo_IndicadorR, yycolumn, yyline, yytext());}
 
 "@" {System.out.println("--<Signo_Arroba: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Signo_Arroba, yycolumn, yyline, yytext());}
+{IGTILDE} {/*Ignore*/}
 {espacio} {/*Ignore*/}
 {L}({L}|{D})* {System.out.println("--<Identificador: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
 {NUMERO} {System.out.println("--<Numero: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
 "\""({L}|{D}|{ESPACIO}|{NUMERO}|[-]|[:])*"\"" {System.out.println("--<Char_General: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Char_General, yycolumn, yyline, yytext());}
 . {return new Symbol(sym.ERROR, yycolumn, yyline, yytext());}
+
 

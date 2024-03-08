@@ -290,59 +290,59 @@ CONTGRAPH::= CONTGRAPH:CONT ATRIBUTOS:ATRIB {:
             :};
 ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Char_General:CT End Punto_Coma {:
 
-            arbol contgraph = new arbol("CONTGRAPH");
-            contgraph.addHijo(new arbol(T.toString()));
-            contgraph.addHijo(new arbol(V1.toString()));
-            contgraph.addHijo(new arbol(CT.toString()));
-            RESULT = contgraph;
+            arbol atributos = new arbol("ATRIBUTOS");
+            atributos.addHijo(new arbol(T.toString()));
+            atributos.addHijo(new arbol(V1.toString()));
+            atributos.addHijo(new arbol(CT.toString()));
+            RESULT = atributos;
             :}
                  
         | Eje_X:EJX DosPuntos_Dobles Var_Tipo:V2 Signo_Igual Corchete_Izq LISTA_DATOS:LISTAEJX Corchete_Der  End Punto_Coma{:
         
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(EJX.toString()));
-                contgraph.addHijo(new arbol(V2.toString()));
-                contgraph.addHijo(LISTAEJX);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(EJX.toString()));
+                atributos.addHijo(new arbol(V2.toString()));
+                atributos.addHijo(LISTAEJX);
+                RESULT = atributos;
                 :}
 
         | Eje_Y:EJY DosPuntos_Dobles Var_Tipo:V3 Signo_Igual Corchete_Izq LISTA_DATOS:LISTAEJY Corchete_Der  End Punto_Coma{:
 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(EJY.toString()));
-                contgraph.addHijo(new arbol(V3.toString()));
-                contgraph.addHijo(LISTAEJY);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(EJY.toString()));
+                atributos.addHijo(new arbol(V3.toString()));
+                atributos.addHijo(LISTAEJY);
+                RESULT = atributos;
                 :}
         | Titulo_X:TX DosPuntos_Dobles Var_Tipo:V4 Signo_Igual Char_General:CHARX End Punto_Coma{:
                 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(TX.toString()));
-                contgraph.addHijo(new arbol(V4.toString()));
-                contgraph.addHijo(new arbol(CHARX.toString()));
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(TX.toString()));
+                atributos.addHijo(new arbol(V4.toString()));
+                atributos.addHijo(new arbol(CHARX.toString()));
+                RESULT = atributos;
                 :}
         | Titulo_Y:TY DosPuntos_Dobles Var_Tipo:V5 Signo_Igual Char_General:CHARY End Punto_Coma {:
                 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(TY.toString()));
-                contgraph.addHijo(new arbol(V5.toString()));
-                contgraph.addHijo(new arbol(CHARY.toString()));
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(TY.toString()));
+                atributos.addHijo(new arbol(V5.toString()));
+                atributos.addHijo(new arbol(CHARY.toString()));
+                RESULT = atributos;
                 :}
         | Grafica_Label:GL DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Corchete_Izq LISTA_DATOS:LD Corchete_Der  End Punto_Coma{:
                 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(GL.toString()));
-                contgraph.addHijo(new arbol(V1.toString()));
-                contgraph.addHijo(LD);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(GL.toString()));
+                atributos.addHijo(new arbol(V1.toString()));
+                atributos.addHijo(LD);
+                RESULT = atributos;
                 :}
         | Grafica_Valores:GV DosPuntos_Dobles Var_Tipo:V2 Signo_Igual Corchete_Izq LISTA_DATOS:VP Corchete_Der End Punto_Coma{:
 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(GV.toString()));
-                contgraph.addHijo(new arbol(V2.toString()));
-                contgraph.addHijo(VP);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(GV.toString()));
+                atributos.addHijo(new arbol(V2.toString()));
+                atributos.addHijo(VP);
+                RESULT = atributos;
                 :};

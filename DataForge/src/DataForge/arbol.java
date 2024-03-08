@@ -131,6 +131,10 @@ public class arbol {
         return columna.toString();
     }
 
+    
+    
+    
+    
     public void run (arbol raiz, ArrayList<CTablaSimb> TablaSim, JTextArea areaConsola){
         for (arbol hijo : raiz.hijos ) {
             run(hijo,TablaSim,areaConsola);
@@ -192,30 +196,22 @@ public class arbol {
 
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==3){
             raiz.result = raiz.hijos.get(0).result + raiz.hijos.get(1).etiqueta + raiz.hijos.get(2).result;
-            System.out.println("estoy en lista datos hijos 3: " +raiz.result);
+//            System.out.println("estoy en lista datos hijos 3: " +raiz.result);
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==1){
             raiz.result = raiz.hijos.get(0).result;
-             System.out.println("estoy en lista datos hijos 1: " +raiz.result);
+//             System.out.println("estoy en lista datos hijos 1: " +raiz.result);
         }else if(raiz.etiqueta == "D_COMENTARIO"){ //imprimir en consola print/column
-//            System.out.println("Se encontro : "
-//            + raiz.hijos.get(0).etiqueta
-//            + " de tipo:" + raiz.hijos.get(2).hijos.get(0).etiqueta
-//            + " con contenido: " + raiz.hijos.get(2).result);
+
              
         }else if(raiz.etiqueta == "LISTA_COMENTARIO" && raiz.hijos.size()==5){  //es de tipo print
             raiz.result = raiz.hijos.get(2).result ;
-//            CTablaSimb simbolo = new CTablaSimb("---",
-//            raiz.hijos.get(0).etiqueta, "Console",raiz.result);
-//            TablaSim.add(simbolo);
             System.out.println("Se encontro la funcion : "
             + raiz.hijos.get(0).etiqueta
             + " contenido: " + raiz.hijos.get(2).result);
             areaConsola.append(raiz.hijos.get(2).result);
         }else if(raiz.etiqueta == "LISTA_COMENTARIO" && raiz.hijos.size()==7){ // es de tipo column
             raiz.result = raiz.hijos.get(4).result ;
-//            CTablaSimb simbolo = new CTablaSimb(raiz.hijos.get(2).result,
-//            raiz.hijos.get(0).etiqueta, "Console",raiz.result);
-//            TablaSim.add(simbolo);
+
             System.out.println("Se encontro la funcion : "
             + raiz.hijos.get(0).etiqueta
             + " con titulo: " + raiz.hijos.get(2).result
@@ -234,7 +230,7 @@ public class arbol {
              //System.out.println("tipoarray de 1 hijos"+raiz.hijos.get(0).result);
         }else if(raiz.etiqueta == "TIPOARRAY" && raiz.hijos.size()==3){
              raiz.result =  raiz.hijos.get(1).result ;
-             System.out.println("tipoarray de 3 hijos"+raiz.hijos.get(0).etiqueta + raiz.hijos.get(1).result + raiz.hijos.get(2).etiqueta);
+//             System.out.println("tipoarray de 3 hijos"+raiz.hijos.get(0).etiqueta + raiz.hijos.get(1).result + raiz.hijos.get(2).etiqueta);
         }else if(raiz.etiqueta == "EXPRE_EST" && raiz.hijos.size()==3){
             raiz.result = raiz.hijos.get(1).result;
         }else if(raiz.etiqueta == "EXPRE_EST" && raiz.hijos.size()==1){
@@ -245,8 +241,41 @@ public class arbol {
                 }else{
                     raiz.result = valorVar;
                 }
+        }else if(raiz.etiqueta == "D_GRAFICA"){
+            System.out.println("Es una grafica de tipo: " 
+            + raiz.hijos.get(0).etiqueta);
+        }else if(raiz.etiqueta=="CONTGRAPH" && raiz.hijos.size()==2){
+            raiz.result =  raiz.hijos.get(1).result ;
+        }else if(raiz.etiqueta=="CONTGRAPH" && raiz.hijos.size()==1){
+            raiz.result =  raiz.hijos.get(0).result ;
+        }else if(raiz.etiqueta.equals("ATRIBUTOS") && raiz.hijos.size()==3) {
+            // Verificamos si el primer hijo es "titulo"
+            //System.out.println(raiz.hijos.get(0).etiqueta);
+            if (raiz.hijos.get(0).etiqueta.equalsIgnoreCase("titulo")) {
+                // Si es "titulo", accedemos al tercer hijo para obtener el valor
+                raiz.result = raiz.hijos.get(2).etiqueta;
+                System.out.println("El título es: " + raiz.result);
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("ejeX")){
+                raiz.result = raiz.hijos.get(2).result;
+                System.out.println("El eje x es: " + raiz.result);
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("ejeY")){
+                raiz.result = raiz.hijos.get(2).result;
+                System.out.println("El eje y es: " + raiz.result);
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("tituloX")){
+                raiz.result = raiz.hijos.get(2).etiqueta;
+                System.out.println("El titulo en x es: " + raiz.result);
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("tituloY")){
+                raiz.result = raiz.hijos.get(2).etiqueta;
+                System.out.println("El titulo en y es: " + raiz.result);
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("label")){
+                raiz.result = raiz.hijos.get(2).result;
+                System.out.println("El label es: " + raiz.result);
+            }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("values")){
+                raiz.result = raiz.hijos.get(2).result;
+                System.out.println("values es: " + raiz.result);
+            }
         }
-        
+            
     }
     
 }

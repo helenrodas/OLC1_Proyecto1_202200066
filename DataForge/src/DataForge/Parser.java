@@ -1034,11 +1034,11 @@ class CUP$Parser$actions {
 		Object CT = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
 
-            arbol contgraph = new arbol("CONTGRAPH");
-            contgraph.addHijo(new arbol(T.toString()));
-            contgraph.addHijo(new arbol(V1.toString()));
-            contgraph.addHijo(new arbol(CT.toString()));
-            RESULT = contgraph;
+            arbol atributos = new arbol("ATRIBUTOS");
+            atributos.addHijo(new arbol(T.toString()));
+            atributos.addHijo(new arbol(V1.toString()));
+            atributos.addHijo(new arbol(CT.toString()));
+            RESULT = atributos;
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1059,11 +1059,11 @@ class CUP$Parser$actions {
 		arbol LISTAEJX = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
         
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(EJX.toString()));
-                contgraph.addHijo(new arbol(V2.toString()));
-                contgraph.addHijo(LISTAEJX);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(EJX.toString()));
+                atributos.addHijo(new arbol(V2.toString()));
+                atributos.addHijo(LISTAEJX);
+                RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1084,11 +1084,11 @@ class CUP$Parser$actions {
 		arbol LISTAEJY = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(EJY.toString()));
-                contgraph.addHijo(new arbol(V3.toString()));
-                contgraph.addHijo(LISTAEJY);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(EJY.toString()));
+                atributos.addHijo(new arbol(V3.toString()));
+                atributos.addHijo(LISTAEJY);
+                RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1109,11 +1109,11 @@ class CUP$Parser$actions {
 		Object CHARX = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
                 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(TX.toString()));
-                contgraph.addHijo(new arbol(V4.toString()));
-                contgraph.addHijo(new arbol(CHARX.toString()));
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(TX.toString()));
+                atributos.addHijo(new arbol(V4.toString()));
+                atributos.addHijo(new arbol(CHARX.toString()));
+                RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1134,11 +1134,11 @@ class CUP$Parser$actions {
 		Object CHARY = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
                 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(TY.toString()));
-                contgraph.addHijo(new arbol(V5.toString()));
-                contgraph.addHijo(new arbol(CHARY.toString()));
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(TY.toString()));
+                atributos.addHijo(new arbol(V5.toString()));
+                atributos.addHijo(new arbol(CHARY.toString()));
+                RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1159,11 +1159,11 @@ class CUP$Parser$actions {
 		arbol LD = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
                 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(GL.toString()));
-                contgraph.addHijo(new arbol(V1.toString()));
-                contgraph.addHijo(LD);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(GL.toString()));
+                atributos.addHijo(new arbol(V1.toString()));
+                atributos.addHijo(LD);
+                RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1184,11 +1184,11 @@ class CUP$Parser$actions {
 		arbol VP = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
 
-                arbol contgraph = new arbol("CONTGRAPH");
-                contgraph.addHijo(new arbol(GV.toString()));
-                contgraph.addHijo(new arbol(V2.toString()));
-                contgraph.addHijo(VP);
-                RESULT = contgraph;
+                arbol atributos = new arbol("ATRIBUTOS");
+                atributos.addHijo(new arbol(GV.toString()));
+                atributos.addHijo(new arbol(V2.toString()));
+                atributos.addHijo(VP);
+                RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
