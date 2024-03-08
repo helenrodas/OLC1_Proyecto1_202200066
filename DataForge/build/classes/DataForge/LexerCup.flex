@@ -88,6 +88,6 @@ histogram {System.out.println("--<Tipo_Grafica: " +yytext() + " || linea: "+ yyl
 {L}({L}|{D})* {System.out.println("--<Identificador: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
 {NUMERO} {System.out.println("--<Numero: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
 "\""({L}|{D}|{ESPACIO}|{NUMERO}|[-]|[:])*"\"" {System.out.println("--<Char_General: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">");return new Symbol(sym.Char_General, yycolumn, yyline, yytext());}
-. {return new Symbol(sym.ERROR, yycolumn, yyline, yytext());}
+. {System.out.println("el error es: " + yytext() + "columna: " + yycolumn + "fila: " + yyline);}
 
 

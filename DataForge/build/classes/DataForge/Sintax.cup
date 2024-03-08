@@ -15,7 +15,7 @@ terminal Linea,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Div
         Parentesis_Izq, Parentesis_Der,Corchete_Izq, Corchete_Der, Program,End,Variable,Var_Tipo,
         Array,Fun_Arit,Fun_Esta,Fun_Consola,Imprimir,Columna,Ejecutar,Tipo_Grafica,Titulo,Eje_X,
         Eje_Y,Titulo_X,Titulo_Y,Grafica_Label,Grafica_Valores,DosPuntos_Dobles,
-        Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Identificador, ERROR,Char_General,COMILLA,Numero,Signo_IndicadorR;
+        Punto_Coma,Dos_Puntos,Punto,Coma,Signo_Indicador,Signo_Arroba,Identificador,Char_General,COMILLA,Numero,Signo_IndicadorR;
         
 
 

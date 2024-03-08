@@ -21,15 +21,15 @@ public class sym {
   public static final int Titulo_Y = 28;
   public static final int Titulo_X = 27;
   public static final int Titulo = 24;
-  public static final int Signo_IndicadorR = 43;
-  public static final int Char_General = 40;
+  public static final int Signo_IndicadorR = 42;
+  public static final int Char_General = 39;
   public static final int Punto = 34;
   public static final int Columna = 21;
   public static final int Var_Tipo = 15;
   public static final int Ejecutar = 22;
   public static final int EOF = 0;
   public static final int Signo_Suma = 4;
-  public static final int COMILLA = 41;
+  public static final int COMILLA = 40;
   public static final int error = 1;
   public static final int Fun_Arit = 17;
   public static final int Linea = 2;
@@ -39,7 +39,6 @@ public class sym {
   public static final int Fun_Consola = 19;
   public static final int Grafica_Valores = 30;
   public static final int Signo_Division = 7;
-  public static final int ERROR = 39;
   public static final int Fun_Esta = 18;
   public static final int Signo_Resta = 5;
   public static final int Punto_Coma = 32;
@@ -48,7 +47,7 @@ public class sym {
   public static final int Signo_Multiplicacion = 6;
   public static final int Array = 16;
   public static final int Signo_Indicador = 36;
-  public static final int Numero = 42;
+  public static final int Numero = 41;
   public static final int Program = 12;
   public static final int Tipo_Grafica = 23;
   public static final int Eje_Y = 26;
@@ -92,7 +91,6 @@ public class sym {
   "Signo_Indicador",
   "Signo_Arroba",
   "Identificador",
-  "ERROR",
   "Char_General",
   "COMILLA",
   "Numero",

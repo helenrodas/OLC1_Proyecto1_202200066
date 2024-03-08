@@ -18,6 +18,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.statistics.HistogramDataset;
 
 /**
  *
@@ -141,27 +142,102 @@ public class arbol {
     }
 
     
-    public static void tipoGrafica(String tipoGrafica, Map<String, String> contGraph) throws IOException {
+    public static void tipoGrafica(String tipoGrafica, Map<String, String> contGraph,JTextArea areaConsola) throws IOException {
         switch (tipoGrafica.toLowerCase()) {
             case "graphbar":
                generarGraficaBarra(contGraph);
                 break;
-            case "linea":
-//                generarGraficaLinea(contGraph);
+            case "graphline":
+                generarGraficaLinea(contGraph);
                 break;
             case "graphpie":
-//                System.out.println(contGraph.get("titulo"));
-//                System.out.println(contGraph.get("ejeX"));
-//                System.out.println(contGraph.get("ejeY"));
                generarGraficaPie(contGraph);
                 break;
-            case "histograma":
-//                generarGraficaHistograma(contGraph);
+            case "histogram":
+
+                generarGraficaHistograma(contGraph,areaConsola);
                 break;
             default:
                 System.out.println("Tipo de grafica indefinido");
         }
     }
+    
+    public static void generarGraficaHistograma(Map<String, String> contGraph,JTextArea areaConsola) throws IOException {
+        String titulo = contGraph.get("titulo");
+        String ejesY = contGraph.get("values");
+        String[] values = ejesY.split(",");
+        
+        double[] valoresAsDouble = new double[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            valoresAsDouble[i]=Double.parseDouble(values[i]);
+        }
+
+        // Calcular frecuencia absoluta
+        Map<Double, Integer> frecuenciaAbsoluta = new HashMap<>();
+        for (double valor : valoresAsDouble) {
+            frecuenciaAbsoluta.put(valor, frecuenciaAbsoluta.getOrDefault(valor, 0) + 1);
+        }
+
+        // Calcular frecuencia relativa y frecuencia acumulada
+        int totalDatos = valoresAsDouble.length;
+        Map<Double, Double> frecuenciaRelativa = new HashMap<>();
+        Map<Double, Integer> frecuenciaAcumulada = new HashMap<>();
+        int acumulada = 0;
+        
+        for (Map.Entry<Double, Integer> entry : frecuenciaAbsoluta.entrySet()) {
+            double valor = entry.getKey();
+            int absoluta = entry.getValue();
+            double relativa = (double) absoluta / totalDatos;
+            acumulada += absoluta;
+
+            frecuenciaRelativa.put(valor, relativa);
+            frecuenciaAcumulada.put(valor, acumulada);
+        }
+
+        // Construir tabla de frecuencias
+        StringBuilder tabla = new StringBuilder();
+        tabla.append("------------------------------------\n");
+        tabla.append("Valor    Fb       Fa       Fr\n");
+        tabla.append("------------------------------------\n");
+        for (Map.Entry<Double, Integer> entry : frecuenciaAbsoluta.entrySet()) {
+            double valor = entry.getKey();
+            int absoluta = entry.getValue();
+            double relativa = frecuenciaRelativa.get(valor) * 100;
+            int acumuladaValor = frecuenciaAcumulada.get(valor);
+            tabla.append(String.format("%4.0f %9d %9d %9.2f%%\n", valor, absoluta, acumuladaValor, relativa));
+        }
+        tabla.append("------------------------------------\n");
+        tabla.append(String.format("Totales: %7d %9d %9.2f%%\n", totalDatos, acumulada, 100.0));
+        tabla.append("------------------------------------\n");
+
+        // Establecer la tabla como texto del JTextArea
+        areaConsola.setText(tabla.toString());
+
+
+        // Crear el conjunto de datos para el histograma
+        HistogramDataset dataset = new HistogramDataset();
+        dataset.addSeries("Histograma", valoresAsDouble, 10);
+
+        // Crear el histograma
+        JFreeChart chart = ChartFactory.createHistogram(
+                titulo, // Título de la gráfica
+                "Valores", // Etiqueta del eje X
+                "Frecuencia", // Etiqueta del eje Y
+                dataset,
+                org.jfree.chart.plot.PlotOrientation.VERTICAL,
+                true, // Mostrar leyenda
+                true,
+                false);
+
+        // Guardar la gráfica como una imagen PNG
+        int width = 674;
+        int height = 357;
+        File histograma = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "histograma.png");
+        ChartUtilities.saveChartAsPNG(histograma, chart, width, height);
+    }
+    
+    
     
     public static void generarGraficaBarra(Map<String, String> contGraph) throws IOException {
         // Obtener datos relevantes del contGraph
@@ -201,6 +277,47 @@ public class arbol {
                 File barChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaBarras.png");
                 //imgGraficas.addImagePath("C:/Users/Usuario/Desktop/img/" + fileName);
                 ChartUtilities.saveChartAsPNG(barChart, chart, width, height);
+    }
+    
+    
+    public static void generarGraficaLinea(Map<String, String> contGraph) throws IOException {
+        // Obtener datos relevantes del contGraph
+        String titulo = contGraph.get("titulo");
+        String ejesX = contGraph.get("ejeX");
+        String[] valoresX = ejesX.split(",");
+        String ejesY = contGraph.get("ejeY");
+        String[] valoresY = ejesY.split(",");
+        String tituloX = contGraph.get("tituloX");
+        String tituloY = contGraph.get("tituloY");
+        double[] valoresAsDoubleY = new double[valoresY.length];
+
+        for (int i = 0; i < valoresY.length; i++) {
+            valoresAsDoubleY[i]=Double.parseDouble(valoresY[i]);
+        }
+        // Crear un conjunto de datos para la gráfica de barras
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (int i = 0; i < valoresX.length; i++) {
+           dataset.addValue(valoresAsDoubleY[i],tituloY,valoresX[i]);
+        }
+
+        // Crear la gráfica de barras
+        JFreeChart chart = ChartFactory.createLineChart(
+                titulo,     // Título de la gráfica
+                tituloX,    // Título del eje X
+                tituloY,    // Título del eje Y
+                dataset,     // Datos
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        // Guardar la gráfica como una imagen JPG
+                int width = 674;
+                int height = 357;
+                File lineChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaLinea.png");
+                //imgGraficas.addImagePath("C:/Users/Usuario/Desktop/img/" + fileName);
+                ChartUtilities.saveChartAsPNG(lineChart, chart, width, height);
     }
     
      public static void generarGraficaPie(Map<String, String> contGraph) throws IOException {
@@ -344,7 +461,7 @@ public class arbol {
         }else if(raiz.etiqueta == "D_GRAFICA"){
             System.out.println("Es una grafica de tipo: " 
             + raiz.hijos.get(0).etiqueta);
-            tipoGrafica(raiz.hijos.get(0).etiqueta, contGraph);
+            tipoGrafica(raiz.hijos.get(0).etiqueta, contGraph,areaConsola);
         }else if(raiz.etiqueta=="CONTGRAPH" && raiz.hijos.size()==2){
             raiz.result =  raiz.hijos.get(1).result ;
         }else if(raiz.etiqueta=="CONTGRAPH" && raiz.hijos.size()==1){
