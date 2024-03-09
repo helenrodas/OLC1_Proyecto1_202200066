@@ -48,6 +48,7 @@ import java.util.ArrayList;
 public class FrmPrincipal extends javax.swing.JFrame {
      ArrayList<CToken> tokens = LexerCup.listaTokens;
      ArrayList<CError> errores = LexerCup.listaErrores;
+     ArrayList<CTablaSimb> TablaSim = new ArrayList<>();
     /**
      * Creates new form FrmPrincipal
      */
@@ -87,6 +88,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanelGraficas = new javax.swing.JPanel();
         btnEjecutar = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -198,6 +201,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnAnterior.setBackground(new java.awt.Color(0, 51, 102));
+        btnAnterior.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
+        btnAnterior.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnterior.setText("Anterior");
+        btnAnterior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
+
+        btnSiguiente.setBackground(new java.awt.Color(0, 51, 102));
+        btnSiguiente.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
+        btnSiguiente.setForeground(new java.awt.Color(255, 255, 255));
+        btnSiguiente.setText("Siguiente");
+        btnSiguiente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
         jPanelPrincipalLayout.setHorizontalGroup(
@@ -222,10 +247,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTabbedPaneArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1)))
-                        .addGap(59, 59, 59)
                         .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVerGraficas))))
+                            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanelGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnVerGraficas)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincipalLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(110, 110, 110)
+                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66)))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanelPrincipalLayout.setVerticalGroup(
@@ -254,7 +287,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -399,7 +434,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         Parser parser = new Parser(scan);
                         try {
 //                            parser.parse();
-                            ArrayList<CTablaSimb> TablaSim = new ArrayList<>();
+                            
                             arbol raiz = (arbol)parser.parse().value;
                             raiz.run(raiz,TablaSim,TextAreaConsola);
                             
@@ -432,11 +467,20 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         reporteTokens();
         reporteErrores();
+        reporteTablaSimbolos();
         tokens.clear();
         errores.clear();
         JOptionPane.showMessageDialog(null, "Reportes Generados Exitosamente", "Reportes Generados", JOptionPane.INFORMATION_MESSAGE);
         // Agregar caso de error!
     }//GEN-LAST:event_btnReportesActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     
     private void reporteTokens(){
@@ -522,6 +566,99 @@ public class FrmPrincipal extends javax.swing.JFrame {
         
         try {
             File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-tokens" + ".html");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(htmlCodigo.toString());
+            fileWriter.close();
+
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void reporteTablaSimbolos(){
+        StringBuilder htmlCodigo =  new StringBuilder();
+        
+        htmlCodigo.append("<!DOCTYPE html>");
+        htmlCodigo.append("<html lang=\"en\">");
+        htmlCodigo.append("<head>");
+        htmlCodigo.append(" <meta charset=\"UTF-8\">");
+        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+        htmlCodigo.append("<title>TSimbolos</title>");
+        htmlCodigo.append("<style>");
+        htmlCodigo.append("body {");
+        htmlCodigo.append("    display: flex;");
+        htmlCodigo.append("    justify-content: center;");
+        htmlCodigo.append("    align-items: center;");
+        htmlCodigo.append("    font-size: large;");
+        htmlCodigo.append("    padding-top: 80px;");
+        htmlCodigo.append("    background-color:   #ffcab3  ;");
+        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("table {");
+        htmlCodigo.append("    border-collapse: separate;");
+        htmlCodigo.append("    width: 47%;");
+        htmlCodigo.append("    margin-top: 10px;");
+        htmlCodigo.append("    background-color: #fff;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th, td {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("    padding: 8px;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("td {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".title {");
+        htmlCodigo.append("    font-size: 2em;");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".container {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("</style>");
+        htmlCodigo.append("</head>");
+        htmlCodigo.append("<body>");
+        htmlCodigo.append("<div class=\"container\">");
+        htmlCodigo.append("<h1 class=\"title\">Tabla de Simbolos</h1>");
+        htmlCodigo.append("<table border=\"1\">");
+        htmlCodigo.append("<thead>");
+        htmlCodigo.append("<tr>");
+        htmlCodigo.append("<th>#</th>");
+        htmlCodigo.append("<th>Nombre</th>");
+        htmlCodigo.append("<th>Tipo</th>");
+        htmlCodigo.append("<th>Rol</th>");
+        htmlCodigo.append("<th>Valor</th>");
+        htmlCodigo.append("</tr>");
+        htmlCodigo.append("</thead>");
+        htmlCodigo.append("<tbody>");
+        
+        
+        for (CTablaSimb simbolo : TablaSim) {
+            htmlCodigo.append("<tr>");
+            htmlCodigo.append("<td>").append(simbolo.contador).append("</td>");
+            htmlCodigo.append("<td>").append(simbolo.nombre).append("</td>");
+            htmlCodigo.append("<td>").append(simbolo.tipo).append("</td>");
+            htmlCodigo.append("<td>").append(simbolo.rol).append("</td>");
+            htmlCodigo.append("<td>").append(simbolo.valor).append("</td>");
+            htmlCodigo.append("</tr>");
+        }
+        
+        htmlCodigo.append("</tbody>");
+        htmlCodigo.append("</table>");
+        htmlCodigo.append("</div>");
+        htmlCodigo.append("</body>");
+        htmlCodigo.append("</html>");
+        
+        try {
+            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-tablaSim" + ".html");
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(htmlCodigo.toString());
             fileWriter.close();
@@ -752,9 +889,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea TextAreaConsola;
     private javax.swing.JButton btnAbrir;
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnEjecutar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnVerGraficas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

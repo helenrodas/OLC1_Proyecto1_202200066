@@ -33,6 +33,7 @@ public class arbol {
     private static int contadorGraficaBar = 0;
     private static int contadorGraficaLine = 0;
     private static int contadorGraficaHisto = 0;
+    int contadorSimbolos = 0;
 
     
     public arbol(String etiqueta){
@@ -361,6 +362,7 @@ public class arbol {
      }
     
     public void run (arbol raiz, ArrayList<CTablaSimb> TablaSim, JTextArea areaConsola) throws IOException{
+        
         for (arbol hijo : raiz.hijos ) {
             run(hijo,TablaSim,areaConsola);
         }
@@ -371,7 +373,7 @@ public class arbol {
             + " de tipo: " + raiz.hijos.get(2).etiqueta
             + " con el valor : " + raiz.hijos.get(6).result);
             
-            CTablaSimb simbolo = new CTablaSimb(raiz.hijos.get(4).etiqueta,
+            CTablaSimb simbolo = new CTablaSimb(contadorSimbolos+=1,raiz.hijos.get(4).etiqueta,
             raiz.hijos.get(2).etiqueta, "Variable",raiz.hijos.get(6).result);
             TablaSim.add(simbolo);
         }else if(raiz.etiqueta == "TIPOEXPR" && raiz.hijos.size()==2){
@@ -415,7 +417,7 @@ public class arbol {
             + " con nombre : " + raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta
             + " con contenido : " + raiz.hijos.get(8).result);
             
-            CTablaSimb simbolo = new CTablaSimb(raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta,
+            CTablaSimb simbolo = new CTablaSimb(contadorSimbolos+=1,raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta,
             raiz.hijos.get(2).etiqueta, "Array",raiz.hijos.get(8).result);
             TablaSim.add(simbolo);
 
