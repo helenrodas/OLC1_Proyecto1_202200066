@@ -46,7 +46,8 @@ import java.util.ArrayList;
  * @author lenovo
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-
+     ArrayList<CToken> tokens = LexerCup.listaTokens;
+     ArrayList<CError> errores = LexerCup.listaErrores;
     /**
      * Creates new form FrmPrincipal
      */
@@ -58,6 +59,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
+       
 
     }
 
@@ -406,10 +408,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                                 System.out.println("Rol: " + elemento.rol + "\t"+ "Tipo: " + elemento.tipo + "\t" + 
                                          "Nombre: " + elemento.nombre + "\t" + " Valor: " +elemento.valor);
                             }
+                            JOptionPane.showMessageDialog(null, "Analisis Realizado Exitosamente!", "Analisis Realizado", JOptionPane.INFORMATION_MESSAGE);
                             //raiz.printArbol(raiz);
                         } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Error! No se pudo analizar el texto...", "Error", JOptionPane.ERROR);
                             ex.printStackTrace(); 
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            
                         }
    
                     }
@@ -424,196 +429,201 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEjecutarActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        //reporteTokens();
-        //reporteErrores();
+
+        reporteTokens();
+        reporteErrores();
+        tokens.clear();
+        errores.clear();
         JOptionPane.showMessageDialog(null, "Reportes Generados Exitosamente", "Reportes Generados", JOptionPane.INFORMATION_MESSAGE);
         // Agregar caso de error!
     }//GEN-LAST:event_btnReportesActionPerformed
 
     
-//    private void reporteTokens(){
-//        StringBuilder htmlCodigo =  new StringBuilder();
-//        
-//        htmlCodigo.append("<!DOCTYPE html>");
-//        htmlCodigo.append("<html lang=\"en\">");
-//        htmlCodigo.append("<head>");
-//        htmlCodigo.append(" <meta charset=\"UTF-8\">");
-//        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
-//        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-//        htmlCodigo.append("<title>Tokens</title>");
-//        htmlCodigo.append("<style>");
-//        htmlCodigo.append("body {");
-//        htmlCodigo.append("    display: flex;");
-//        htmlCodigo.append("    justify-content: center;");
-//        htmlCodigo.append("    align-items: center;");
-//        htmlCodigo.append("    font-size: large;");
-//        htmlCodigo.append("    padding-top: 80px;");
-//        htmlCodigo.append("    background-color:   #ffcab3  ;");
-//        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("table {");
-//        htmlCodigo.append("    border-collapse: separate;");
-//        htmlCodigo.append("    width: 47%;");
-//        htmlCodigo.append("    margin-top: 10px;");
-//        htmlCodigo.append("    background-color: #fff;");
-//        htmlCodigo.append("    border: 1px solid #ddd;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("th, td {");
-//        htmlCodigo.append("    text-align: center;");
-//        htmlCodigo.append("    padding: 8px;");
-//        htmlCodigo.append("    border: 1px solid #ddd;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("th {");
-//        htmlCodigo.append("    background-color:  #ff9162 ;");
-//        htmlCodigo.append("    color: #fff;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("td {");
-//        htmlCodigo.append("    background-color:  #ff9162 ;");
-//        htmlCodigo.append("    color: #fff;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append(".title {");
-//        htmlCodigo.append("    font-size: 2em;");
-//        htmlCodigo.append("    text-align: center;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append(".container {");
-//        htmlCodigo.append("    text-align: center;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("</style>");
-//        htmlCodigo.append("</head>");
-//        htmlCodigo.append("<body>");
-//        htmlCodigo.append("<div class=\"container\">");
-//        htmlCodigo.append("<h1 class=\"title\">Tabla de tokens</h1>");
-//        htmlCodigo.append("<table border=\"1\">");
-//        htmlCodigo.append("<thead>");
-//        htmlCodigo.append("<tr>");
-//        htmlCodigo.append("<th>#</th>");
-//        htmlCodigo.append("<th>Lexema</th>");
-//        htmlCodigo.append("<th>Tipo</th>");
-//        htmlCodigo.append("<th>Línea</th>");
-//        htmlCodigo.append("<th>Columna</th>");
-//        htmlCodigo.append("</tr>");
-//        htmlCodigo.append("</thead>");
-//        htmlCodigo.append("<tbody>");
-//        
-//        for (CToken token : ListaTokensTemp) {
-//            htmlCodigo.append("<tr>");
-//            htmlCodigo.append("<td>").append(token.contador).append("</td>");
-//            htmlCodigo.append("<td>").append(token.lexema).append("</td>");
-//            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
-//            htmlCodigo.append("<td>").append(token.linea).append("</td>");
-//            htmlCodigo.append("<td>").append(token.columna).append("</td>");
-//            htmlCodigo.append("</tr>");
-//        }
-//        
-//        htmlCodigo.append("</tbody>");
-//        htmlCodigo.append("</table>");
-//        htmlCodigo.append("</div>");
-//        htmlCodigo.append("</body>");
-//        htmlCodigo.append("</html>");
-//        
-//        try {
-//            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-tokens" + ".html");
-//            FileWriter fileWriter = new FileWriter(file);
-//            fileWriter.write(htmlCodigo.toString());
-//            fileWriter.close();
-//
-//            Desktop.getDesktop().open(file);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void reporteErrores(){
-//        StringBuilder htmlCodigo =  new StringBuilder();
-//        
-//        htmlCodigo.append("<!DOCTYPE html>");
-//        htmlCodigo.append("<html lang=\"en\">");
-//        htmlCodigo.append("<head>");
-//        htmlCodigo.append(" <meta charset=\"UTF-8\">");
-//        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
-//        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-//        htmlCodigo.append("<title> Errores</title>");
-//        htmlCodigo.append("<style>");
-//        htmlCodigo.append("body {");
-//        htmlCodigo.append("    display: flex;");
-//        htmlCodigo.append("    justify-content: center;");
-//        htmlCodigo.append("    align-items: center;");
-//        htmlCodigo.append("    font-size: large;");
-//        htmlCodigo.append("    padding-top: 80px;");
-//        htmlCodigo.append("    background-color:   #ffcab3  ;");
-//        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("table {");
-//        htmlCodigo.append("    border-collapse: separate;");
-//        htmlCodigo.append("    width: 47%;");
-//        htmlCodigo.append("    margin-top: 10px;");
-//        htmlCodigo.append("    background-color: #fff;");
-//        htmlCodigo.append("    border: 1px solid #ddd;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("th, td {");
-//        htmlCodigo.append("    text-align: center;");
-//        htmlCodigo.append("    padding: 8px;");
-//        htmlCodigo.append("    border: 1px solid #ddd;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("th {");
-//        htmlCodigo.append("    background-color:  #ff9162 ;");
-//        htmlCodigo.append("    color: #fff;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("td {");
-//        htmlCodigo.append("    background-color:  #ff9162 ;");
-//        htmlCodigo.append("    color: #fff;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append(".title {");
-//        htmlCodigo.append("    font-size: 2em;");
-//        htmlCodigo.append("    text-align: center;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append(".container {");
-//        htmlCodigo.append("    text-align: center;");
-//        htmlCodigo.append("}");
-//        htmlCodigo.append("</style>");
-//        htmlCodigo.append("</head>");
-//        htmlCodigo.append("<body>");
-//        htmlCodigo.append("<div class=\"container\">");
-//        htmlCodigo.append("<h1 class=\"title\">Tabla de Errores</h1>");
-//        htmlCodigo.append("<table border=\"1\">");
-//        htmlCodigo.append("<thead>");
-//        htmlCodigo.append("<tr>");
-//        htmlCodigo.append("<th>#</th>");
-//        htmlCodigo.append("<th>Lexema</th>");
-//        htmlCodigo.append("<th>Tipo</th>");
-//        htmlCodigo.append("<th>Línea</th>");
-//        htmlCodigo.append("<th>Columna</th>");
-//        htmlCodigo.append("</tr>");
-//        htmlCodigo.append("</thead>");
-//        htmlCodigo.append("<tbody>");
-//        
-//        for (CError token : ListaErroresTemp) {
-//            htmlCodigo.append("<tr>");
-//            htmlCodigo.append("<td>").append(token.contador).append("</td>");
-//            htmlCodigo.append("<td>").append(token.error).append("</td>");
-//            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
-//            htmlCodigo.append("<td>").append(token.linea).append("</td>");
-//            htmlCodigo.append("<td>").append(token.columna).append("</td>");
-//            htmlCodigo.append("</tr>");
-//        }
-//        
-//        htmlCodigo.append("</tbody>");
-//        htmlCodigo.append("</table>");
-//        htmlCodigo.append("</div>");
-//        htmlCodigo.append("</body>");
-//        htmlCodigo.append("</html>");
-//        
-//        try {
-//            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-errores" + ".html");
-//            FileWriter fileWriter = new FileWriter(file);
-//            fileWriter.write(htmlCodigo.toString());
-//            fileWriter.close();
-//
-//            Desktop.getDesktop().open(file);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void reporteTokens(){
+        StringBuilder htmlCodigo =  new StringBuilder();
+        
+        htmlCodigo.append("<!DOCTYPE html>");
+        htmlCodigo.append("<html lang=\"en\">");
+        htmlCodigo.append("<head>");
+        htmlCodigo.append(" <meta charset=\"UTF-8\">");
+        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+        htmlCodigo.append("<title>Tokens</title>");
+        htmlCodigo.append("<style>");
+        htmlCodigo.append("body {");
+        htmlCodigo.append("    display: flex;");
+        htmlCodigo.append("    justify-content: center;");
+        htmlCodigo.append("    align-items: center;");
+        htmlCodigo.append("    font-size: large;");
+        htmlCodigo.append("    padding-top: 80px;");
+        htmlCodigo.append("    background-color:   #ffcab3  ;");
+        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("table {");
+        htmlCodigo.append("    border-collapse: separate;");
+        htmlCodigo.append("    width: 47%;");
+        htmlCodigo.append("    margin-top: 10px;");
+        htmlCodigo.append("    background-color: #fff;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th, td {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("    padding: 8px;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("td {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".title {");
+        htmlCodigo.append("    font-size: 2em;");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".container {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("</style>");
+        htmlCodigo.append("</head>");
+        htmlCodigo.append("<body>");
+        htmlCodigo.append("<div class=\"container\">");
+        htmlCodigo.append("<h1 class=\"title\">Tabla de tokens</h1>");
+        htmlCodigo.append("<table border=\"1\">");
+        htmlCodigo.append("<thead>");
+        htmlCodigo.append("<tr>");
+        htmlCodigo.append("<th>#</th>");
+        htmlCodigo.append("<th>Lexema</th>");
+        htmlCodigo.append("<th>Tipo</th>");
+        htmlCodigo.append("<th>Línea</th>");
+        htmlCodigo.append("<th>Columna</th>");
+        htmlCodigo.append("</tr>");
+        htmlCodigo.append("</thead>");
+        htmlCodigo.append("<tbody>");
+        
+        
+        for (CToken token : tokens) {
+            htmlCodigo.append("<tr>");
+            htmlCodigo.append("<td>").append(token.contador).append("</td>");
+            htmlCodigo.append("<td>").append(token.token).append("</td>");
+            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
+            htmlCodigo.append("<td>").append(token.linea).append("</td>");
+            htmlCodigo.append("<td>").append(token.columna).append("</td>");
+            htmlCodigo.append("</tr>");
+        }
+        
+        htmlCodigo.append("</tbody>");
+        htmlCodigo.append("</table>");
+        htmlCodigo.append("</div>");
+        htmlCodigo.append("</body>");
+        htmlCodigo.append("</html>");
+        
+        try {
+            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-tokens" + ".html");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(htmlCodigo.toString());
+            fileWriter.close();
+
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void reporteErrores(){
+        StringBuilder htmlCodigo =  new StringBuilder();
+        
+        htmlCodigo.append("<!DOCTYPE html>");
+        htmlCodigo.append("<html lang=\"en\">");
+        htmlCodigo.append("<head>");
+        htmlCodigo.append(" <meta charset=\"UTF-8\">");
+        htmlCodigo.append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+        htmlCodigo.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+        htmlCodigo.append("<title> Errores</title>");
+        htmlCodigo.append("<style>");
+        htmlCodigo.append("body {");
+        htmlCodigo.append("    display: flex;");
+        htmlCodigo.append("    justify-content: center;");
+        htmlCodigo.append("    align-items: center;");
+        htmlCodigo.append("    font-size: large;");
+        htmlCodigo.append("    padding-top: 80px;");
+        htmlCodigo.append("    background-color:   #ffcab3  ;");
+        htmlCodigo.append("    font-family: 'Arial', sans-serif;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("table {");
+        htmlCodigo.append("    border-collapse: separate;");
+        htmlCodigo.append("    width: 47%;");
+        htmlCodigo.append("    margin-top: 10px;");
+        htmlCodigo.append("    background-color: #fff;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th, td {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("    padding: 8px;");
+        htmlCodigo.append("    border: 1px solid #ddd;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("th {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("td {");
+        htmlCodigo.append("    background-color:  #ff9162 ;");
+        htmlCodigo.append("    color: #fff;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".title {");
+        htmlCodigo.append("    font-size: 2em;");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append(".container {");
+        htmlCodigo.append("    text-align: center;");
+        htmlCodigo.append("}");
+        htmlCodigo.append("</style>");
+        htmlCodigo.append("</head>");
+        htmlCodigo.append("<body>");
+        htmlCodigo.append("<div class=\"container\">");
+        htmlCodigo.append("<h1 class=\"title\">Tabla de Errores</h1>");
+        htmlCodigo.append("<table border=\"1\">");
+        htmlCodigo.append("<thead>");
+        htmlCodigo.append("<tr>");
+        htmlCodigo.append("<th>#</th>");
+        htmlCodigo.append("<th>Lexema</th>");
+        htmlCodigo.append("<th>Tipo</th>");
+        htmlCodigo.append("<th>Línea</th>");
+        htmlCodigo.append("<th>Columna</th>");
+        htmlCodigo.append("</tr>");
+        htmlCodigo.append("</thead>");
+        htmlCodigo.append("<tbody>");
+        
+        
+        for (CError token : errores) {
+            htmlCodigo.append("<tr>");
+            htmlCodigo.append("<td>").append(token.contador).append("</td>");
+            htmlCodigo.append("<td>").append(token.error).append("</td>");
+            htmlCodigo.append("<td>").append(token.tipo).append("</td>");
+            htmlCodigo.append("<td>").append(token.linea).append("</td>");
+            htmlCodigo.append("<td>").append(token.columna).append("</td>");
+            htmlCodigo.append("</tr>");
+        }
+        
+        htmlCodigo.append("</tbody>");
+        htmlCodigo.append("</table>");
+        htmlCodigo.append("</div>");
+        htmlCodigo.append("</body>");
+        htmlCodigo.append("</html>");
+        
+        try {
+            File file = new File("P:\\Programacion\\PracticasJava\\QuintoSemestre\\Compiladores1\\Proyecto1\\DataForge\\src\\DataForge\\Reportes\\reporte-errores" + ".html");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(htmlCodigo.toString());
+            fileWriter.close();
+
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     
     

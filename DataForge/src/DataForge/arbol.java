@@ -29,6 +29,10 @@ public class arbol {
     public ArrayList<arbol> hijos;
     public String result;
     public Map<String,String> contGraph = new HashMap<>();
+    private static int contadorGraficaPie = 0;
+    private static int contadorGraficaBar = 0;
+    private static int contadorGraficaLine = 0;
+    private static int contadorGraficaHisto = 0;
 
     
     public arbol(String etiqueta){
@@ -143,26 +147,30 @@ public class arbol {
 
     
     public static void tipoGrafica(String tipoGrafica, Map<String, String> contGraph,JTextArea areaConsola) throws IOException {
+        
         switch (tipoGrafica.toLowerCase()) {
             case "graphbar":
-               generarGraficaBarra(contGraph);
+                contadorGraficaBar +=1;
+               generarGraficaBarra(contGraph,contadorGraficaBar);
                 break;
             case "graphline":
-                generarGraficaLinea(contGraph);
+                contadorGraficaLine += 1;
+                generarGraficaLinea(contGraph,contadorGraficaLine);
                 break;
             case "graphpie":
-               generarGraficaPie(contGraph);
+                contadorGraficaPie +=1;
+               generarGraficaPie(contGraph,contadorGraficaPie);
                 break;
             case "histogram":
-
-                generarGraficaHistograma(contGraph,areaConsola);
+                contadorGraficaHisto += 1;
+                generarGraficaHistograma(contGraph,areaConsola, contadorGraficaHisto);
                 break;
             default:
                 System.out.println("Tipo de grafica indefinido");
         }
     }
     
-    public static void generarGraficaHistograma(Map<String, String> contGraph,JTextArea areaConsola) throws IOException {
+    public static void generarGraficaHistograma(Map<String, String> contGraph,JTextArea areaConsola, int contador) throws IOException {
         String titulo = contGraph.get("titulo");
         String ejesY = contGraph.get("values");
         String[] values = ejesY.split(",");
@@ -233,13 +241,13 @@ public class arbol {
         // Guardar la gráfica como una imagen PNG
         int width = 674;
         int height = 357;
-        File histograma = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "histograma.png");
+        File histograma = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "histograma_" + contador + ".png");
         ChartUtilities.saveChartAsPNG(histograma, chart, width, height);
     }
     
     
     
-    public static void generarGraficaBarra(Map<String, String> contGraph) throws IOException {
+    public static void generarGraficaBarra(Map<String, String> contGraph,int contador) throws IOException {
         // Obtener datos relevantes del contGraph
         String titulo = contGraph.get("titulo");
         String ejesX = contGraph.get("ejeX");
@@ -274,13 +282,13 @@ public class arbol {
         // Guardar la gráfica como una imagen JPG
                 int width = 674;
                 int height = 357;
-                File barChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaBarras.png");
+                File barChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaBarras_" + contador + ".png");
                 //imgGraficas.addImagePath("C:/Users/Usuario/Desktop/img/" + fileName);
                 ChartUtilities.saveChartAsPNG(barChart, chart, width, height);
     }
     
     
-    public static void generarGraficaLinea(Map<String, String> contGraph) throws IOException {
+    public static void generarGraficaLinea(Map<String, String> contGraph,int contador) throws IOException {
         // Obtener datos relevantes del contGraph
         String titulo = contGraph.get("titulo");
         String ejesX = contGraph.get("ejeX");
@@ -315,12 +323,12 @@ public class arbol {
         // Guardar la gráfica como una imagen JPG
                 int width = 674;
                 int height = 357;
-                File lineChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaLinea.png");
-                //imgGraficas.addImagePath("C:/Users/Usuario/Desktop/img/" + fileName);
+                File lineChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaLinea_" + contador + ".png");
                 ChartUtilities.saveChartAsPNG(lineChart, chart, width, height);
     }
     
-     public static void generarGraficaPie(Map<String, String> contGraph) throws IOException {
+    
+     public static void generarGraficaPie(Map<String, String> contGraph,int contador) throws IOException {
          String titulo = contGraph.get("titulo");
          String ejesX = contGraph.get("label");
          String[] valoresX = ejesX.split(",");
@@ -348,7 +356,7 @@ public class arbol {
         // Guardar la gráfica como una imagen PNG
         int width = 674;
         int height = 357;
-        File pieChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaPie.png");
+        File pieChart = new File("P:/Programacion/PracticasJava/QuintoSemestre/Compiladores1/Proyecto1/DataForge/graficas/" + "graficaPie_" + contador + ".png");
         ChartUtilities.saveChartAsPNG(pieChart, chart, width, height);
      }
     
