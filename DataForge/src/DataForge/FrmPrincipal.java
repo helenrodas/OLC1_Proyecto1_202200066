@@ -167,6 +167,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnVerGraficas.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
         btnVerGraficas.setForeground(new java.awt.Color(255, 255, 255));
         btnVerGraficas.setText("Ver Graficas");
+        btnVerGraficas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerGraficasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelGraficasLayout = new javax.swing.GroupLayout(jPanelGraficas);
         jPanelGraficas.setLayout(jPanelGraficasLayout);
@@ -446,7 +451,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Analisis Realizado Exitosamente!", "Analisis Realizado", JOptionPane.INFORMATION_MESSAGE);
                             //raiz.printArbol(raiz);
                         } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, "Error! No se pudo analizar el texto...", "Error", JOptionPane.ERROR);
+                            JOptionPane.showMessageDialog(null, "Error! No se pudo analizar el texto...", "Error", JOptionPane.ERROR_MESSAGE);
                             ex.printStackTrace(); 
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                             
@@ -470,6 +475,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         reporteTablaSimbolos();
         tokens.clear();
         errores.clear();
+        TablaSim.clear();
         JOptionPane.showMessageDialog(null, "Reportes Generados Exitosamente", "Reportes Generados", JOptionPane.INFORMATION_MESSAGE);
         // Agregar caso de error!
     }//GEN-LAST:event_btnReportesActionPerformed
@@ -481,6 +487,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnVerGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerGraficasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerGraficasActionPerformed
 
     
     private void reporteTokens(){

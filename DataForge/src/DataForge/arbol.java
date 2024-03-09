@@ -206,22 +206,22 @@ public class arbol {
 
         // Construir tabla de frecuencias
         StringBuilder tabla = new StringBuilder();
-        tabla.append("------------------------------------\n");
-        tabla.append("Valor    Fb       Fa       Fr\n");
-        tabla.append("------------------------------------\n");
+        areaConsola.append("------------------------------------\n");
+        areaConsola.append("Valor    Fb       Fa       Fr\n");
+        areaConsola.append("------------------------------------\n");
         for (Map.Entry<Double, Integer> entry : frecuenciaAbsoluta.entrySet()) {
             double valor = entry.getKey();
             int absoluta = entry.getValue();
             double relativa = frecuenciaRelativa.get(valor) * 100;
             int acumuladaValor = frecuenciaAcumulada.get(valor);
-            tabla.append(String.format("%4.0f %9d %9d %9.2f%%\n", valor, absoluta, acumuladaValor, relativa));
+            areaConsola.append(String.format("%4.0f %9d %9d %9.2f%%\n", valor, absoluta, acumuladaValor, relativa));
         }
-        tabla.append("------------------------------------\n");
-        tabla.append(String.format("Totales: %7d %9d %9.2f%%\n", totalDatos, acumulada, 100.0));
-        tabla.append("------------------------------------\n");
+        areaConsola.append("------------------------------------\n");
+        areaConsola.append(String.format("Totales: %7d %9d %9.2f%%\n", totalDatos, acumulada, 100.0));
+        areaConsola.append("------------------------------------\n");
 
         // Establecer la tabla como texto del JTextArea
-        areaConsola.setText(tabla.toString());
+        //areaConsola.setText(tabla.toString());
 
 
         // Crear el conjunto de datos para el histograma
@@ -415,17 +415,25 @@ public class arbol {
             + raiz.hijos.get(0).etiqueta
             + " de tipo: " + raiz.hijos.get(2).etiqueta
             + " con nombre : " + raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta
-            + " con contenido : " + raiz.hijos.get(8).result);
+            + " con contenido : " + raiz.hijos.get(7).result);
             
             CTablaSimb simbolo = new CTablaSimb(contadorSimbolos+=1,raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta,
-            raiz.hijos.get(2).etiqueta, "Array",raiz.hijos.get(8).result);
+            raiz.hijos.get(2).etiqueta, "Array",raiz.hijos.get(7).result);
             TablaSim.add(simbolo);
 
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==3){
             raiz.result = raiz.hijos.get(0).result + raiz.hijos.get(1).etiqueta + raiz.hijos.get(2).result;
+            
 //            System.out.println("estoy en lista datos hijos 3: " +raiz.result);
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==1){
             raiz.result = raiz.hijos.get(0).result;
+            //System.out.println("Esto es lo que traigo" + raiz.result);
+//            String valorVar = this.getValor(TablaSim, raiz.result);
+//                if (valorVar.equals("No se encontro valor")){
+//                    System.out.println("Error, valor no encontrado!");
+//                }else{
+//                    raiz.result = valorVar;
+//                }
 //             System.out.println("estoy en lista datos hijos 1: " +raiz.result);
         }else if(raiz.etiqueta == "D_COMENTARIO"){ //imprimir en consola print/column
 

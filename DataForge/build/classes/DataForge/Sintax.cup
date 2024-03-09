@@ -157,7 +157,7 @@ TIPOEXPR::= Identificador:I {:
 
 // ..............ARREGLOS.................
 
-D_ARREGLO::= Array:A Dos_Puntos:DP Var_Tipo:V DosPuntos_Dobles:DD Signo_Arroba:SA Identificador:I Signo_Indicador:S Corchete_Izq:CI LISTA_DATOS:LD Corchete_Der:CD End:E Punto_Coma:PC {:
+D_ARREGLO::= Array:A Dos_Puntos:DP Var_Tipo:V DosPuntos_Dobles:DD Signo_Arroba:SA Identificador:I Signo_Indicador:S EXPRE_EST:LD End:E Punto_Coma:PC {:
 
             arbol D_arreglo = new arbol("D_ARREGLO");
             D_arreglo.addHijo(new arbol(A.toString()));
@@ -167,9 +167,7 @@ D_ARREGLO::= Array:A Dos_Puntos:DP Var_Tipo:V DosPuntos_Dobles:DD Signo_Arroba:S
             D_arreglo.addHijo(new arbol(SA.toString()));
             D_arreglo.addHijo(new arbol(I.toString()));
             D_arreglo.addHijo(new arbol(S.toString()));
-            D_arreglo.addHijo(new arbol(CI.toString()));
             D_arreglo.addHijo(LD);
-            D_arreglo.addHijo(new arbol(CD.toString()));
             D_arreglo.addHijo(new arbol(E.toString()));
             D_arreglo.addHijo(new arbol(PC.toString()));
             RESULT = D_arreglo;
@@ -297,7 +295,7 @@ ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Char_General:CT E
             RESULT = atributos;
             :}
                  
-        | Eje_X:EJX DosPuntos_Dobles Var_Tipo:V2 Signo_Igual Corchete_Izq LISTA_DATOS:LISTAEJX Corchete_Der  End Punto_Coma{:
+        | Eje_X:EJX DosPuntos_Dobles Var_Tipo:V2 Signo_Igual EXPRE_EST:LISTAEJX  End Punto_Coma{:
         
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(EJX.toString()));
@@ -306,7 +304,7 @@ ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Char_General:CT E
                 RESULT = atributos;
                 :}
 
-        | Eje_Y:EJY DosPuntos_Dobles Var_Tipo:V3 Signo_Igual Corchete_Izq LISTA_DATOS:LISTAEJY Corchete_Der  End Punto_Coma{:
+        | Eje_Y:EJY DosPuntos_Dobles Var_Tipo:V3 Signo_Igual EXPRE_EST:LISTAEJY  End Punto_Coma{:
 
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(EJY.toString()));
@@ -330,7 +328,7 @@ ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Char_General:CT E
                 atributos.addHijo(new arbol(CHARY.toString()));
                 RESULT = atributos;
                 :}
-        | Grafica_Label:GL DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Corchete_Izq LISTA_DATOS:LD Corchete_Der  End Punto_Coma{:
+        | Grafica_Label:GL DosPuntos_Dobles Var_Tipo:V1 Signo_Igual EXPRE_EST:LD  End Punto_Coma{:
                 
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(GL.toString()));
@@ -338,7 +336,7 @@ ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Char_General:CT E
                 atributos.addHijo(LD);
                 RESULT = atributos;
                 :}
-        | Grafica_Valores:GV DosPuntos_Dobles Var_Tipo:V2 Signo_Igual Corchete_Izq LISTA_DATOS:VP Corchete_Der End Punto_Coma{:
+        | Grafica_Valores:GV DosPuntos_Dobles Var_Tipo:V2 Signo_Igual EXPRE_EST:VP End Punto_Coma{:
 
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(GV.toString()));
