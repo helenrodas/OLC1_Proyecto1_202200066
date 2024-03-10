@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
@@ -34,7 +37,9 @@ public class arbol {
     private static int contadorGraficaLine = 0;
     private static int contadorGraficaHisto = 0;
     int contadorSimbolos = 0;
+    private JPanel panelGraficas;
 
+    
     
     public arbol(String etiqueta){
         this.etiqueta = etiqueta;
@@ -52,6 +57,21 @@ public class arbol {
         }
         System.out.println(raiz.etiqueta );
     }
+    
+   public void setPanelGraficas(JPanel panel) {
+        this.panelGraficas = panel;
+    }
+
+    public void mostrarGrafica(String rutaImagen) {
+        // Cargar la imagen y mostrarla en el JPanel
+        ImageIcon icono = new ImageIcon(rutaImagen);
+        JLabel etiqueta = new JLabel(icono);
+        panelGraficas.removeAll();
+        panelGraficas.add(etiqueta);
+        panelGraficas.revalidate();
+        panelGraficas.repaint();
+    }
+    
     
     public String getValor(ArrayList<CTablaSimb>TablaSim,String nombre){
         for(CTablaSimb elemento : TablaSim){
@@ -423,8 +443,6 @@ public class arbol {
 
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==3){
             raiz.result = raiz.hijos.get(0).result + raiz.hijos.get(1).etiqueta + raiz.hijos.get(2).result;
-            
-//            System.out.println("estoy en lista datos hijos 3: " +raiz.result);
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==1){
             raiz.result = raiz.hijos.get(0).result;
             //System.out.println("Esto es lo que traigo" + raiz.result);
@@ -437,7 +455,6 @@ public class arbol {
 //             System.out.println("estoy en lista datos hijos 1: " +raiz.result);
         }else if(raiz.etiqueta == "D_COMENTARIO"){ //imprimir en consola print/column
 
-             
         }else if(raiz.etiqueta == "LISTA_COMENTARIO" && raiz.hijos.size()==5){  //es de tipo print
             raiz.result = raiz.hijos.get(2).result ;
             System.out.println("Se encontro la funcion : "
@@ -518,6 +535,5 @@ public class arbol {
                 System.out.println("values es: " + raiz.result);
             }
         }
-            
     }
 }

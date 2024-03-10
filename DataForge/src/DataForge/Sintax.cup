@@ -85,6 +85,10 @@ INSTRUCCION::= D_VARIABLE:V  {:
                 arbol instruccion = new arbol("INSTRUCCION");
                 instruccion.addHijo(G);
                 RESULT = instruccion;
+            :}
+            | error {:
+                 arbol instruccion = new arbol("INSTRUCCION");
+                 RESULT = instruccion;
             :};
 
 // ..............VARIABLES.................
@@ -152,6 +156,10 @@ TIPOEXPR::= Identificador:I {:
             tipoExpr.addHijo(new arbol(PI.toString()));
             tipoExpr.addHijo(EE);
             tipoExpr.addHijo(new arbol(PD.toString()));
+            RESULT = tipoExpr;
+            :}
+        | error {:
+            arbol tipoExpr = new arbol("TIPOEXPR");
             RESULT = tipoExpr;
             :};
 

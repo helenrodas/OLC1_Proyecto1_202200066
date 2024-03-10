@@ -49,6 +49,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      ArrayList<CToken> tokens = LexerCup.listaTokens;
      ArrayList<CError> errores = LexerCup.listaErrores;
      ArrayList<CTablaSimb> TablaSim = new ArrayList<>();
+     //private arbol miArbol;
     /**
      * Creates new form FrmPrincipal
      */
@@ -60,6 +61,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
+       // miArbol = new arbol("raiz");
+        //miArbol.setPanelGraficas(jPanelGraficas);
        
 
     }
@@ -489,7 +492,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnVerGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerGraficasActionPerformed
-        // TODO add your handling code here:
+//      miArbol.setPanelGraficas(jPanelGraficas);
+//       miArbol.mostrarGrafica("DataForge/graficas/histograma_1.png");
     }//GEN-LAST:event_btnVerGraficasActionPerformed
 
     
