@@ -1,3 +1,0 @@
-program
-var:char[]::cadena <- “cadena” end
-end program

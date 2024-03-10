@@ -16,6 +16,7 @@ L=[a-zA-Z_À-ÿ\u00f1\u00d1]+
 D=[0-9]+
 NUMERO = {D}+("."{D}+)?
 COMLINEA = "!"~(\n|\r)
+ESPACIOCADENA = \"([^\"\r\n]*)\"
 espacio=[ \t\r\n]+
 ESPACIO=[ ]
 
@@ -89,6 +90,7 @@ histogram {System.out.println("--<Tipo_Grafica: " +yytext() + " || linea: "+ yyl
 {IGTILDE} {/*Ignore*/}
 {espacio} {/*Ignore*/}
 {COMLINEA} {/*Ignore*/}
+{ESPACIOCADENA} {System.out.println("--<Char_General: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">"); token = new CToken(tokensCount, yytext(),"Char_general",yyline,yycolumn); listaTokens.add(token); tokensCount++; return new Symbol(sym.Char_General, yycolumn, yyline, yytext());}
 {L}({L}|{D})* {System.out.println("--<Identificador: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">"); token = new CToken(tokensCount, yytext(),"Identificador",yyline,yycolumn); listaTokens.add(token); tokensCount++; return new Symbol(sym.Identificador, yycolumn, yyline, yytext());}
 {NUMERO} {System.out.println("--<Numero: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">"); token = new CToken(tokensCount, yytext(),"Numero",yyline,yycolumn); listaTokens.add(token); tokensCount++; return new Symbol(sym.Numero, yycolumn, yyline, yytext());}
 "\""({L}|{D}|{ESPACIO}|{NUMERO}|[-]|[:])*"\"" {System.out.println("--<Char_General: " +yytext() + " || linea: "+ yyline + " ||columna: "+ yycolumn+">"); token = new CToken(tokensCount, yytext(),"Char_general",yyline,yycolumn); listaTokens.add(token); tokensCount++; return new Symbol(sym.Char_General, yycolumn, yyline, yytext());}
