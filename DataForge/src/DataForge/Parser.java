@@ -508,16 +508,16 @@ class CUP$Parser$actions {
 		Object PC = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		  
 
-            arbol D_variable = new arbol("D_VARIABLE");
-            D_variable.addHijo(new arbol(V.toString()));
-            D_variable.addHijo(new arbol(D.toString()));
-            D_variable.addHijo(new arbol(T.toString()));
-            D_variable.addHijo(new arbol(DD.toString()));
-            D_variable.addHijo(new arbol(I.toString()));
-            D_variable.addHijo(new arbol(S.toString()));
+            arbol D_variable = new arbol("D_VARIABLE" , 0,0);
+            D_variable.addHijo(new arbol(V.toString(), Vleft , Vright));
+            D_variable.addHijo(new arbol(D.toString(),Dleft , Dright));
+            D_variable.addHijo(new arbol(T.toString(),Tleft , Tright));
+            D_variable.addHijo(new arbol(DD.toString(),DDleft , DDright));
+            D_variable.addHijo(new arbol(I.toString(),Ileft , Iright));
+            D_variable.addHijo(new arbol(S.toString(),Sleft , Sright));
             D_variable.addHijo(EX);
-            D_variable.addHijo(new arbol(E.toString()));
-            D_variable.addHijo(new arbol(PC.toString()));
+            D_variable.addHijo(new arbol(E.toString(),Eleft , Eright));
+            D_variable.addHijo(new arbol(PC.toString(),PCleft , PCright));
             RESULT = D_variable;
   
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("D_VARIABLE",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -710,17 +710,17 @@ class CUP$Parser$actions {
 		Object PC = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		
 
-            arbol D_arreglo = new arbol("D_ARREGLO");
-            D_arreglo.addHijo(new arbol(A.toString()));
-            D_arreglo.addHijo(new arbol(DP.toString()));
-            D_arreglo.addHijo(new arbol(V.toString()));
-            D_arreglo.addHijo(new arbol(DD.toString()));
-            D_arreglo.addHijo(new arbol(SA.toString()));
-            D_arreglo.addHijo(new arbol(I.toString()));
-            D_arreglo.addHijo(new arbol(S.toString()));
+            arbol D_arreglo = new arbol("D_ARREGLO" ,0, 0);
+            D_arreglo.addHijo(new arbol(A.toString(), Aleft,Aright));
+            D_arreglo.addHijo(new arbol(DP.toString(), DPleft,DPright));
+            D_arreglo.addHijo(new arbol(V.toString(), Vleft,Vright));
+            D_arreglo.addHijo(new arbol(DD.toString(), DDleft,DDright));
+            D_arreglo.addHijo(new arbol(SA.toString(), SAleft,SAright));
+            D_arreglo.addHijo(new arbol(I.toString(), Ileft,Iright));
+            D_arreglo.addHijo(new arbol(S.toString(), Sleft,Sright));
             D_arreglo.addHijo(LD);
-            D_arreglo.addHijo(new arbol(E.toString()));
-            D_arreglo.addHijo(new arbol(PC.toString()));
+            D_arreglo.addHijo(new arbol(E.toString(), Eleft,Eright));
+            D_arreglo.addHijo(new arbol(PC.toString(), PCleft,PCright));
             RESULT = D_arreglo;
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("D_ARREGLO",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);

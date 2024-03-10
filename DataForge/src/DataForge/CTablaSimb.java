@@ -14,13 +14,17 @@ public class CTablaSimb {
     public String tipo;
     public String rol;
     public String valor;
+    int linea = 0;
+    int columna = 0;
 
-    public CTablaSimb(int contador,String nombre,String tipo,String rol, String valor) {
+    public CTablaSimb(int contador,String nombre,String tipo,String rol, String valor, int linea, int columna) {
         this.contador = contador;
         this.nombre = nombre;
         this.tipo = tipo;
         this.rol = rol;
         this.valor = valor;
+        this.linea = linea;
+        this.columna = columna;
     }
     
     

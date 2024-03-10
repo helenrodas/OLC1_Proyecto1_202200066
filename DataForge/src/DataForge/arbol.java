@@ -38,12 +38,22 @@ public class arbol {
     private static int contadorGraficaHisto = 0;
     int contadorSimbolos = 0;
     private JPanel panelGraficas;
+    public int linea ;
+    public int columan;
 
     
     
     public arbol(String etiqueta){
         this.etiqueta = etiqueta;
         this.hijos=new ArrayList();
+    }
+    
+    public arbol(String etiqueta,int linea, int columna){
+        this.etiqueta = etiqueta;
+        this.hijos=new ArrayList();
+        this.linea = linea;
+        this.columan = columna;
+        
     }
     
     public void addHijo(arbol hijo){
@@ -394,7 +404,7 @@ public class arbol {
             + " con el valor : " + raiz.hijos.get(6).result);
             
             CTablaSimb simbolo = new CTablaSimb(contadorSimbolos+=1,raiz.hijos.get(4).etiqueta,
-            raiz.hijos.get(2).etiqueta, "Variable",raiz.hijos.get(6).result);
+            raiz.hijos.get(2).etiqueta, "Variable",raiz.hijos.get(6).result,raiz.hijos.get(2).linea,raiz.hijos.get(2).columan);
             TablaSim.add(simbolo);
         }else if(raiz.etiqueta == "TIPOEXPR" && raiz.hijos.size()==2){
             raiz.result = raiz.hijos.get(0).etiqueta + raiz.hijos.get(1).etiqueta;
@@ -438,7 +448,7 @@ public class arbol {
             + " con contenido : " + raiz.hijos.get(7).result);
             
             CTablaSimb simbolo = new CTablaSimb(contadorSimbolos+=1,raiz.hijos.get(4).etiqueta + raiz.hijos.get(5).etiqueta,
-            raiz.hijos.get(2).etiqueta, "Array",raiz.hijos.get(7).result);
+            raiz.hijos.get(2).etiqueta, "Array",raiz.hijos.get(7).result,raiz.hijos.get(2).linea,raiz.hijos.get(2).columan);
             TablaSim.add(simbolo);
 
         }else if(raiz.etiqueta == "LISTA_DATOS" && raiz.hijos.size()==3){

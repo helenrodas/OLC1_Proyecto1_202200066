@@ -650,6 +650,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         htmlCodigo.append("<th>Tipo</th>");
         htmlCodigo.append("<th>Rol</th>");
         htmlCodigo.append("<th>Valor</th>");
+        htmlCodigo.append("<th>Linea</th>");
+        htmlCodigo.append("<th>Columna</th>");
         htmlCodigo.append("</tr>");
         htmlCodigo.append("</thead>");
         htmlCodigo.append("<tbody>");
@@ -662,6 +664,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             htmlCodigo.append("<td>").append(simbolo.tipo).append("</td>");
             htmlCodigo.append("<td>").append(simbolo.rol).append("</td>");
             htmlCodigo.append("<td>").append(simbolo.valor).append("</td>");
+            htmlCodigo.append("<td>").append(simbolo.linea).append("</td>");
+            htmlCodigo.append("<td>").append(simbolo.columna).append("</td>");
             htmlCodigo.append("</tr>");
         }
         
