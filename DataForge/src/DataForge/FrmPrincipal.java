@@ -47,7 +47,8 @@ import java.util.ArrayList;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
      ArrayList<CToken> tokens = LexerCup.listaTokens;
-     ArrayList<CError> errores = LexerCup.listaErrores;
+     //ArrayList<CError> errores = LexerCup.listaErrores;
+     ArrayList<CError> listaErrores = LexerCup.listaErrores;
      ArrayList<CTablaSimb> TablaSim = new ArrayList<>();
      //private arbol miArbol;
     /**
@@ -91,8 +92,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanelGraficas = new javax.swing.JPanel();
         btnEjecutar = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
-        btnAnterior = new javax.swing.JButton();
-        btnSiguiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -209,28 +208,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnAnterior.setBackground(new java.awt.Color(0, 51, 102));
-        btnAnterior.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
-        btnAnterior.setForeground(new java.awt.Color(255, 255, 255));
-        btnAnterior.setText("Anterior");
-        btnAnterior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnteriorActionPerformed(evt);
-            }
-        });
-
-        btnSiguiente.setBackground(new java.awt.Color(0, 51, 102));
-        btnSiguiente.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
-        btnSiguiente.setForeground(new java.awt.Color(255, 255, 255));
-        btnSiguiente.setText("Siguiente");
-        btnSiguiente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSiguienteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
         jPanelPrincipalLayout.setHorizontalGroup(
@@ -255,18 +232,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTabbedPaneArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1)))
+                        .addGap(59, 59, 59)
                         .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanelGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnVerGraficas)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincipalLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(110, 110, 110)
-                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66)))))
+                            .addComponent(jPanelGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVerGraficas))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanelPrincipalLayout.setVerticalGroup(
@@ -295,9 +264,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -419,6 +386,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
+        TextAreaConsola.setText("");
         int index = jTabbedPaneArchivos.getSelectedIndex();
 
         // Verificar si hay alguna pestaña seleccionada
@@ -440,9 +408,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         
                         LexerCup scan = new LexerCup(new StringReader(content));
                         Parser parser = new Parser(scan);
+                        parser.setListaErrores(listaErrores);
+                        parser.setErroresCount(listaErrores.size());
                         try {
 //                            parser.parse();
-                            
                             arbol raiz = (arbol)parser.parse().value;
                             raiz.run(raiz,TablaSim,TextAreaConsola);
                             
@@ -459,9 +428,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                             
                         }
-   
                     }
-                    
                 } 
             }
         } else {
@@ -477,19 +444,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         reporteErrores();
         reporteTablaSimbolos();
         tokens.clear();
-        errores.clear();
+        listaErrores.clear();
         TablaSim.clear();
         JOptionPane.showMessageDialog(null, "Reportes Generados Exitosamente", "Reportes Generados", JOptionPane.INFORMATION_MESSAGE);
         // Agregar caso de error!
     }//GEN-LAST:event_btnReportesActionPerformed
-
-    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAnteriorActionPerformed
-
-    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnVerGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerGraficasActionPerformed
 //      miArbol.setPanelGraficas(jPanelGraficas);
@@ -752,7 +711,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         htmlCodigo.append("<tbody>");
         
         
-        for (CError token : errores) {
+        for (CError token : listaErrores) {
             htmlCodigo.append("<tr>");
             htmlCodigo.append("<td>").append(token.contador).append("</td>");
             htmlCodigo.append("<td>").append(token.error).append("</td>");
@@ -907,11 +866,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea TextAreaConsola;
     private javax.swing.JButton btnAbrir;
-    private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnEjecutar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnReportes;
-    private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnVerGraficas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

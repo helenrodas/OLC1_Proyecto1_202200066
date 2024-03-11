@@ -1,15 +1,32 @@
 package DataForge;
-
+import java.util.ArrayList;
 import java_cup.runtime.Symbol;
 
 parser code
 {:
+
+    public ArrayList<CError> listaErrores;
+    public int erroresCount;
+
+    public void setListaErrores(ArrayList<CError> listaErrores) {
+        this.listaErrores = listaErrores;
+    }
+
+    public void setErroresCount(int erroresCount) {
+        this.erroresCount = erroresCount;
+    }
+
     public void syntax_error(Symbol s){
         System.out.println("Error sintactico: "+s.value+" linea: "+s.left+" columna: "+s.right);
+        CError error = new CError(erroresCount, s.value.toString(), "Sintáctico", s.left, s.right);
+        listaErrores.add(error);
+        erroresCount++;
     }
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         System.out.println("Error sintactico unrecovered: "+s.value+" linea: "+s.left+" columna: "+s.right);
     }
+
+
 :};
 terminal Linea,Signo_Igual,Signo_Suma,Signo_Resta,Signo_Multiplicacion,Signo_Division, 
         Parentesis_Izq, Parentesis_Der,Corchete_Izq, Corchete_Der, Program,End,Variable,Var_Tipo,
@@ -294,12 +311,12 @@ CONTGRAPH::= CONTGRAPH:CONT ATRIBUTOS:ATRIB {:
             contgraph.addHijo(ATRIB);
             RESULT = contgraph;
             :};
-ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Char_General:CT End Punto_Coma {:
+ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual TIPOEXPR:TE End Punto_Coma {:
 
             arbol atributos = new arbol("ATRIBUTOS");
             atributos.addHijo(new arbol(T.toString()));
             atributos.addHijo(new arbol(V1.toString()));
-            atributos.addHijo(new arbol(CT.toString()));
+            atributos.addHijo(TE);
             RESULT = atributos;
             :}
                  
@@ -320,20 +337,20 @@ ATRIBUTOS::= Titulo:T DosPuntos_Dobles Var_Tipo:V1 Signo_Igual Char_General:CT E
                 atributos.addHijo(LISTAEJY);
                 RESULT = atributos;
                 :}
-        | Titulo_X:TX DosPuntos_Dobles Var_Tipo:V4 Signo_Igual Char_General:CHARX End Punto_Coma{:
+        | Titulo_X:TX DosPuntos_Dobles Var_Tipo:V4 Signo_Igual TIPOEXPR:TE End Punto_Coma{:
                 
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(TX.toString()));
                 atributos.addHijo(new arbol(V4.toString()));
-                atributos.addHijo(new arbol(CHARX.toString()));
+                atributos.addHijo(TE);
                 RESULT = atributos;
                 :}
-        | Titulo_Y:TY DosPuntos_Dobles Var_Tipo:V5 Signo_Igual Char_General:CHARY End Punto_Coma {:
+        | Titulo_Y:TY DosPuntos_Dobles Var_Tipo:V5 Signo_Igual TIPOEXPR:TE End Punto_Coma {:
                 
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(TY.toString()));
                 atributos.addHijo(new arbol(V5.toString()));
-                atributos.addHijo(new arbol(CHARY.toString()));
+                atributos.addHijo(TE);
                 RESULT = atributos;
                 :}
         | Grafica_Label:GL DosPuntos_Dobles Var_Tipo:V1 Signo_Igual EXPRE_EST:LD  End Punto_Coma{:

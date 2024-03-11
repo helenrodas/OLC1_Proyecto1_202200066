@@ -420,6 +420,14 @@ public class LexerCup implements java_cup.runtime.Scanner {
     int tokensCount = 1;
     CToken token;
 
+    public static void setListaErrores(ArrayList<CError> lista) {
+        listaErrores = lista;
+    }
+
+    public void setErroresCount(int count) {
+        erroresCount = count;
+    }   
+
 
   /**
    * Creates a new scanner

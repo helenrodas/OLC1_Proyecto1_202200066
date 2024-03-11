@@ -516,8 +516,8 @@ public class arbol {
             //System.out.println(raiz.hijos.get(0).etiqueta);
             if (raiz.hijos.get(0).etiqueta.equalsIgnoreCase("titulo")) {
                 // Si es "titulo", accedemos al tercer hijo para obtener el valor
-                raiz.result = raiz.hijos.get(2).etiqueta;
-                contGraph.put("titulo",raiz.hijos.get(2).etiqueta);
+                raiz.result = raiz.hijos.get(2).result;
+                contGraph.put("titulo",raiz.hijos.get(2).result);
                 System.out.println("El título es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("ejeX")){
                 raiz.result = raiz.hijos.get(2).result;
@@ -528,12 +528,12 @@ public class arbol {
                 contGraph.put("ejeY",raiz.result);
                 System.out.println("El eje y es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("tituloX")){
-                raiz.result = raiz.hijos.get(2).etiqueta;
-                contGraph.put("tituloX",raiz.hijos.get(2).etiqueta);
+                raiz.result = raiz.hijos.get(2).result;
+                contGraph.put("tituloX",raiz.hijos.get(2).result);
                 System.out.println("El titulo en x es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("tituloY")){
-                raiz.result = raiz.hijos.get(2).etiqueta;
-                contGraph.put("tituloY",raiz.hijos.get(2).etiqueta);
+                raiz.result = raiz.hijos.get(2).result;
+                contGraph.put("tituloY",raiz.hijos.get(2).result);
                 System.out.println("El titulo en y es: " + raiz.result);
             }else if(raiz.hijos.get(0).etiqueta.equalsIgnoreCase("label")){
                 raiz.result = raiz.hijos.get(2).result;

@@ -5,6 +5,7 @@
 
 package DataForge;
 
+import java.util.ArrayList;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.XMLElement;
 
@@ -127,39 +128,42 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\002\000\004\013\132\001\002\000\004\017\133\001\002" +
     "\000\004\042\134\001\002\000\016\003\uffe4\017\uffe4\020" +
     "\uffe4\022\uffe4\025\uffe4\031\uffe4\001\002\000\004\021\136" +
-    "\001\002\000\004\005\137\001\002\000\004\051\140\001" +
-    "\002\000\004\017\141\001\002\000\004\042\142\001\002" +
-    "\000\022\030\uffde\032\uffde\033\uffde\034\uffde\035\uffde\036" +
-    "\uffde\037\uffde\040\uffde\001\002\000\004\021\144\001\002" +
-    "\000\004\005\145\001\002\000\004\051\146\001\002\000" +
-    "\004\017\147\001\002\000\004\042\150\001\002\000\022" +
-    "\030\uffe1\032\uffe1\033\uffe1\034\uffe1\035\uffe1\036\uffe1\037" +
-    "\uffe1\040\uffe1\001\002\000\004\021\152\001\002\000\004" +
-    "\005\153\001\002\000\022\003\037\014\046\023\034\024" +
-    "\041\047\035\050\036\051\033\053\042\001\002\000\004" +
-    "\017\155\001\002\000\004\042\156\001\002\000\022\030" +
-    "\uffe0\032\uffe0\033\uffe0\034\uffe0\035\uffe0\036\uffe0\037\uffe0" +
-    "\040\uffe0\001\002\000\004\021\160\001\002\000\004\005" +
-    "\161\001\002\000\004\051\162\001\002\000\004\017\163" +
-    "\001\002\000\004\042\164\001\002\000\022\030\uffdd\032" +
-    "\uffdd\033\uffdd\034\uffdd\035\uffdd\036\uffdd\037\uffdd\040\uffdd" +
-    "\001\002\000\004\021\166\001\002\000\004\005\167\001" +
-    "\002\000\022\003\037\014\046\023\034\024\041\047\035" +
-    "\050\036\051\033\053\042\001\002\000\004\017\171\001" +
-    "\002\000\004\042\172\001\002\000\022\030\uffdf\032\uffdf" +
-    "\033\uffdf\034\uffdf\035\uffdf\036\uffdf\037\uffdf\040\uffdf\001" +
-    "\002\000\004\021\174\001\002\000\004\041\175\001\002" +
-    "\000\004\047\176\001\002\000\004\050\177\001\002\000" +
-    "\004\046\200\001\002\000\022\003\037\014\046\023\034" +
-    "\024\041\047\035\050\036\051\033\053\042\001\002\000" +
-    "\004\017\202\001\002\000\004\042\203\001\002\000\016" +
-    "\003\uffee\017\uffee\020\uffee\022\uffee\025\uffee\031\uffee\001" +
-    "\002\000\004\021\205\001\002\000\004\041\206\001\002" +
-    "\000\004\050\207\001\002\000\004\046\210\001\002\000" +
-    "\020\003\037\023\034\024\041\047\035\050\036\051\033" +
-    "\053\042\001\002\000\004\017\212\001\002\000\004\042" +
-    "\213\001\002\000\016\003\ufff6\017\ufff6\020\ufff6\022\ufff6" +
-    "\025\ufff6\031\ufff6\001\002" });
+    "\001\002\000\004\005\137\001\002\000\020\003\037\023" +
+    "\034\024\041\047\035\050\036\051\033\053\042\001\002" +
+    "\000\004\017\141\001\002\000\004\042\142\001\002\000" +
+    "\022\030\uffde\032\uffde\033\uffde\034\uffde\035\uffde\036\uffde" +
+    "\037\uffde\040\uffde\001\002\000\004\021\144\001\002\000" +
+    "\004\005\145\001\002\000\020\003\037\023\034\024\041" +
+    "\047\035\050\036\051\033\053\042\001\002\000\004\017" +
+    "\147\001\002\000\004\042\150\001\002\000\022\030\uffe1" +
+    "\032\uffe1\033\uffe1\034\uffe1\035\uffe1\036\uffe1\037\uffe1\040" +
+    "\uffe1\001\002\000\004\021\152\001\002\000\004\005\153" +
+    "\001\002\000\022\003\037\014\046\023\034\024\041\047" +
+    "\035\050\036\051\033\053\042\001\002\000\004\017\155" +
+    "\001\002\000\004\042\156\001\002\000\022\030\uffe0\032" +
+    "\uffe0\033\uffe0\034\uffe0\035\uffe0\036\uffe0\037\uffe0\040\uffe0" +
+    "\001\002\000\004\021\160\001\002\000\004\005\161\001" +
+    "\002\000\020\003\037\023\034\024\041\047\035\050\036" +
+    "\051\033\053\042\001\002\000\004\017\163\001\002\000" +
+    "\004\042\164\001\002\000\022\030\uffdd\032\uffdd\033\uffdd" +
+    "\034\uffdd\035\uffdd\036\uffdd\037\uffdd\040\uffdd\001\002\000" +
+    "\004\021\166\001\002\000\004\005\167\001\002\000\022" +
+    "\003\037\014\046\023\034\024\041\047\035\050\036\051" +
+    "\033\053\042\001\002\000\004\017\171\001\002\000\004" +
+    "\042\172\001\002\000\022\030\uffdf\032\uffdf\033\uffdf\034" +
+    "\uffdf\035\uffdf\036\uffdf\037\uffdf\040\uffdf\001\002\000\004" +
+    "\021\174\001\002\000\004\041\175\001\002\000\004\047" +
+    "\176\001\002\000\004\050\177\001\002\000\004\046\200" +
+    "\001\002\000\022\003\037\014\046\023\034\024\041\047" +
+    "\035\050\036\051\033\053\042\001\002\000\004\017\202" +
+    "\001\002\000\004\042\203\001\002\000\016\003\uffee\017" +
+    "\uffee\020\uffee\022\uffee\025\uffee\031\uffee\001\002\000\004" +
+    "\021\205\001\002\000\004\041\206\001\002\000\004\050" +
+    "\207\001\002\000\004\046\210\001\002\000\020\003\037" +
+    "\023\034\024\041\047\035\050\036\051\033\053\042\001" +
+    "\002\000\004\017\212\001\002\000\004\042\213\001\002" +
+    "\000\016\003\ufff6\017\ufff6\020\ufff6\022\ufff6\025\ufff6\031" +
+    "\ufff6\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -201,23 +205,23 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\012\137\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\012\145\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\010\012\042\013" +
+    "\153\014\046\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\012\161\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\010\012\042\013\167\014\046\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\010\012\042\013\153\014\046\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\001\001\000\010\012\042\013\200\014\046\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\010\012\042\013\167\014" +
-    "\046\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\010\012\042" +
-    "\013\200\014\046\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\012\210\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "" });
+    "\001\000\004\012\210\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -256,12 +260,29 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
 
+
+    public ArrayList<CError> listaErrores;
+    public int erroresCount;
+
+    public void setListaErrores(ArrayList<CError> listaErrores) {
+        this.listaErrores = listaErrores;
+    }
+
+    public void setErroresCount(int erroresCount) {
+        this.erroresCount = erroresCount;
+    }
+
     public void syntax_error(Symbol s){
         System.out.println("Error sintactico: "+s.value+" linea: "+s.left+" columna: "+s.right);
+        CError error = new CError(erroresCount, s.value.toString(), "Sintáctico", s.left, s.right);
+        listaErrores.add(error);
+        erroresCount++;
     }
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         System.out.println("Error sintactico unrecovered: "+s.value+" linea: "+s.left+" columna: "+s.right);
     }
+
+
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
@@ -1038,7 +1059,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // ATRIBUTOS ::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma 
+          case 32: // ATRIBUTOS ::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual TIPOEXPR End Punto_Coma 
             {
               arbol RESULT =null;
 		int Tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
@@ -1047,15 +1068,15 @@ class CUP$Parser$actions {
 		int V1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int V1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object V1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		int CTleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int CTright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object CT = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int TEleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int TEright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		arbol TE = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
 
             arbol atributos = new arbol("ATRIBUTOS");
             atributos.addHijo(new arbol(T.toString()));
             atributos.addHijo(new arbol(V1.toString()));
-            atributos.addHijo(new arbol(CT.toString()));
+            atributos.addHijo(TE);
             RESULT = atributos;
             
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1113,7 +1134,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // ATRIBUTOS ::= Titulo_X DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma 
+          case 35: // ATRIBUTOS ::= Titulo_X DosPuntos_Dobles Var_Tipo Signo_Igual TIPOEXPR End Punto_Coma 
             {
               arbol RESULT =null;
 		int TXleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
@@ -1122,15 +1143,15 @@ class CUP$Parser$actions {
 		int V4left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int V4right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object V4 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		int CHARXleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int CHARXright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object CHARX = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int TEleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int TEright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		arbol TE = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
                 
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(TX.toString()));
                 atributos.addHijo(new arbol(V4.toString()));
-                atributos.addHijo(new arbol(CHARX.toString()));
+                atributos.addHijo(TE);
                 RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1138,7 +1159,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // ATRIBUTOS ::= Titulo_Y DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma 
+          case 36: // ATRIBUTOS ::= Titulo_Y DosPuntos_Dobles Var_Tipo Signo_Igual TIPOEXPR End Punto_Coma 
             {
               arbol RESULT =null;
 		int TYleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
@@ -1147,15 +1168,15 @@ class CUP$Parser$actions {
 		int V5left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int V5right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
 		Object V5 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
-		int CHARYleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int CHARYright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object CHARY = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int TEleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int TEright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		arbol TE = (arbol)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
                 
                 arbol atributos = new arbol("ATRIBUTOS");
                 atributos.addHijo(new arbol(TY.toString()));
                 atributos.addHijo(new arbol(V5.toString()));
-                atributos.addHijo(new arbol(CHARY.toString()));
+                atributos.addHijo(TE);
                 RESULT = atributos;
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUTOS",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);

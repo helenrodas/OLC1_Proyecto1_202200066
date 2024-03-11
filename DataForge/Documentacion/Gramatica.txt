@@ -1,0 +1,52 @@
+INICIO_PR ::= Program CODIGO End Program
+
+CODIGO ::= EJECUCION
+            | 
+
+EJECUCION ::= INSTRUCCION
+              | EJECUCION INSTRUCCION
+
+INSTRUCCION ::= D_VARIABLE
+                | D_ARREGLO
+                | D_COMENTARIO
+                | D_GRAFICA
+                | error
+
+D_VARIABLE ::= Variable Dos_Puntos Var_Tipo DosPuntos_Dobles Identificador Signo_Indicador TIPOEXPR End Punto_Coma
+
+TIPOEXPR ::= Identificador
+            | Numero
+            | Char_General
+            | Signo_Arroba Identificador
+            | Fun_Arit Parentesis_Izq TIPOEXPR Coma TIPOEXPR Parentesis_Der
+            | Fun_Esta Parentesis_Izq EXPRE_EST Parentesis_Der
+            | error
+
+D_ARREGLO ::= Array Dos_Puntos Var_Tipo DosPuntos_Dobles Signo_Arroba Identificador Signo_Indicador EXPRE_EST End Punto_Coma
+
+LISTA_DATOS ::= LISTA_DATOS Coma TIPOEXPR
+                | TIPOEXPR
+
+EXPRE_EST ::= Corchete_Izq LISTA_DATOS Corchete_Der
+                | LISTA_DATOS
+
+D_COMENTARIO ::= Fun_Consola DosPuntos_Dobles LISTA_COMENTARIO
+
+LISTA_COMENTARIO ::= Imprimir Signo_Igual LISTA_DATOS End Punto_Coma
+                    | Columna Signo_Igual LISTA_DATOS Signo_IndicadorR TIPOARRAY End Punto_Coma
+
+TIPOARRAY ::= LISTA_DATOS
+                | Corchete_Izq LISTA_DATOS Corchete_Der
+
+D_GRAFICA ::= Tipo_Grafica Parentesis_Izq CONTGRAPH Ejecutar Tipo_Grafica End Punto_Coma Parentesis_Der End Punto_Coma
+
+CONTGRAPH ::= CONTGRAPH ATRIBUTOS
+                | ATRIBUTOS
+
+ATRIBUTOS ::= Titulo DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma
+                | Eje_X DosPuntos_Dobles Var_Tipo Signo_Igual EXPRE_EST End Punto_Coma
+                | Eje_Y DosPuntos_Dobles Var_Tipo Signo_Igual EXPRE_EST End Punto_Coma
+                | Titulo_X DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma
+                | Titulo_Y DosPuntos_Dobles Var_Tipo Signo_Igual Char_General End Punto_Coma
+                | Grafica_Label DosPuntos_Dobles Var_Tipo Signo_Igual EXPRE_EST End Punto_Coma
+                | Grafica_Valores DosPuntos_Dobles Var_Tipo Signo_Igual EXPRE_EST End Punto_Coma

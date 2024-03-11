@@ -18,7 +18,6 @@ public class Main {
     
     public static void main(String[] args){
         String ruta = "./src/DataForge/";
-        //generadorAnalizador(ruta, rutas);
         generadorAnalizador();
     }
     
@@ -26,9 +25,6 @@ public class Main {
         
         try {
             
-            /*File archivo = new File(ruta+"Lexer.flex");
-            JFlex.Main.generate(archivo);
-            java_cup.Main.main(rutas);*/
             
             String ruta = "src/DataForge/";
             String[] opcionesJFlex = {ruta+"LexerCup.flex", "-d", ruta};
